@@ -86,21 +86,17 @@ Animation Playback
 | GIF       | Legacy alternative          |
 | MP4/WebM  | Video fallback              |
 
-### Normal HTML Usage
+---
 
-1. CDN Installation
+### HTML Usage
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
 ```
 
-2. HTML Container
-
 ```html
 <div id="lottie"></div>
 ```
-
-3. Basic JS Usage
 
 ```js
 lottie.loadAnimation({
@@ -112,33 +108,21 @@ lottie.loadAnimation({
 });
 ```
 
-4. Common Config Options
-
-| Option      | Usage                   |
-| ----------- | ----------------------- |
-| `container` | Target element          |
-| `renderer`  | `svg`, `canvas`, `html` |
-| `loop`      | Repeat animation        |
-| `autoplay`  | Auto play               |
-| `path`      | JSON file path          |
-
-5. HTML Playback Controls
+| Config Options | Usage                   |
+| -------------- | ----------------------- |
+| `container`    | Target element          |
+| `renderer`     | `svg`, `canvas`, `html` |
+| `loop`         | Repeat animation        |
+| `autoplay`     | Auto play               |
+| `path`         | JSON file path          |
 
 ```js
-// Stop Animation
-animation.stop();
-
-// Pause Animation
-animation.pause();
-
-// Play Animation
-animation.play();
-
-// Set Speed
-animation.setSpeed(2);
-
-// Play Specific Frames
-animation.playSegments([10, 40], true);
+// HTML Playback Controls
+animation.stop(); // Stop Animation
+animation.pause(); // Pause Animation
+animation.play(); // Play Animation
+animation.setSpeed(2); // Set Speed
+animation.playSegments([10, 40], true); // Play Specific Frames
 ```
 
 ---
@@ -152,7 +136,6 @@ npm install lottie-react
 ```tsx
 // Basic Usage
 import Lottie from "lottie-react";
-
 import animationData from "./loading.json";
 
 function Loader() {
