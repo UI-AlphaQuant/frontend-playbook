@@ -1,0 +1,4 @@
+- What is string concatenation in JavaScript?
+- What is type coercion in JavaScript?
+- What is Event Delegation?
+- i++ vs ++1 output
