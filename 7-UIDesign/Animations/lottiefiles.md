@@ -108,14 +108,6 @@ lottie.loadAnimation({
 });
 ```
 
-| Config Options | Usage                   |
-| -------------- | ----------------------- |
-| `container`    | Target element          |
-| `renderer`     | `svg`, `canvas`, `html` |
-| `loop`         | Repeat animation        |
-| `autoplay`     | Auto play               |
-| `path`         | JSON file path          |
-
 ```js
 // HTML Playback Controls
 animation.stop(); // Stop Animation
@@ -173,13 +165,16 @@ lottieRef.current?.stop(); // Stop
 
 ---
 
-| Common Props    | Usage            |
-| --------------- | ---------------- |
-| `animationData` | JSON animation   |
-| `loop`          | Repeat animation |
-| `autoplay`      | Auto start       |
-| `style`         | Width/height     |
-| `className`     | Custom styling   |
+| Option/Prop     | Usage                   | Example                             | HTML | React |
+| --------------- | ----------------------- | ----------------------------------- | ---- | ----- |
+| `animationData` | JSON animation object   | `animationData={loadingJson}`       | ❌   | ✅    |
+| `path`          | External JSON file path | `path: "/animations/loading.json"`  | ✅   | ❌    |
+| `container`     | Target HTML element     | `document.getElementById("lottie")` | ✅   | ❌    |
+| `renderer`      | Rendering type          | `"svg"`                             | ✅   | ❌    |
+| `loop`          | Repeat animation        | `loop={true}`                       | ✅   | ✅    |
+| `autoplay`      | Auto start animation    | `autoplay={true}`                   | ✅   | ✅    |
+| `style`         | Width/height styling    | `style={{ width: 200 }}`            | ❌   | ✅    |
+| `className`     | Custom CSS styling      | `className="lottie-loader"`         | ❌   | ✅    |
 
 | Performance Tips        | Reason              |
 | ----------------------- | ------------------- |
