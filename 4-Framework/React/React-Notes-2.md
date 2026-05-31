@@ -53,21 +53,15 @@ Advanced hooks help optimize performance, manage complex state, and reuse logic 
 const filteredUsers = useMemo(() => {
   return users.filter((user) => user.name.includes(search));
 }, [users, search]);
-```
 
-```jsx
 // useCallback
 const handleClick = useCallback(() => {
   console.log("Clicked");
 }, []);
-```
 
-```jsx
 // React.memo
 export default React.memo(Button);
-```
 
-```jsx
 // useReducer
 const [state, dispatch] = useReducer(reducer, initialState);
 ```
@@ -166,6 +160,45 @@ export default function App() {
 | `import()`     | Split component into separate file |
 | `Suspense`     | Show fallback while loading        |
 | `fallback`     | Loading UI                         |
+
+### `React.memo` vs `useMemo`
+
+Both are performance optimization tools, but they optimize different things.
+
+| Feature   | `React.memo`                    | `useMemo`                     |
+| --------- | ------------------------------- | ----------------------------- |
+| Optimizes | Component rendering             | Expensive calculations/values |
+| Prevents  | Unnecessary component re-render | Recalculating values          |
+| Works On  | Entire component                | Variable/value                |
+| Used For  | Reusable UI components          | Filtering/sorting/calculation |
+| Returns   | Memoized component              | Memoized value                |
+
+```jsx
+// React.memo
+const Button = React.memo(({ text }) => {
+  return <button>{text}</button>;
+});
+// "Do not re-render this component if props are same"
+```
+
+```jsx
+// useMemo
+const filteredUsers = useMemo(() => {
+  return users.filter((user) => user.name.includes(search));
+}, [users, search]);
+// "Do not recalculate this value if dependencies are same"
+```
+
+| Feature      | ✔️ Good Real Usecases   | ❌ Avoid Using For         |
+| ------------ | ----------------------- | -------------------------- |
+| `React.memo` | Dashboard widgets       | Small simple components    |
+|              | Large tables/lists      | Static tiny buttons        |
+|              | Expensive reusable UI   | Components always changing |
+|              | Product cards           | Very small apps            |
+| `useMemo`    | Filtering/search        | Simple variables           |
+|              | Sorting large data      | Basic calculations         |
+|              | Expensive calculations  | Lightweight operations     |
+|              | Derived computed values | Premature optimization     |
 
 ---
 

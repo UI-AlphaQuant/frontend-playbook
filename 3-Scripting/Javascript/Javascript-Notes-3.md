@@ -413,6 +413,82 @@ form.addEventListener("submit", async (e) => {
 });
 ```
 
+### Common HTTP Status Codes
+
+```text
+DevTools → Network
+
+- Request URL
+- Method
+- Headers
+- Payload
+- Status Code
+- Response Data
+```
+
+| Status Code    | Meaning                | Common Cause                               |
+| -------------- | ---------------------- | ------------------------------------------ |
+| 200            | Success                | Request completed successfully             |
+| 201            | Created                | New resource created successfully          |
+| 400            | Bad Request            | Invalid request body/query/params          |
+| 401            | Unauthorized           | Missing or invalid token/login             |
+| 403            | Forbidden              | No permission/access denied                |
+| 404            | Not Found              | Wrong endpoint/resource not found          |
+| 500            | Server Error           | Backend/server crash or unhandled error    |
+| CORS Error     | Cross-Origin Blocked   | Backend CORS restriction/policy issue      |
+| Undefined Data | Invalid Response Data  | Wrong response structure/property access   |
+| Failed Fetch   | Network Request Failed | Internet issue/server down/request blocked |
+
+- Debug API Response
+
+```js
+console.log(response);
+console.table(response);
+
+// Debug Fetch Errors
+catch (error) {
+  console.error(error);
+}
+
+// Check Request Payload
+console.log(JSON.stringify(data));
+```
+
+### Best Practice
+
+```js
+// Add Token Automatically
+headers: {
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${token}`,
+}
+
+// Async Await Best Practice
+try {
+  const data = await api();
+} catch (error) {
+  console.error(error);
+}
+
+// Loading State Best Practice (Always use finally)
+finally {
+  hideLoader();
+}
+```
+
+### Real-World Production Improvements
+
+| Feature             | Why                       | Standard Example                               |
+| ------------------- | ------------------------- | ---------------------------------------------- |
+| Retry Logic         | Handle temporary failures | Retry API 2-3 times for network/500 errors     |
+| Request Timeout     | Prevent infinite waiting  | Abort request after 5s using `AbortController` |
+| Debounce Search API | Reduce API calls          | Wait 300ms before search request               |
+| Pagination          | Large data handling       | `?page=1&limit=10`                             |
+| Caching             | Better performance        | Store API data in memory/localStorage          |
+| AbortController     | Cancel old requests       | Cancel previous search request on typing       |
+| Refresh Token       | Auto re-login             | Generate new access token automatically        |
+| Environment Config  | Multiple servers          | DEV/STAGING/PROD base URLs                     |
+
 ---
 
 ## 📌 Event Loop

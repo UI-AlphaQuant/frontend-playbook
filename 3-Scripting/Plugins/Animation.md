@@ -1,6 +1,4 @@
-# 👉 Animation & Tools
-
-## 📌 Animation Ecosystem & Related Tools
+# 👉 Animation Ecosystem & Related Tools
 
 Modern animation tools provide UI motion, timelines, physics, SVG animation, 3D effects, and interactive experiences.
 
@@ -13,7 +11,7 @@ Modern animation tools provide UI motion, timelines, physics, SVG animation, 3D 
 | `Motion One`    | WAAPI Animation             | Any framework | Modern web animation  |
 | `Popmotion`     | Functional Animation Engine | JS/React      | Low-level animation   |
 
-### Native Browser Animation
+## 📌 Native Browser Animation
 
 | Tool               | Type        | Works With    | Best For                  |
 | ------------------ | ----------- | ------------- | ------------------------- |
@@ -21,7 +19,7 @@ Modern animation tools provide UI motion, timelines, physics, SVG animation, 3D 
 | CSS Animations     | Native CSS  | Any framework | Simple repeated animation |
 | Web Animations API | Browser API | Any framework | Native JS animation       |
 
-### SVG & Vector Animation
+## 📌 SVG & Vector Animation
 
 | Tool      | Type                         | Works With    | Best For              |
 | --------- | ---------------------------- | ------------- | --------------------- |
@@ -29,7 +27,7 @@ Modern animation tools provide UI motion, timelines, physics, SVG animation, 3D 
 | `Rive`    | Interactive Vector Animation | Any framework | Interactive UI motion |
 | `SVGator` | SVG Animation Tool           | SVG/Web       | Animated SVG exports  |
 
-### 3D & Canvas Animation
+## 📌 3D & Canvas Animation
 
 | Tool                | Type              | Works With    | Best For                |
 | ------------------- | ----------------- | ------------- | ----------------------- |
@@ -38,7 +36,7 @@ Modern animation tools provide UI motion, timelines, physics, SVG animation, 3D 
 | `PixiJS`            | WebGL Renderer    | Any framework | High-performance canvas |
 | `Matter.js`         | Physics Engine    | Any framework | Physics simulation      |
 
-### Scroll & Smooth Motion
+## 📌 Scroll & Smooth Motion
 
 | Tool                | Type                 | Works With    | Best For         |
 | ------------------- | -------------------- | ------------- | ---------------- |
@@ -46,7 +44,7 @@ Modern animation tools provide UI motion, timelines, physics, SVG animation, 3D 
 | `Locomotive Scroll` | Scroll Animation     | Any framework | Scroll effects   |
 | `ScrollTrigger`     | GSAP Plugin          | Any framework | Scroll timelines |
 
-### Gesture & Interaction
+## 📌 Gesture & Interaction
 
 | Tool          | Type            | Works With    | Best For                |
 | ------------- | --------------- | ------------- | ----------------------- |
@@ -81,5 +79,24 @@ Modern animation tools provide UI motion, timelines, physics, SVG animation, 3D 
 - Use GSAP for advanced timelines
 - Avoid mixing multiple heavy animation libraries
 - Optimize animation bundle size
+
+---
+
+## 📌 Common Animation Patterns
+
+| Animation Pattern | Usage          |
+| ----------------- | -------------- |
+| Fade Up           | Sections/cards |
+| Fade In           | Images/modals  |
+| Scale In          | Buttons/popups |
+| Stagger Reveal    | Lists/grids    |
+| Slide In          | Sidebars/menus |
+| Parallax          | Hero sections  |
+| Hover Motion      | Cards/buttons  |
+| Text Reveal       | Headlines      |
+| Loader Motion     | App loading    |
+| Page Transition   | SPA navigation |
+| Scroll Reveal     | Landing pages  |
+| Floating Motion   | Icons/cards    |
 
 ---
