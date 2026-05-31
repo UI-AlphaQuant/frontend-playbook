@@ -103,7 +103,7 @@ TypeScript provides built-in primitive data types for safer type checking.
 | `bigint`    | Large integers          | `10n`       |
 
 ```ts
-let username: string = "Naimesh";
+let username: string = "John";
 let age: number = 28;
 let isAdmin: boolean = true;
 
