@@ -220,7 +220,7 @@ Arrays store multiple values of the same type, while tuples store fixed-length v
 | Tuple          | Fixed structure & types        | `[string, number]`  |
 
 ```ts
-let users: string[] = ["Naimesh", "Raj"];
+let users: string[] = ["John", "Raj"];
 let scores: number[] = [90, 80, 70];
 let mixed: (string | number)[] = ["TS", 5];
 ```
@@ -231,7 +231,7 @@ let readonlyUsers: readonly string[] = ["Admin", "Editor"];
 ```
 
 ```ts
-let person: [string, number] = ["Naimesh", 28];
+let person: [string, number] = ["John", 28];
 ```
 
 ```ts
@@ -271,7 +271,7 @@ let user: {
   name: string;
   age: number;
 } = {
-  name: "Naimesh",
+  name: "John",
   age: 28,
 };
 ```
@@ -291,7 +291,7 @@ let account: {
   username: string;
 } = {
   id: 1,
-  username: "naimesh",
+  username: "John",
 };
 
 // account.id = 2; ❌ Error
@@ -349,7 +349,7 @@ interface User {
 }
 
 const user: User = {
-  name: "Naimesh",
+  name: "John",
   age: 28,
 };
 ```
@@ -373,7 +373,7 @@ interface Account {
 
 const account: Account = {
   id: 1,
-  username: "naimesh",
+  username: "John",
 };
 
 // account.id = 2; ❌ Error
@@ -567,7 +567,7 @@ interface ApiResponse<T> {
 
 const user: ApiResponse<string> = {
   success: true,
-  data: "Naimesh",
+  data: "John",
 };
 ```
 
@@ -723,7 +723,7 @@ class User {
   }
 }
 
-const user = new User("Naimesh");
+const user = new User("John");
 ```
 
 ```ts
@@ -908,7 +908,7 @@ const roles = ["Admin", "User"] as const;
 // Real-World Example
 const input = document.querySelector("input") as HTMLInputElement;
 
-input.value = "Naimesh";
+input.value = "John";
 ```
 
 - Prefer proper type narrowing over assertions
@@ -953,7 +953,7 @@ type User = {
 };
 
 const user: Required<User> = {
-  name: "Naimesh",
+  name: "John",
 };
 ```
 
@@ -1040,7 +1040,7 @@ type UserKeys = keyof User;
 ```ts
 // `typeof`
 const user = {
-  name: "Naimesh",
+  name: "John",
   age: 28,
 };
 
@@ -1114,7 +1114,7 @@ function getMessage(): Promise<string> {
 ```ts
 // Async Function
 async function getUser(): Promise<string> {
-  return "Naimesh";
+  return "John";
 }
 ```
 
@@ -1137,7 +1137,7 @@ interface User {
 async function fetchUser(): Promise<User> {
   return {
     id: 1,
-    name: "Naimesh",
+    name: "John",
   };
 }
 ```
@@ -1206,7 +1206,7 @@ console.log(user.name?.toUpperCase());
 ```ts
 // Property Doesn't Exist
 const user = {
-  name: "Naimesh",
+  name: "John",
 };
 
 console.log(user.age); // ❌ Error
@@ -1266,7 +1266,7 @@ TypeScript best practices improve scalability, readability, maintainability, and
 
 ```ts
 // Prefer Type Inference
-let username = "Naimesh";
+let username = "John";
 ```
 
 ```ts
@@ -1323,7 +1323,7 @@ interface ApiResponse<T> {
 async function fetchUsers(): Promise<ApiResponse<string[]>> {
   return {
     success: true,
-    data: ["Naimesh", "Raj"],
+    data: ["John", "Raj"],
   };
 }
 ```

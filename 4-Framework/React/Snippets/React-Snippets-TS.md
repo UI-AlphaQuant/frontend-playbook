@@ -147,7 +147,7 @@ export default ProductCard;
   createdAt={new Date("2026-01-15")}
   reviews={[
     {
-      user: "Naimesh",
+      user: "John",
       rating: 5,
     },
     {

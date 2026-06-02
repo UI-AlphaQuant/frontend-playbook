@@ -78,3 +78,57 @@ new Swiper(".swiper");
 | Sliders         | `Swiper.js`     |
 
 ---
+
+## 📌 Modern Frontend Functionality & Popular Libraries
+
+| Functionality        | Common Use Cases                 | JS  | React | Recommended Library       |
+| -------------------- | -------------------------------- | --- | ----- | ------------------------- |
+| API Calls            | Backend Integration              | ✅  | ✅    | Fetch, Axios              |
+| Server State         | API Caching, Refetching          | ❌  | ✅    | TanStack Query            |
+| Global State         | Auth, Theme, User                | ❌  | ✅    | Zustand                   |
+| Forms                | Login, Registration, CRUD        | ✅  | ✅    | React Hook Form           |
+| Validation           | Forms, Inputs                    | ✅  | ✅    | Zod                       |
+| Tables               | Search, Filter, Sort, Pagination | ✅  | ✅    | TanStack Table            |
+| Data Grid            | Excel-like Enterprise Tables     | ❌  | ✅    | AG Grid                   |
+| Charts               | Analytics, Dashboard             | ✅  | ✅    | Recharts                  |
+| File Upload          | Documents, Images                | ✅  | ✅    | React Dropzone            |
+| Drag & Drop          | Kanban, Uploads, Sortable Lists  | ✅  | ✅    | Dnd Kit                   |
+| Date Handling        | Formatting, Calculations         | ✅  | ✅    | date-fns                  |
+| Infinite Scroll      | Feeds, Products                  | ✅  | ✅    | IntersectionObserver      |
+| Authentication UI    | Login, Session                   | ✅  | ✅    | JWT                       |
+| Permissions UI       | Role-Based UI                    | ✅  | ✅    | Custom Logic              |
+| Real-Time            | Chat, Notifications              | ✅  | ✅    | WebSocket, Socket.IO      |
+| Maps                 | Location, Tracking               | ✅  | ✅    | Google Maps, Leaflet      |
+| Rich Text Editor     | Blogs, CMS                       | ✅  | ✅    | Tiptap                    |
+| PDF Viewer           | Documents                        | ✅  | ✅    | React PDF                 |
+| Internationalization | Multi Language                   | ✅  | ✅    | react-i18next             |
+| Theme Switching      | Light/Dark Mode                  | ✅  | ✅    | next-themes               |
+| Animation            | UI Motion                        | ✅  | ✅    | GSAP, Framer Motion       |
+| Error Tracking       | Production Monitoring            | ✅  | ✅    | Sentry                    |
+| Analytics            | User Tracking                    | ✅  | ✅    | PostHog, Google Analytics |
+| Feature Flags        | Beta Features                    | ✅  | ✅    | LaunchDarkly              |
+| Payments             | Checkout                         | ✅  | ✅    | Stripe                    |
+| Video Player         | Courses, Media                   | ✅  | ✅    | React Player              |
+| Image Optimization   | Gallery, CMS                     | ✅  | ✅    | Cloudinary                |
+| Slider / Carousel    | Hero Banner, Gallery             | ✅  | ✅    | Embla Carousel            |
+| Range Slider         | Price Filter, Volume Control     | ✅  | ✅    | React Range, Radix Slider |
+| Resizable Panels     | IDE, Dashboard Layout            | ❌  | ✅    | React Resizable Panels    |
+| Tree View            | File Explorer, Categories        | ✅  | ✅    | React Complex Tree        |
+| Command Palette      | VS Code Search                   | ❌  | ✅    | CMDK                      |
+| Scheduler            | Meetings, Events                 | ❌  | ✅    | FullCalendar              |
+| Virtualization       | Large Lists/Tables               | ❌  | ✅    | TanStack Virtual          |
+| Image Cropper        | Profile Image Upload             | ✅  | ✅    | React Easy Crop           |
+| QR Code              | Payments, Sharing                | ✅  | ✅    | qrcode                    |
+| Barcode Scanner      | Inventory                        | ✅  | ✅    | html5-qrcode              |
+| Camera Access        | KYC, Scan Docs                   | ✅  | ✅    | MediaDevices API          |
+| Audio Recording      | Voice Notes                      | ✅  | ✅    | MediaRecorder API         |
+| Video Recording      | Interview Apps                   | ✅  | ✅    | MediaRecorder API         |
+| Clipboard            | Copy Coupon, URL                 | ✅  | ✅    | Clipboard API             |
+| PWA / Offline Mode   | Mobile-like Apps                 | ✅  | ✅    | Workbox                   |
+| Push Notifications   | Alerts                           | ✅  | ✅    | Firebase Cloud Messaging  |
+| SEO                  | Meta Tags                        | ❌  | ✅    | React Helmet              |
+| Unit Testing         | Component Testing                | ✅  | ✅    | Vitest                    |
+| E2E Testing          | Full App Testing                 | ✅  | ✅    | Playwright                |
+| UI Slider / Carousel | Hero Banner, Product Gallery     | ✅  | ✅    | Embla Carousel, Swiper    |
+
+---
