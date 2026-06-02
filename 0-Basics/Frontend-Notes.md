@@ -224,3 +224,151 @@ Execute JS
 - DOM manipulation
 
 ---
+
+## 📌 Frontend Business Logic
+
+- Frontend Business Logic & Responsibilities
+
+| Use Case                      | Complexity |
+| ----------------------------- | ---------- |
+| Required Field Validation     | Easy       |
+| Email Format Validation       | Easy       |
+| Phone Format Validation       | Easy       |
+| Password Length Validation    | Easy       |
+| Confirm Password Match        | Easy       |
+| Character Limits              | Easy       |
+| File Size Validation          | Easy       |
+| File Type Validation          | Easy       |
+| Disable Submit Button         | Easy       |
+| Show Loading State            | Easy       |
+| Success/Error Messages        | Easy       |
+| Input Formatting              | Easy       |
+| Date Formatting               | Easy       |
+| Number Formatting             | Easy       |
+| Conditional Rendering         | Easy       |
+| Show/Hide Fields              | Easy       |
+| Search UI                     | Easy       |
+| Table Filters                 | Easy       |
+| Pagination UI                 | Easy       |
+| File Preview                  | Easy       |
+| Theme Switching               | Easy       |
+| Language Switching            | Easy       |
+| Route Protection UI           | Medium     |
+| Role-Based UI Visibility      | Medium     |
+| Authentication UI Flow        | Medium     |
+| Refresh Token Handling        | Medium     |
+| Notification Display          | Medium     |
+| Local Cache Management        | Medium     |
+| Form State Management         | Medium     |
+| Table Sorting                 | Medium     |
+| Infinite Scroll               | Medium     |
+| Debounce Search               | Medium     |
+| Drag & Drop UI                | Medium     |
+| API Integration               | Medium     |
+| WebSocket Connection Handling | Hard       |
+| Optimistic Updates            | Hard       |
+| Complex Dynamic Forms         | Hard       |
+| Dashboard Charts Rendering    | Hard       |
+| Real-Time UI Synchronization  | Hard       |
+
+- Backend Business Logic & Responsibilities
+
+| Use Case                     | Complexity |
+| ---------------------------- | ---------- |
+| OTP Generation               | Easy       |
+| Email Verification           | Easy       |
+| Session Management           | Easy       |
+| JWT Generation               | Medium     |
+| User Authentication          | Medium     |
+| Authorization Enforcement    | Medium     |
+| Permission Enforcement       | Medium     |
+| Duplicate Record Check       | Medium     |
+| Email Uniqueness Check       | Medium     |
+| File Storage Management      | Medium     |
+| Dashboard Aggregation        | Medium     |
+| Report Generation            | Medium     |
+| Export File Generation       | Medium     |
+| Notification Generation      | Medium     |
+| Webhook Processing           | Medium     |
+| Database Operations          | Medium     |
+| Query Optimization           | Hard       |
+| Database Transactions        | Hard       |
+| Business Rule Validation     | Hard       |
+| Inventory Validation         | Hard       |
+| Stock Validation             | Hard       |
+| Order Creation Rules         | Hard       |
+| Cart Calculation             | Hard       |
+| Shipping Calculation         | Hard       |
+| Pricing Logic                | Hard       |
+| Discount Engine              | Hard       |
+| Tax Calculation              | Hard       |
+| Revenue Calculation          | Hard       |
+| Salary Calculation           | Hard       |
+| Commission Calculation       | Hard       |
+| Payment Processing           | Hard       |
+| Refund Processing            | Hard       |
+| Subscription Management      | Hard       |
+| Security Rules               | Hard       |
+| API Security                 | Hard       |
+| Encryption                   | Hard       |
+| Rate Limiting                | Hard       |
+| Caching Strategy             | Hard       |
+| Queue Processing             | Hard       |
+| Background Jobs              | Hard       |
+| Analytics Calculations       | Hard       |
+| Audit Logs                   | Hard       |
+| Real-Time Event Broadcasting | Hard       |
+| Third-Party Integrations     | Hard       |
+
+- Quick Rule
+
+| Category                | Owner    |
+| ----------------------- | -------- |
+| UI Rendering            | Frontend |
+| Forms & Validation      | Frontend |
+| State Management        | Frontend |
+| API Consumption         | Frontend |
+| Data Formatting         | Frontend |
+| Business Rules          | Backend  |
+| Database                | Backend  |
+| Security                | Backend  |
+| Authentication          | Backend  |
+| Financial Logic         | Backend  |
+| Permissions Enforcement | Backend  |
+| Data Integrity          | Backend  |
+
+---
+
+## 📌 Major Frontend Framework Versions
+
+- React
+
+| Framework | Version | Year  | Major Update                                         |
+| --------- | ------- | ----- | ---------------------------------------------------- |
+| React     | 16      | 2017  | Fiber Architecture, Error Boundaries, Portals        |
+| React     | 16.8    | 2019  | Hooks (`useState`, `useEffect`, etc.) ⭐             |
+| React     | 17      | 2020  | New JSX Transform, Easier Upgrades                   |
+| React     | 18      | 2022  | Concurrent Rendering, Automatic Batching ⭐          |
+| React     | 19      | 2024+ | Actions, `use()`, Metadata APIs, RSC Improvements ⭐ |
+
+- Vue
+
+| Framework | Version | Year  | Major Update                                  |
+| --------- | ------- | ----- | --------------------------------------------- |
+| Vue       | 2       | 2016  | Virtual DOM, Large Enterprise Adoption        |
+| Vue       | 3       | 2020  | Composition API, Better TypeScript Support ⭐ |
+| Vue       | 3.5+    | 2024+ | Reactivity & Performance Improvements         |
+
+- Angular
+
+| Framework | Version | Year  | Major Update                        |
+| --------- | ------- | ----- | ----------------------------------- |
+| Angular   | 2       | 2016  | Complete Rewrite, TypeScript        |
+| Angular   | 9       | 2020  | Ivy Renderer ⭐                     |
+| Angular   | 15      | 2022  | Standalone Components ⭐            |
+| Angular   | 16      | 2023  | Signals (Angular Reactivity) ⭐     |
+| Angular   | 17      | 2023  | New Control Flow (`@if`, `@for`) ⭐ |
+| Angular   | 18+     | 2024+ | Signals Expansion, SSR Improvements |
+| Angular   | 20      | 2026  | Latest Stable Release               |
+
+---
