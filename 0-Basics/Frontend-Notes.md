@@ -714,17 +714,18 @@ React Updates UI
 | Fastify            | High Performance   |
 | Koa                | Lightweight        |
 
-- Common Backend Features
-  REST APIs
-  Authentication
-  Authorization
-  CRUD
-  File Upload
-  Email Service
-  Payments
-  WebSocket
-  Database Access
-  Background Jobs
+**_Common Backend Features_**
+
+- REST APIs
+- Authentication
+- Authorization
+- CRUD
+- File Upload
+- Email Service
+- Payments
+- WebSocket
+- Database Access
+- Background Jobs
 
 | Feature                | React | Node.js |
 | ---------------------- | ----- | ------- |
