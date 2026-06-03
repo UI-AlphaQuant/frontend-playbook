@@ -372,3 +372,368 @@ Execute JS
 | Angular   | 20      | 2026  | Latest Stable Release               |
 
 ---
+
+## 📌 REST API vs JSON vs HTTP
+
+| Term     | Purpose                | Example                   |
+| -------- | ---------------------- | ------------------------- |
+| HTTP     | Communication Protocol | Browser ↔ Server          |
+| JSON     | Data Format            | API Request/Response Data |
+| REST API | API Design Standard    | `/users`, `/orders`       |
+
+### Relationship
+
+```txt
+Frontend
+    ↓
+HTTP Request
+    ↓
+REST API Endpoint
+    ↓
+JSON Response
+    ↓
+Frontend UI
+```
+
+### HTTP (HyperText Transfer Protocol)
+
+- Communication between Client and Server
+
+```txt
+Examples:-/
+GET
+POST
+PUT
+PATCH
+DELETE
+```
+
+- Request
+
+```http
+GET /users
+```
+
+- Response
+
+```http
+200 OK
+```
+
+### JSON (JavaScript Object Notation)
+
+- Exchange Data Between Frontend & Backend
+
+```json
+// JSON Response
+{
+  "id": 1,
+  "name": "John Doe",
+  "email": "john@test.com"
+}
+
+// JSON Request
+{
+  "name": "John Doe",
+  "email": "john@test.com"
+}
+```
+
+### REST API
+
+- Standard Way To Design APIs
+
+Users Resource
+
+```http
+GET    /users
+GET    /users/1
+POST   /users
+PUT    /users/1
+DELETE /users/1
+```
+
+### Real CRUD Example
+
+1. Create User
+
+```http
+POST /users
+```
+
+2. Request
+
+```json
+{
+  "name": "John Doe",
+  "email": "john@test.com"
+}
+```
+
+3. Response
+
+```json
+{
+  "id": 1,
+  "name": "John Doe"
+}
+```
+
+4. Get Users
+
+```http
+GET /users
+```
+
+5. Response
+
+```json
+[
+  {
+    "id": 1,
+    "name": "John Doe"
+  }
+]
+```
+
+```txt
+HTTP: Protocol used for communication between client and server.
+JSON: Lightweight data format used for data exchange.
+REST API: Architectural style that uses HTTP methods to perform CRUD operations on resources.
+```
+
+---
+
+## 📌 Agile vs Scrum
+
+| Term  | Purpose                          | Description                          |
+| ----- | -------------------------------- | ------------------------------------ |
+| Agile | Software Development Methodology | Deliver software in small iterations |
+| Scrum | Agile Framework                  | Structured way to implement Agile    |
+
+### Agile
+
+```txt
+Purpose: Deliver software faster with continuous feedback
+
+Principles:
+Small Releases
+Customer Feedback
+Continuous Improvement
+Adapt To Changes
+
+Flow:
+Plan
+↓
+Develop
+↓
+Test
+↓
+Release
+↓
+Feedback
+↓
+Repeat
+```
+
+### Scrum
+
+```txt
+Purpose: Organize Agile work into fixed-length sprints
+
+Sprint: Usually 1-2 Weeks
+
+Flow:
+Sprint Planning
+↓
+Development
+↓
+Daily Standup
+↓
+Testing
+↓
+Sprint Review
+↓
+Retrospective
+```
+
+### Agile vs Traditional Waterfall
+
+| Agile               | Waterfall           |
+| ------------------- | ------------------- |
+| Small Releases      | One Big Release     |
+| Continuous Feedback | Feedback At End     |
+| Flexible            | Rigid               |
+| Frequent Delivery   | Long Delivery Cycle |
+
+| Purpose             | Project Tools                           |
+| ------------------- | --------------------------------------- |
+| Task Management     | Jira, ClickUp                           |
+| Documentation       | Confluence, Notion, GitBook, Docusaurus |
+| Communication       | Slack, Microsoft Teams, Zoom            |
+| Source Control      | GitHub, GitLab, Bitbucket, Azure Repos  |
+| Design              | Figma, Adobe XD                         |
+| Version Control     | Git                                     |
+| Code Editor         | VS Code, Cursor                         |
+| AI Coding Assistant | GitHub Copilot, Cursor AI, Claude Code  |
+
+---
+
+## 📌 CI/CD vs DevOps
+
+| Term   | Purpose                        | Description                            |
+| ------ | ------------------------------ | -------------------------------------- |
+| CI     | Continuous Integration         | Automatically Build & Test Code        |
+| CD     | Continuous Delivery/Deployment | Automatically Release Code             |
+| DevOps | Culture & Practices            | Development + Operations Collaboration |
+
+| CI/CD Tools         | Purpose    |
+| ------------------- | ---------- |
+| GitHub Actions      | CI/CD      |
+| GitLab CI/CD        | CI/CD      |
+| Jenkins             | Automation |
+| Azure Pipelines     | CI/CD      |
+| CircleCI            | CI/CD      |
+| Bitbucket Pipelines | CI/CD      |
+
+---
+
+## 📌 Common Software Development Tools
+
+| Purpose                 | Tool                                           |
+| ----------------------- | ---------------------------------------------- |
+| Task Management         | Jira, Azure Boards, Trello, ClickUp, Linear    |
+| Documentation           | Confluence, Notion, GitBook, Docusaurus        |
+| Communication           | Slack, Microsoft Teams, Discord, Zoom          |
+| Source Control          | GitHub, GitLab, Bitbucket, Azure Repos         |
+| Design                  | Figma, FigJam, Adobe XD, Sketch, Zeplin        |
+| API Testing             | Postman, Insomnia, Bruno                       |
+| Version Control         | Git, SVN                                       |
+| Package Management      | npm, pnpm, Yarn, Bun                           |
+| Build Tools             | Vite, Webpack, Parcel, Rspack, Turbopack       |
+| Code Editor             | VS Code, WebStorm, Cursor                      |
+| AI Coding Assistant     | GitHub Copilot, Cursor AI, Claude Code         |
+| UI Libraries            | Shadcn UI, MUI, Ant Design, Chakra UI, Mantine |
+| Styling                 | Tailwind CSS, Sass, Styled Components, Emotion |
+| State Management        | Zustand, Redux Toolkit, MobX                   |
+| Server State            | TanStack Query, SWR, Apollo Client             |
+| Forms                   | React Hook Form, Formik                        |
+| Validation              | Zod, Yup                                       |
+| Tables                  | TanStack Table, AG Grid                        |
+| Charts                  | Recharts, ECharts, Chart.js                    |
+| Rich Text Editor        | Tiptap, Quill, CKEditor                        |
+| Drag & Drop             | Dnd Kit, React DnD                             |
+| Animation               | GSAP, Framer Motion                            |
+| Testing (Unit)          | Vitest, Jest                                   |
+| Testing (Component)     | React Testing Library                          |
+| Testing (E2E)           | Playwright, Cypress                            |
+| Code Formatting         | Prettier                                       |
+| Code Linting            | ESLint, Stylelint                              |
+| Git Hooks               | Husky, Lint-Staged                             |
+| CI/CD                   | GitHub Actions, GitLab CI/CD, Jenkins          |
+| Hosting                 | Vercel, Netlify, Firebase Hosting              |
+| Cloud Platforms         | AWS, Azure, Google Cloud                       |
+| Containers              | Docker                                         |
+| Container Orchestration | Kubernetes                                     |
+| Monitoring              | Sentry, Datadog, New Relic                     |
+| Analytics               | Google Analytics, PostHog, Mixpanel            |
+| Feature Flags           | LaunchDarkly, ConfigCat                        |
+| Authentication          | Auth0, Clerk, Firebase Auth                    |
+| Payments                | Stripe, Razorpay, PayPal                       |
+| Email Services          | Resend, SendGrid, Mailgun                      |
+| Search Services         | Algolia, Elasticsearch                         |
+| CDN / Media             | Cloudinary, Imgix                              |
+| Maps                    | Google Maps, Mapbox, Leaflet                   |
+| Real-Time               | WebSocket, Socket.IO, Pusher                   |
+| Push Notifications      | Firebase Cloud Messaging                       |
+| CMS                     | WordPress, Strapi, Contentful, Sanity          |
+| Backend as a Service    | Supabase, Firebase, Appwrite                   |
+| Database                | PostgreSQL, MySQL, MongoDB                     |
+| ORM                     | Prisma, TypeORM, Sequelize                     |
+| API Documentation       | Swagger/OpenAPI, Redoc                         |
+| Logging                 | LogRocket, Datadog Logs                        |
+| Error Tracking          | Sentry, Bugsnag                                |
+
+---
+
+## 📌 Node.js
+
+| Purpose  | Run JavaScript Outside Browser            |
+| -------- | ----------------------------------------- |
+| Type     | JavaScript Runtime                        |
+| Built On | Chrome V8 Engine                          |
+| Used For | Backend Development, APIs, Scripts, Tools |
+
+**_Before Node.js:_** JavaScript > Browser Only
+**_After Node.js:_** JavaScript > Browser + Server
+
+```txt
+React App (React + TypeScript)
+↓
+API Call (fetch / axios)
+↓
+Node.js Backend (Express / NestJS)
+↓
+Business Logic
+↓
+ORM (Prisma)
+↓
+Database (PostgreSQL)
+↓
+Prisma Returns Data
+↓
+Backend Returns JSON
+↓
+React Updates UI
+```
+
+| Layer          | Responsibility       |
+| -------------- | -------------------- |
+| React          | UI, Forms, API Calls |
+| API Client     | HTTP Requests        |
+| Express/NestJS | Routes, Middleware   |
+| Services       | Business Logic       |
+| Prisma         | Database Queries     |
+| PostgreSQL     | Data Storage         |
+
+**_Frontend Developer View:_** React > Calls API > Receives JSON > Updates UI
+
+| Node.js Modules | Purpose               |
+| --------------- | --------------------- |
+| fs              | File System           |
+| path            | File Paths            |
+| http            | Create Server         |
+| os              | System Info           |
+| crypto          | Encryption, UUID      |
+| stream          | Large Data Processing |
+
+| Backend Frameworks | Purpose            |
+| ------------------ | ------------------ |
+| Express.js         | Most Popular       |
+| NestJS             | Enterprise Backend |
+| Fastify            | High Performance   |
+| Koa                | Lightweight        |
+
+- Common Backend Features
+  REST APIs
+  Authentication
+  Authorization
+  CRUD
+  File Upload
+  Email Service
+  Payments
+  WebSocket
+  Database Access
+  Background Jobs
+
+| Feature                | React | Node.js |
+| ---------------------- | ----- | ------- |
+| UI Rendering           | ✅    | ❌      |
+| Components             | ✅    | ❌      |
+| State Management       | ✅    | ❌      |
+| API Integration        | ✅    | ❌      |
+| REST API Creation      | ❌    | ✅      |
+| Database Access        | ❌    | ✅      |
+| Authentication         | ❌    | ✅      |
+| Business Logic         | ❌    | ✅      |
+| File Upload Processing | ❌    | ✅      |

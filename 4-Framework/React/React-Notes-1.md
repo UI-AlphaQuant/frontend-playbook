@@ -4,6 +4,50 @@
 
 React is a JavaScript library used to build reusable and dynamic user interfaces.
 
+### Core
+
+React is a JavaScript library for building UI using reusable components.
+
+Instead of manually updating DOM:
+
+```js
+document.getElementById("title").innerText = "Hello";
+
+function App() {
+  return <h1>Hello</h1>;
+}
+```
+
+- Babel
+  Its main job is to convert modern JavaScript and JSX into code that browsers can understand.
+  JSX → JavaScript
+
+```html
+<script type="text/babel">
+  const element = <h1>Hello</h1>;
+</script>
+```
+
+```js
+// Babel Convert
+const element = React.createElement("h1", null, "Hello");
+```
+
+```text
+Modern React apps use: Vite, Webpack, Parcel, Next.js
+These compile JSX during build time.
+
+App.jsx
+   ↓
+Babel
+   ↓
+Bundle
+   ↓
+Browser
+```
+
+---
+
 | Concept             | Details                     |
 | ------------------- | --------------------------- |
 | React               | UI library by Meta          |
@@ -1190,6 +1234,37 @@ useEffect(() => {
 | Use for persistent values | Timers, previous values      |
 | Keep refs minimal         | Avoid excessive direct DOM   |
 
+- Store mutable value without re-rendering
+
+| Use Case              | Example                  |
+| --------------------- | ------------------------ |
+| Access DOM Element    | Focus Input              |
+| Previous Value        | Track Previous State     |
+| Timer ID              | setTimeout / setInterval |
+| AbortController       | Cancel API Request       |
+| WebSocket Instance    | Store Socket Connection  |
+| Render Count          | Debugging                |
+| Scroll Position       | Infinite Scroll          |
+| Video/Audio Control   | Play, Pause              |
+| Third-Party Libraries | Charts, Maps, GSAP       |
+
+```tsx
+const sectionRef = useRef<HTMLDivElement>(null);
+
+function scrollToContact() {
+  sectionRef.current?.scrollIntoView({
+    behavior: "smooth",
+  });
+}
+
+return (
+  <div>
+    <button onClick={scrollToContact}>Contact Us</button>
+    <div ref={sectionRef}>Contact Section</div>
+  </div>
+);
+```
+
 ---
 
 ## 📌 Context API
@@ -1638,5 +1713,185 @@ Store Updates
     ↓
 UI Re-renders
 ```
+
+### Compare
+
+| Libraries Comparison | Context API (React)    | Zustand                   | Redux                 |
+| -------------------- | ---------------------- | ------------------------- | --------------------- |
+| Difficulty           | Easy                   | Easy                      | Hard                  |
+| Setup Effort         | Very low               | Low                       | High                  |
+| Boilerplate          | Minimal                | Minimal                   | High                  |
+| Performance          | Good (small apps)      | Very good                 | Very good             |
+| Scalability          | Low–Medium             | Medium–High               | Very High             |
+| Best Use Case        | Small apps, auth/theme | Medium apps, global state | Large enterprise apps |
+| Learning Curve       | Very easy              | Easy                      | Steep                 |
+| Middleware Support   | Limited                | Basic                     | Advanced              |
+| DevTools             | Basic                  | Limited                   | Excellent             |
+| Community Adoption   | High                   | Growing                   | Very high             |
+
+#### Context API (Built-in React)
+
+```js
+// CartContext.js
+import React, { createContext, useContext, useState } from "react";
+
+const CartContext = createContext();
+
+export function CartProvider({ children }) {
+  const [cart, setCart] = useState([]);
+  const addItem = (item) => {
+    setCart([...cart, item]);
+  };
+
+  return (
+    <CartContext.Provider value={{ cart, addItem }}>
+      {children}
+    </CartContext.Provider>
+  );
+}
+
+export const useCart = () => useContext(CartContext);
+
+// Usage in Component
+import { useCart } from "./CartContext";
+
+function Product() {
+  const { cart, addItem } = useCart();
+
+  return (
+    <div>
+      <button onClick={() => addItem("Apple")}>Add Apple</button>
+      <p>Cart Count: {cart.length}</p>
+    </div>
+  );
+}
+```
+
+#### Redux (Predictable Global Store)
+
+```js
+// cartSlice.js
+import { createSlice } from "@reduxjs/toolkit";
+
+const cartSlice = createSlice({
+  name: "cart",
+  initialState: [],
+  reducers: {
+    addItem: (state, action) => {
+      state.push(action.payload);
+    },
+  },
+});
+
+export const { addItem } = cartSlice.actions;
+export default cartSlice.reducer;
+
+// store.js
+import { configureStore } from "@reduxjs/toolkit";
+import cartReducer from "./cartSlice";
+
+export const store = configureStore({
+  reducer: {
+    cart: cartReducer,
+  },
+});
+
+// Usage in Component
+import { useSelector, useDispatch } from "react-redux";
+import { addItem } from "./cartSlice";
+
+function Product() {
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  return (
+    <div>
+      <button onClick={() => dispatch(addItem("Apple"))}>Add Apple</button>
+
+      <p>Cart Count: {cart.length}</p>
+    </div>
+  );
+}
+```
+
+#### Zustand (Minimal & Fast Store)
+
+```js
+// store.js
+import { create } from "zustand";
+
+const useCartStore = create((set) => ({
+  cart: [],
+  addItem: (item) => set((state) => ({ cart: [...state.cart, item] })),
+}));
+
+export default useCartStore;
+
+// Usage in Component
+import useCartStore from "./store";
+
+function Product() {
+  const { cart, addItem } = useCartStore();
+
+  return (
+    <div>
+      <button onClick={() => addItem("Apple")}>Add Apple</button>
+      <p>Cart Count: {cart.length}</p>
+    </div>
+  );
+}
+```
+
+### Lifting State Up
+
+| Purpose  | Share state between multiple components |
+| -------- | --------------------------------------- |
+| Concept  | Move state to closest common parent     |
+| Use When | Sibling components need same data       |
+
+- SearchInput updates value, UserList needs value (Pass Data Via Props)
+
+```txt
+Parent
+ ├── SearchInput
+ └── UserList
+```
+
+```tsx
+function UsersPage() {
+  const [search, setSearch] = useState("");
+
+  return (
+    <>
+      <SearchInput value={search} onChange={setSearch} />
+      <UserList search={search} />
+    </>
+  );
+}
+```
+
+```txt
+Search + Table
+Filters + Product List
+Cart Items + Cart Total
+Theme Toggle + Layout
+Form Inputs + Preview
+Modal State + Multiple Components
+```
+
+### Controlled Inputs
+
+| Purpose         | React controls input value using state |
+| --------------- | -------------------------------------- |
+| Source of Truth | React State                            |
+| Use When        | Forms, Validation, Dynamic UI          |
+
+| Feature              | Context API | Lifting State Up |
+| -------------------- | ----------- | ---------------- |
+| Sibling Components   | ✅          | ✅               |
+| Deep Component Tree  | ✅          | ❌               |
+| Avoid Prop Drilling  | ✅          | ❌               |
+| Small Global State   | ✅          | ⚠️               |
+| Simple State Sharing | ⚠️          | ✅               |
 
 ---

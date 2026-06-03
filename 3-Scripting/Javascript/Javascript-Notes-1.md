@@ -1255,6 +1255,37 @@ delete user.city;
 - Keys are usually strings
 - Used heavily for structured data
 
+### crypto.randomUUID()
+
+- Every call generates a new unique value.
+
+| Purpose         | Generate Unique Identifier (UUID v4)     |
+| --------------- | ---------------------------------------- |
+| Returns         | String                                   |
+| Browser Support | Modern Browsers                          |
+| React Usage     | Keys, Temporary IDs, Client-Side Records |
+
+```ts
+crypto.randomUUID();
+
+36b8f84d-df4e-4d49-b662-bcde71a8764f
+7c9f2d9e-63df-4d3c-a0e2-f8d8c40b1c93
+
+// Usage
+const user = {
+  id: crypto.randomUUID(),
+  name: "John",
+};
+
+// React
+const users = [
+  {
+    id: crypto.randomUUID(),
+    name: "John",
+  },
+];
+```
+
 ---
 
 ## 📌 Arrays
