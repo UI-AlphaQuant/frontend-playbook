@@ -1538,6 +1538,98 @@ const navigate = useNavigate();
 navigate("/dashboard");
 ```
 
+| RR Components | Purpose           |
+| ------------- | ----------------- |
+| BrowserRouter | Router Provider   |
+| Routes        | Route Container   |
+| Route         | Route Definition  |
+| Link          | Navigation        |
+| NavLink       | Active Navigation |
+| Outlet        | Nested Routes     |
+| Navigate      | Redirect          |
+
+| Property      | Purpose                     | Example                        |
+| ------------- | --------------------------- | ------------------------------ |
+| path          | URL Pattern                 | `path="/users"`                |
+| element       | Component To Render         | `element={<Users />}`          |
+| index         | Default Child Route         | `index`                        |
+| children      | Nested Routes               | `<Route><Route /></Route>`     |
+| loader        | Fetch Data Before Render    | `loader={getUsers}`            |
+| action        | Handle Form Submission      | `action={saveUser}`            |
+| errorElement  | Error UI                    | `errorElement={<ErrorPage />}` |
+| caseSensitive | Case Sensitive URL Matching | `caseSensitive`                |
+
+### Default Child Route
+
+```tsx
+<Route path="/settings" element={<Settings />}>
+  <Route index element={<Profile />} />
+</Route>
+```
+
+```txt
+/settings
+↓
+Profile (Default)
+```
+
+```tsx
+// loader
+<Route path="/users" loader={getUsers} element={<Users />} />
+```
+
+### URL Handling In React Router
+
+| Feature      | Hook                | Example URL     |
+| ------------ | ------------------- | --------------- |
+| Route Params | `useParams()`       | `/users/123`    |
+| Query Params | `useSearchParams()` | `/users?page=1` |
+| Current URL  | `useLocation()`     | `/users?page=1` |
+| Navigation   | `useNavigate()`     | Redirect User   |
+
+```txt
+>> Route Params: Used for resource identifiers.
+
+/users/123
+/products/50
+/orders/10
+```
+
+```tsx
+const { id } = useParams();
+```
+
+```txt
+>> Query Parameters: Used for UI state.
+
+/users?page=1
+/users?search=john
+/users?sort=name
+/users?status=active
+```
+
+```tsx
+const [params] = useSearchParams();
+const page = params.get("page");
+
+// Update
+setSearchParams({
+  page: "2",
+});
+```
+
+```txt
+>> Multiple Filters: URL
+
+/products?search=iphone&category=mobile&sort=price&page=2
+```
+
+```tsx
+const search = params.get("search");
+const category = params.get("category");
+const sort = params.get("sort");
+```
+
 | Best Practice             | Notes                     |
 | ------------------------- | ------------------------- |
 | Use route-based structure | Better scalability        |

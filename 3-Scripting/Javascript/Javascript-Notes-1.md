@@ -2406,6 +2406,22 @@ square(double(2));
 - Reduces side effects
 - Common in modern frontend frameworks
 
+### reduce()
+
+- Accumulator that collects and stores data for later use
+
+```js
+// Syntax
+array.reduce((accumulator, currentValue) => {
+  return updatedAccumulator;
+}, initialValue);
+
+// Usage
+const arr = [1, 2, 3, 4];
+const sum = arr.reduce((acc, curr) => acc + curr, 0);
+console.log(sum); // 10
+```
+
 ---
 
 ## 📌 Immutability 📄

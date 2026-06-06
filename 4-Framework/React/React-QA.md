@@ -256,3 +256,105 @@
 | Error Boundaries    | Error handling                 |
 | Portals             | Render outside DOM hierarchy   |
 | Lazy Loading        | Code splitting                 |
+
+---
+
+### What is componentWillUnmount in React?
+
+- componentWillUnmount() is a lifecycle method in Class Components that runs just before a component is removed from the DOM.
+- It is commonly used for: Removing event listeners, Clearing timers, Cancelling API requests,
+- In Functional Components, we use useEffect cleanup function.
+
+### What is the difference between Redux and Redux Toolkit?
+
+- Redux → More code, manual setup.
+- Redux Toolkit is the modern, recommended way to use Redux with less boilerplate and easier state management.
+- Redux is a state management library that requires actions, reducers, and store setup manually. Redux Toolkit (RTK) is the official Redux solution that reduces boilerplate using createSlice and configureStore.
+
+### Redux vs Context API – When should each be used?
+
+- Context API > Small to medium apps, Theme, Auth, User Settings
+- Redux / RTK > Medium to large apps, Complex global state
+
+### dependencies vs devDependencies
+
+- dependencies are required to run the application, while devDependencies are only needed during development, testing, or building the application.
+- dependencies: react, axios, redux
+- devDependencies: eslint, vite, typescript
+
+### package.json vs package-lock.json
+
+- package.json defines what dependencies a project needs, while package-lock.json locks the exact versions to ensure consistent installations across environments.
+
+### What if we do not use keys in React?
+
+- Warning: Each child in a list should have a unique "key" prop.
+- React uses keys to identify which list items changed, added, or removed.
+- Without keys: Unnecessary re-renders, Wrong component updates, Performance issues
+
+```js
+{
+  users.map((user) => <li key={user.id}>{user.name}</li>);
+}
+```
+
+### Default Export vs Named Export
+
+- Default export allows one export per file and can be imported with any name. Named exports allow multiple exports and must be imported using their exported names.
+
+1. Default Export: Only one per file
+
+- Import name can be anything
+- No {} needed
+
+2. Named Export: Multiple per file
+
+- Import name must match
+- {} required
+
+```jsx
+// Default Export (User.js)
+import User from "./User";
+import MyUser from "./User"; // ✅ also works
+
+// Named Export (utils.js)
+export const add = () => {};
+export const sub = () => {};
+
+import { add, sub } from "./utils";
+import { add as sum } from "./utils"; // rename
+```
+
+###
+
+- Data
+
+###
+
+- Data
+
+###
+
+- Data
+
+```js
+// Code
+```
+
+```js
+// Code
+```
+
+```js
+// Code
+```
+
+```js
+// Code
+```
+
+```js
+// Code
+```
+
+---

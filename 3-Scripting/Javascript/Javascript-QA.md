@@ -196,3 +196,315 @@
 | Closure          | Function accessing outer scope variables        |
 | Event Delegation | Listener on parent handles child events         |
 | Callback         | Function passed as argument to another function |
+
+---
+
+### Q: What is Destructuring in JavaScript?
+
+- Destructuring is a JavaScript feature that allows you to extract values from arrays or properties from objects into separate variables in a concise way.
+
+```js
+// Array
+const colors = ["Red", "Green", "Blue"];
+const [first, second] = colors;
+
+console.log(first); // Red
+console.log(second); // Green
+
+// Object
+const user = {
+  name: "Naimesh",
+  role: "Frontend Developer",
+};
+const { name, role } = user;
+
+console.log(name); // Naimesh
+console.log(role); // Frontend Developer
+```
+
+### Difference between the Rest (...) and Spread (...) operators.
+
+- Rest Operator: Collects multiple values into one variable
+- Spread Operator: Expands values from an array/object
+
+```js
+// Rest Operator
+function sum(...numbers) {
+  return numbers.reduce((a, b) => a + b, 0);
+}
+sum(10, 20, 30); // 60
+
+// Array Destructuring
+const [first, ...others] = [1, 2, 3, 4];
+console.log(first); // 1
+console.log(others); // [2, 3, 4]
+```
+
+```js
+// Spread Operator
+const arr1 = [1, 2, 3];
+const arr2 = [...arr1];
+console.log(arr2); // [1, 2, 3]
+
+// Merge Array
+const a = [1, 2];
+const b = [3, 4];
+const result = [...a, ...b];
+console.log(result); // [1, 2, 3, 4]
+
+// Passing Props
+const props = {
+  name: "Naimesh",
+  age: 30,
+};
+<UserCard {...props} />;
+```
+
+### What will be the output?
+
+```js
+let person = {
+  name: "ram",
+  age: 15,
+  add: {
+    city: "fbd",
+  },
+};
+
+let employ = person;
+
+employ.name = "shyam";
+employ.add.city = "blb";
+
+console.log(person);
+console.log(employ);
+
+// Output
+{
+  name: "shyam",
+  age: 15,
+  add: {
+    city: "blb"
+  }
+}
+
+{
+  name: "shyam",
+  age: 15,
+  add: {
+    city: "blb"
+  }
+}
+```
+
+- Why? Both person and employ point to the same object in memory.
+- Because both variables reference the same object.
+
+```js
+let employ = person;
+```
+
+### Why were Promises introduced in JavaScript?
+
+- Promises were introduced to simplify asynchronous programming, avoid callback hell, and provide better error handling and chaining.
+
+```js
+// Before Promises (Callback Hell)
+getUser(function (user) {
+  getOrders(user.id, function (orders) {
+    getPayment(orders, function (payment) {
+      // nested callbacks
+    });
+  });
+});
+
+// With Promises
+getUser().then(getOrders).then(getPayment).catch(handleError);
+```
+
+### What are Promises, and how do they help in handling asynchronous operations?
+
+- A Promise is an object that represents the eventual result of an asynchronous operation.
+- Promises help manage asynchronous operations by avoiding callback hell and providing cleaner chaining and error handling.
+- Without Promises, you would use callbacks. (Too much nesting.)
+
+**Promise States:**
+
+- Pending → Initial state
+- Fulfilled → Operation completed successfully
+- Rejected → Operation failed
+
+```js
+// Without Promise
+getUser(function (user) {
+  getOrders(user, function (orders) {
+    getPayment(orders, function (payment) {
+      console.log(payment);
+    });
+  });
+});
+
+// With Promise
+getUser()
+  .then(getOrders)
+  .then(getPayment)
+  .then(console.log)
+  .catch(console.error);
+
+// A Promise is like ordering food online—you don't get the result immediately, but you're notified later whether it was delivered (resolved) or cancelled (rejected).
+const foodOrder = new Promise((resolve, reject) => {
+  const delivered = true;
+
+  if (delivered) {
+    resolve("Food delivered");
+  } else {
+    reject("Order cancelled");
+  }
+});
+
+foodOrder.then((msg) => console.log(msg)).catch((err) => console.log(err));
+```
+
+### Explain the JavaScript Event Loop. What are the Microtask Queue and Macrotask Queue?
+
+- JavaScript is single-threaded, but it can handle async tasks using the Event Loop.
+
+**The Event Loop continuously checks:**
+
+- Call Stack
+- Microtask Queue (Higher Priority)
+  - Promise.then(), catch(), finally(), queueMicrotask()
+- Macrotask Queue
+  - setTimeout(), setInterval(), DOM Events
+
+```js
+// Example
+console.log("1");
+setTimeout(() => console.log("2"), 0);
+Promise.resolve().then(() => console.log("3"));
+console.log("4");
+
+// 1
+// 4
+// 3
+// 2
+```
+
+### null vs undefined
+
+- null: Intentional absence of value
+- undefined: Value not assigned
+
+```js
+let a;
+console.log(a); // undefined
+
+let b = null;
+console.log(b); // null
+
+console.log(typeof undefined); // "undefined"
+console.log(typeof null); // "object"
+
+console.log(null == undefined); // true
+console.log(null === undefined); // false
+```
+
+### Template Literals
+
+- Use backticks ` ` to embed variables and expressions inside strings.
+
+```js
+const a = 10;
+const b = 20;
+const sum = `Sum: ${a + b}`;
+
+console.log(sum);
+// Sum: 30
+```
+
+### Why use Optional Chaining (?.)?
+
+- Optional chaining prevents errors when accessing properties that may be null or undefined.
+- Optional chaining (?.) safely accesses nested properties without throwing errors if an intermediate value is null or undefined.
+
+```js
+// Without Optional Chaining
+const user = {};
+console.log(user.address.city); // ❌ Cannot read properties of undefined
+
+// With Optional Chaining
+const user = {};
+console.log(user.address?.city); // undefined
+
+console.log(user?.profile?.name);
+```
+
+### What is a Polyfill?
+
+- A polyfill is custom code that adds support for modern JavaScript features in older browsers that don't natively support them.
+- Mostly just a concept to understand nowadays. As a React developer in 2026, you rarely write polyfills manually.
+- Babel automatically add required polyfills based on browser support targets.
+
+```text
+// Common polyfill
+Array.prototype.includes
+Array.prototype.flat
+Promise
+fetch
+```
+
+### What is a Transpiler?
+
+- A transpiler converts code from one version/language to another similar version/language.
+- Older browsers may not support modern JS features.
+- Common Transpiler: Babel (converts modern JavaScript (ES6+) into browser-compatible JavaScript.)
+
+```js
+// Modern JS
+const sum = (a, b) => a + b;
+
+// Transpiled to older JavaScript
+var sum = function (a, b) {
+  return a + b;
+};
+```
+
+```js
+// Operator
+```
+
+```js
+// Operator
+```
+
+```js
+// Operator
+```
+
+```js
+// Operator
+```
+
+```js
+// Operator
+```
+
+```js
+// Operator
+```
+
+```js
+// Operator
+```
+
+```js
+// Operator
+```
+
+```js
+// Operator
+```
+
+```js
+// Operator
+```
