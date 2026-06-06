@@ -1,6 +1,6 @@
 ## 📌 Practical Problems
 
-### Problem 1
+### ❓Problem 1
 
 ```js
 let x = 10;
@@ -14,7 +14,7 @@ console.log(x);
 // S2 Output: NaN
 ```
 
-### Problem 2
+### ❓Problem 2
 
 ```js
 let x = [100, 200, 300];
@@ -29,7 +29,7 @@ console.log(x == y, z == y, z == x);
 - x and y are different array references.
 - z and y point to the same array.
 
-### Problem 3
+### ❓Problem 3
 
 ```js
 const obj = {
@@ -58,7 +58,7 @@ const { pqr: p } = obj.xyz; // 300
 
 - pqr: p means: Get pqr from xyz, Store it in variable p
 
-### Problem 4
+### ❓Problem 4
 
 ```js
 let arr = [1, 2, 3, 4, 5];
@@ -75,7 +75,7 @@ console.log(filterArr);
 5 > 3; // true
 ```
 
-### Problem 5
+### ❓Problem 5
 
 - Return Smallest Word from Sentance
 
@@ -104,7 +104,7 @@ str.split(" "); // "My name is John" > ["My", "name", "is", "John"]
 "My"
 ```
 
-### Problem 6
+### ❓Problem 6
 
 ```js
 // Operator

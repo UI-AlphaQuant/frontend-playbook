@@ -259,34 +259,34 @@
 
 ---
 
-### What is componentWillUnmount in React?
+### ❓What is componentWillUnmount in React?
 
 - componentWillUnmount() is a lifecycle method in Class Components that runs just before a component is removed from the DOM.
 - It is commonly used for: Removing event listeners, Clearing timers, Cancelling API requests,
 - In Functional Components, we use useEffect cleanup function.
 
-### What is the difference between Redux and Redux Toolkit?
+### ❓What is the difference between Redux and Redux Toolkit?
 
 - Redux → More code, manual setup.
 - Redux Toolkit is the modern, recommended way to use Redux with less boilerplate and easier state management.
 - Redux is a state management library that requires actions, reducers, and store setup manually. Redux Toolkit (RTK) is the official Redux solution that reduces boilerplate using createSlice and configureStore.
 
-### Redux vs Context API – When should each be used?
+### ❓Redux vs Context API – When should each be used?
 
 - Context API > Small to medium apps, Theme, Auth, User Settings
 - Redux / RTK > Medium to large apps, Complex global state
 
-### dependencies vs devDependencies
+### ❓dependencies vs devDependencies
 
 - dependencies are required to run the application, while devDependencies are only needed during development, testing, or building the application.
 - dependencies: react, axios, redux
 - devDependencies: eslint, vite, typescript
 
-### package.json vs package-lock.json
+### ❓package.json vs package-lock.json
 
 - package.json defines what dependencies a project needs, while package-lock.json locks the exact versions to ensure consistent installations across environments.
 
-### What if we do not use keys in React?
+### ❓What if we do not use keys in React?
 
 - Warning: Each child in a list should have a unique "key" prop.
 - React uses keys to identify which list items changed, added, or removed.
@@ -298,7 +298,7 @@
 }
 ```
 
-### Default Export vs Named Export
+### ❓Default Export vs Named Export
 
 - Default export allows one export per file and can be imported with any name. Named exports allow multiple exports and must be imported using their exported names.
 
@@ -325,15 +325,15 @@ import { add, sub } from "./utils";
 import { add as sum } from "./utils"; // rename
 ```
 
-###
+### ❓
 
 - Data
 
-###
+### ❓
 
 - Data
 
-###
+### ❓
 
 - Data
 

@@ -199,7 +199,7 @@
 
 ---
 
-### Q: What is Destructuring in JavaScript?
+### ❓ Q: What is Destructuring in JavaScript?
 
 - Destructuring is a JavaScript feature that allows you to extract values from arrays or properties from objects into separate variables in a concise way.
 
@@ -222,7 +222,7 @@ console.log(name); // Naimesh
 console.log(role); // Frontend Developer
 ```
 
-### Difference between the Rest (...) and Spread (...) operators.
+### ❓ Difference between the Rest (...) and Spread (...) operators.
 
 - Rest Operator: Collects multiple values into one variable
 - Spread Operator: Expands values from an array/object
@@ -260,7 +260,7 @@ const props = {
 <UserCard {...props} />;
 ```
 
-### What will be the output?
+### ❓ What will be the output?
 
 ```js
 let person = {
@@ -304,7 +304,7 @@ console.log(employ);
 let employ = person;
 ```
 
-### Why were Promises introduced in JavaScript?
+### ❓ Why were Promises introduced in JavaScript?
 
 - Promises were introduced to simplify asynchronous programming, avoid callback hell, and provide better error handling and chaining.
 
@@ -322,7 +322,7 @@ getUser(function (user) {
 getUser().then(getOrders).then(getPayment).catch(handleError);
 ```
 
-### What are Promises, and how do they help in handling asynchronous operations?
+### ❓ What are Promises, and how do they help in handling asynchronous operations?
 
 - A Promise is an object that represents the eventual result of an asynchronous operation.
 - Promises help manage asynchronous operations by avoiding callback hell and providing cleaner chaining and error handling.
@@ -365,7 +365,7 @@ const foodOrder = new Promise((resolve, reject) => {
 foodOrder.then((msg) => console.log(msg)).catch((err) => console.log(err));
 ```
 
-### Explain the JavaScript Event Loop. What are the Microtask Queue and Macrotask Queue?
+### ❓ Explain the JavaScript Event Loop. What are the Microtask Queue and Macrotask Queue?
 
 - JavaScript is single-threaded, but it can handle async tasks using the Event Loop.
 
@@ -390,7 +390,7 @@ console.log("4");
 // 2
 ```
 
-### null vs undefined
+### ❓ null vs undefined
 
 - null: Intentional absence of value
 - undefined: Value not assigned
@@ -409,7 +409,7 @@ console.log(null == undefined); // true
 console.log(null === undefined); // false
 ```
 
-### Template Literals
+### ❓ Template Literals
 
 - Use backticks ` ` to embed variables and expressions inside strings.
 
@@ -422,7 +422,7 @@ console.log(sum);
 // Sum: 30
 ```
 
-### Why use Optional Chaining (?.)?
+### ❓ Why use Optional Chaining (?.)?
 
 - Optional chaining prevents errors when accessing properties that may be null or undefined.
 - Optional chaining (?.) safely accesses nested properties without throwing errors if an intermediate value is null or undefined.
@@ -439,7 +439,7 @@ console.log(user.address?.city); // undefined
 console.log(user?.profile?.name);
 ```
 
-### What is a Polyfill?
+### ❓ What is a Polyfill?
 
 - A polyfill is custom code that adds support for modern JavaScript features in older browsers that don't natively support them.
 - Mostly just a concept to understand nowadays. As a React developer in 2026, you rarely write polyfills manually.
@@ -453,7 +453,7 @@ Promise
 fetch
 ```
 
-### What is a Transpiler?
+### ❓ What is a Transpiler?
 
 - A transpiler converts code from one version/language to another similar version/language.
 - Older browsers may not support modern JS features.
