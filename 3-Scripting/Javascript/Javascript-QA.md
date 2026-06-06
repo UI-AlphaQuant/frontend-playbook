@@ -469,42 +469,231 @@ var sum = function (a, b) {
 };
 ```
 
+### ❓ Undeclared vs Undefined
+
+- Undeclared: Variable does not exist (Never declared)
+  - Causes ReferenceError
+- Undefined: Variable exists but has no value (Declared but not assigned)
+  - No error
+
 ```js
-// Operator
+// Undeclared
+console.log(b); // ReferenceError: b is not defined
+
+// Undefined
+let a;
+console.log(a);
+```
+
+### ❓ Types of Errors in JavaScript
+
+- Common JavaScript errors are SyntaxError, ReferenceError, TypeError, RangeError, and URIError. The most frequently encountered are ReferenceError and TypeError.
+
+- Syntax Error - Invalid JavaScript syntax.
+- Reference Error - Using a variable that doesn't exist.
+- Type Error - Operation performed on the wrong type.
+- Range Error - Value out of allowed range.
+- URI Error - Incorrect URI encoding/decoding.
+- Eval Error (Rare)
+
+```js
+// SyntaxError
+console.log("Hello" // SyntaxError: missing ) after argument list
+
+// Reference Error
+console.log(a); //ReferenceError: user is not defined
+
+// Type Error
+const num = 10;
+num.toUpperCase(); // TypeError: num.toUpperCase is not a function
+
+// Range Error
+const arr = new Array(-1); // RangeError: Invalid array length
+
+// URI Error
+decodeURIComponent("%"); // URIError: URI malformed
+
+// Eval Error
+throw new Error("Something went wrong"); // Error: Something went wrong
+```
+
+- EvalError is a legacy error type related to eval(). Modern JavaScript engines rarely throw it in real-world applications.
+
+### ❓ Can let and const be redeclared?
+
+- No. Both let and const cannot be redeclared in the same scope.
+- let and const cannot be redeclared in the same scope. let can be reassigned, while const cannot.
+
+```js
+let a = 10;
+let a = 20;
+// SyntaxError: Identifier 'a' has already been declared
+
+// Reassignment
+let a = 10;
+a = 20; // ✅ Allowed
+
+const b = 10;
+b = 20; // TypeError: Assignment to constant variable
+```
+
+### ❓ What is Temporal Dead Zone (TDZ)?
+
+- The Temporal Dead Zone is the period between entering a scope and the point where a let or const variable is declared.
+- During this period, accessing the variable throws an error.
+
+```js
+// TDZ starts
+console.log(a);
+// ReferenceError: Cannot access 'a' before initialization
+// TDZ ends
+
+let a = 10;
+```
+
+- let and const are hoisted, but they are not initialized until their declaration is reached.
+
+```js
+console.log(a); // undefined
+
+var a = 10;
+```
+
+### ❓ Object Destructuring
+
+- Object destructuring is a way to extract values from an object into variables.
+
+```js
+const user = {
+  name: "Ram",
+  age: 25,
+};
+
+const { name, age } = user;
+
+console.log(name); // Ram
+console.log(age); // 25
+```
+
+### ❓ How to delete object properties in JavaScript?
+
+- The delete operator removes a property from an object, but it does not affect variables or reassign the object itself.
+
+```js
+// Delete operator
+const user = {
+  name: "Ram",
+  age: 25,
+};
+delete user.age;
+console.log(user); // { name: "Ram" }
+
+// Delete Nested Property
+const user = {
+  name: "Ram",
+  address: {
+    city: "FBD",
+  },
+};
+delete user.address.city;
+console.log(user.address);
+
+// You cannot use delete on normal variables.
+let a = 10;
+delete a;
+console.log(a); // 10 (unchanged)
+```
+
+- delete → only works on object properties (not on variables)
+- Cannot delete variables declared with let, const, var
+- Variables are stored in memory scope, not object properties.
+
+### ❓ Looping Structures in JavaScript
+
+- Loops are used to repeat code multiple times.
+- Different loops serve different purposes:
+  - for (fixed iteration), while (condition-based), do-while (run once first), for...of (values), for...in (object keys), and forEach (array functional iteration).
+- JavaScript provides loops like for, while, do-while, for...of, for...in, and forEach to iterate over data structures.
+  1. for - When you know exact number of iterations
+  - Fixed range looping, Index-based iteration
+  2. while - When condition decides repetition
+  - Unknown number of iterations, Run until condition becomes false
+  3. do...while - Runs at least once
+  - Execute first, then check condition, Input validation cases
+  4. for...of - Iterate values of arrays / iterables
+  - Get values directly, Clean array iteration
+  5. for...in - Iterate keys of object
+  - Loop through object properties
+  6. forEach - Array method for iteration
+  - Functional style looping, Cleaner array operations, No manual index handling
+
+```js
+// >>>>> for loop
+for (let i = 0; i < 5; i++) {
+  console.log(i);
+}
+// Print: 0 to 4
+
+// >>>>> while loop
+let i = 0;
+while (i < 5) {
+  console.log(i);
+  i++;
+}
+// Print: 0 to 4
+
+// >>>>> do...while loop
+let i = 0;
+do {
+  console.log(i);
+  i++;
+} while (i < 5);
+// Print: 0 to 4
+
+// >>>>> for...of loop (arrays)
+const arr = [10, 20, 30];
+for (let val of arr) {
+  console.log(val);
+}
+// 10
+// 20
+// 30
+
+// >>>>> for...in loop (objects)
+const obj = { a: 1, b: 2 };
+for (let key in obj) {
+  console.log(key, obj[key]);
+}
+// a 1
+// b 2
+
+// >>>>> forEach loop (array method)
+[1, 2, 3].forEach((num) => {
+  console.log(num);
+});
+// 1
+// 2
+// 3
+```
+
+### ❓
+
+```js
+// Comment
 ```
 
 ```js
-// Operator
+// Comment
 ```
 
-```js
-// Operator
-```
+### ❓
 
 ```js
-// Operator
+// Comment
 ```
 
-```js
-// Operator
-```
+### ❓
 
 ```js
-// Operator
-```
-
-```js
-// Operator
-```
-
-```js
-// Operator
-```
-
-```js
-// Operator
-```
-
-```js
-// Operator
+// Comment
 ```
