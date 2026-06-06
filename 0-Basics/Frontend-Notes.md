@@ -502,6 +502,21 @@ JSON: Lightweight data format used for data exchange.
 REST API: Architectural style that uses HTTP methods to perform CRUD operations on resources.
 ```
 
+## Easy Definitions
+
+| Term  | Full Form                          |
+| ----- | ---------------------------------- |
+| API   | Application Programming Interface  |
+| REST  | Representational State Transfer    |
+| HTTP  | HyperText Transfer Protocol        |
+| HTTPS | HyperText Transfer Protocol Secure |
+| JSON  | JavaScript Object Notation         |
+| CRUD  | Create, Read, Update, Delete       |
+| URL   | Uniform Resource Locator           |
+| URI   | Uniform Resource Identifier        |
+| JWT   | JSON Web Token                     |
+| CORS  | Cross-Origin Resource Sharing      |
+
 ---
 
 ## 📌 Agile vs Scrum
@@ -738,3 +753,361 @@ React Updates UI
 | Authentication         | ❌    | ✅      |
 | Business Logic         | ❌    | ✅      |
 | File Upload Processing | ❌    | ✅      |
+
+---
+
+## 📌 Chrome DevTools
+
+| Tab         | Purpose          | Real Example                         |
+| ----------- | ---------------- | ------------------------------------ |
+| Elements    | Inspect HTML/CSS | CSS not applying, Flex/Grid issues   |
+| Console     | Logs & Errors    | `console.log()`, JS errors           |
+| Network     | API Debugging    | Check request, response, status code |
+| Sources     | JS Debugging     | Breakpoints, step through code       |
+| Application | Browser Storage  | JWT, LocalStorage, Cookies           |
+| Performance | Speed Analysis   | Slow page, heavy rendering           |
+| Memory      | Memory Leaks     | Detect unused objects                |
+| Lighthouse  | Audit            | Performance, SEO, Accessibility      |
+
+### Elements
+
+```txt
+Inspect DOM
+Edit CSS Live
+Check Flex/Grid
+
+Example:
+Button hidden
+↓
+Inspect CSS
+↓
+display: none
+```
+
+### Console
+
+```js
+console.log(user);
+console.table(users);
+```
+
+```txt
+Example:
+Cannot read property
+↓
+Check stack trace
+↓
+Fix bug
+```
+
+### Network
+
+- Most Used Tab
+
+```txt
+Example:
+User Clicks Login
+↓
+POST /login
+↓
+Status 401
+↓
+Invalid Credentials
+```
+
+Check:
+
+```txt
+Headers
+Payload
+Response
+Timing
+Status Code
+```
+
+### Sources
+
+```txt
+Add Breakpoints
+Pause Execution
+Inspect Variables
+```
+
+```js
+debugger;
+```
+
+```txt
+Example:
+Wrong Calculation
+↓
+Pause Code
+↓
+Inspect Variables
+```
+
+### Application
+
+```txt
+Local Storage
+Session Storage
+Cookies
+```
+
+```txt
+Example:
+User Logged Out
+↓
+JWT Missing
+↓
+Check Local Storage
+```
+
+### Performance
+
+```txt
+Record
+↓
+Analyze Rendering
+```
+
+```txt
+Example:
+Page Lagging
+↓
+Record Performance
+↓
+Find Slow Component
+```
+
+### Memory
+
+```txt
+Find Memory Leaks
+```
+
+```txt
+Example:
+Dashboard Open 1 Hour
+↓
+Memory Keeps Growing
+↓
+Detect Leaked Objects
+```
+
+### Lighthouse
+
+```txt
+Performance
+Accessibility
+SEO
+Best Practices
+```
+
+```txt
+Example:
+Before Release
+↓
+Run Lighthouse
+↓
+Fix Report Issues
+```
+
+### Frontend Debugging Flow
+
+- CSS Issue > Elements
+- API Issue > Network
+- JS Error > Console
+- Logic Bug > Sources
+- Auth Issue > Application
+- Slow Page > Performance
+
+```txt
+Elements: Inspect and modify DOM/CSS.
+Network: Debug API requests and responses.
+Console: View logs and runtime errors.
+Sources: Debug JavaScript using breakpoints.
+Application: Inspect LocalStorage, Cookies, Session Storage.
+Performance: Analyze rendering and loading bottlenecks.
+```
+
+---
+
+## 📌 Micro Frontend Architecture
+
+Micro Frontend Architecture divides a large frontend into independently developed and deployed frontend applications owned by separate teams.
+
+| Purpose    | Split Large Frontend Into Independent Applications |
+| ---------- | -------------------------------------------------- |
+| Similar To | Microservices For Frontend                         |
+| Used By    | Large Enterprise Applications                      |
+
+### Traditional Frontend
+
+- Single React App
+
+```txt
+Frontend
+├── Dashboard
+├── Users
+├── Orders
+├── Reports
+└── Settings
+```
+
+- **Problems** : Huge Codebase | Team Conflicts | Slow Deployments | Difficult Scaling
+
+### Micro Frontend Architecture
+
+```txt
+Shell App
+
+├── Dashboard App
+├── Users App
+├── Orders App
+├── Reports App
+└── Settings App
+```
+
+- **Benefits** : Independent Teams | Independent Deployments | Smaller Codebases | Faster Releases
+
+---
+
+## 📌 Progressive Web Applications (PWA)
+
+- Installable websites that work like mobile applications.
+- Installable | Offline Support | Push Notifications | Fast Loading | Responsive
+- A PWA is typically built using standard web technologies (HTML, CSS, JavaScript/TypeScript) plus Service Workers, Web App Manifest, HTTPS, and optional tools like Workbox or vite-plugin-pwa to provide app-like capabilities.
+
+| Item               | Description                                    |
+| ------------------ | ---------------------------------------------- |
+| Definition         | Web application that behaves like a mobile app |
+| Installable        | ✅                                             |
+| Offline Support    | ✅                                             |
+| Push Notifications | ✅                                             |
+| App Store Required | ❌                                             |
+| Platform           | Web, Android, Desktop                          |
+
+```txt
+User Visits Website
+↓
+Install App
+↓
+App Appears On Home Screen
+↓
+Works Like Native App
+```
+
+| Technology       | Purpose                   |
+| ---------------- | ------------------------- |
+| Service Worker   | Offline Support & Caching |
+| Web App Manifest | App Installation          |
+| HTTPS            | Security Requirement      |
+
+- Purpose
+
+```txt
+Offline Access, Cache Assets, Background Sync, Push Notifications
+```
+
+- Example
+
+```txt
+User Opens App > CSS/JS Cached > Internet Lost > App Still Opens
+```
+
+| Feature            | Example                  |
+| ------------------ | ------------------------ |
+| Install App        | Add To Home Screen       |
+| Offline Access     | Previously Visited Pages |
+| Push Notifications | New Order Alert          |
+| Background Sync    | Retry Failed Requests    |
+| Fast Loading       | Cached Assets            |
+
+| Real-Life Use Cases | Example               |
+| ------------------- | --------------------- |
+| E-Commerce          | Product Browsing      |
+| Food Delivery       | Order Tracking        |
+| CRM                 | Sales Dashboard       |
+| ERP                 | Employee Portal       |
+| News Portal         | Read Articles Offline |
+| Education           | Learning Platform     |
+| Banking             | Account Dashboard     |
+
+- Comparison
+
+| Feature            | Website | PWA    | Native App |
+| ------------------ | ------- | ------ | ---------- |
+| Installable        | ❌      | ✅     | ✅         |
+| Offline Support    | ❌      | ✅     | ✅         |
+| Push Notifications | ❌      | ✅     | ✅         |
+| App Store Required | ❌      | ❌     | ✅         |
+| Device Access      | ❌      | ⚠️     | ✅         |
+| Development Cost   | Low     | Medium | High       |
+
+- Device Access Comparison
+
+| Feature             | Website    | PWA        | Native App |
+| ------------------- | ---------- | ---------- | ---------- |
+| Camera              | ❌         | ✅         | ✅         |
+| Microphone          | ❌         | ✅         | ✅         |
+| GPS Location        | ❌         | ✅         | ✅         |
+| Push Notifications  | ❌         | ✅         | ✅         |
+| File Upload         | ✅         | ✅         | ✅         |
+| Bluetooth           | ❌         | ⚠️ Limited | ✅         |
+| NFC                 | ❌         | ⚠️ Limited | ✅         |
+| Contacts            | ❌         | ❌         | ✅         |
+| SMS                 | ❌         | ❌         | ✅         |
+| Call Logs           | ❌         | ❌         | ✅         |
+| Background Services | ❌         | ⚠️ Limited | ✅         |
+| Biometrics          | ⚠️ Limited | ⚠️ Limited | ✅         |
+| Calendar Access     | ❌         | ⚠️ Limited | ✅         |
+
+### PWA-Specific Technologies
+
+| Technology          | Purpose                  |
+| ------------------- | ------------------------ |
+| Service Worker      | Offline Support, Caching |
+| Web App Manifest    | Install App              |
+| HTTPS               | Security Requirement     |
+| Push API            | Notifications            |
+| Cache API           | Store Assets Offline     |
+| Background Sync API | Retry Failed Requests    |
+
+```txt
+Frontend
+├── React
+├── TypeScript
+├── Vite
+├── Tailwind
+└── React Query
+
+PWA
+├── Workbox
+├── Service Worker
+├── Manifest
+└── Push Notifications
+
+Backend
+├── Node.js
+├── Express/NestJS
+└── PostgreSQL
+```
+
+### Minimal React PWA Setup
+
+```bash
+npm install -D vite-plugin-pwa
+```
+
+```ts
+// vite.config.ts
+import { VitePWA } from "vite-plugin-pwa";
+plugins: [VitePWA()];
+```
+
+```txt
+React App > Installable (Offline Ready, PWA Enabled)
+```
+
+---

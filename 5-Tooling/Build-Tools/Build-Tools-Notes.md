@@ -273,6 +273,26 @@ expect(loginApi).toHaveBeenCalled();
 | Examples                | React, Axios, Zustand             | Vite, TypeScript, ESLint         |
 | Install Command         | `npm i package`                   | `npm i -D package`               |
 
+### package-lock.json
+
+| Purpose        | Lock Exact Dependency Versions |
+| -------------- | ------------------------------ |
+| Created By     | npm install                    |
+| Auto Generated | ✅                             |
+| Edit Manually  | ❌                             |
+| Commit To Git  | ✅                             |
+
+| File              | Purpose                 | Example              |
+| ----------------- | ----------------------- | -------------------- |
+| package.json      | Dependency Rules        | `"axios": "^1.9.0"`  |
+| package-lock.json | Exact Installed Version | `"version": "1.9.2"` |
+
+| File              | Commit To Git |
+| ----------------- | ------------- |
+| package.json      | ✅            |
+| package-lock.json | ✅            |
+| node_modules      | ❌            |
+
 ---
 
 ## 📌 eslint.config.js
@@ -383,5 +403,270 @@ Husky > Run Before Commit
 | Live Server               | ✅   | Local Dev Server |
 | Tailwind CSS IntelliSense | ✅   | Tailwind Support |
 | Auto Rename Tag           | ✅   | HTML Tag Sync    |
+
+---
+
+## 📌 Vite
+
+| Purpose    | Frontend Build Tool & Development Server |
+| ---------- | ---------------------------------------- |
+| Created By | Evan You (Vue Creator)                   |
+| Used For   | React, Vue, Svelte, Vanilla JS           |
+| Replaces   | Webpack (Most Modern Projects)           |
+
+```bash
+npm create vite@latest
+```
+
+```env
+VITE_API_URL=https://api.company.com
+```
+
+```ts
+// vite.config.ts
+resolve: {
+  alias: {
+    "@": "/src",
+  },
+}
+```
+
+```ts
+// Usage:
+import Button from "@/components/Button";
+```
+
+Avoid CORS in local development.
+
+### Proxy API Calls
+
+- Avoid CORS in local development.
+
+```ts
+// vite.config.ts
+server: {
+  proxy: {
+    "/api": {
+      target:
+        "http://localhost:3000",
+      changeOrigin: true,
+    },
+  },
+}
+```
+
+```ts
+// Usage:
+fetch("/api/users");
+
+// Instead of:
+fetch("http://localhost:3000/users");
+```
+
+### Build Modes
+
+```txt
+.env
+.env.development
+.env.staging
+.env.production
+```
+
+```bash
+vite --mode staging
+```
+
+### Dynamic Imports
+
+- Only loads when needed.
+
+```ts
+// Normal
+import UsersPage from "./UsersPage";
+
+// Lazy
+const UsersPage = lazy(() => import("./UsersPage"));
+```
+
+### Asset Imports
+
+- Vite automatically: Optimize > Hash > Cache
+
+```ts
+import logo from "@/assets/logo.png";
+```
+
+### Path Aliases
+
+```ts
+// Bad:
+../../../components
+
+// Good:
+@/components/Button
+```
+
+### Build Output
+
+- Creates: dist/
+
+```bash
+npm run build
+```
+
+### SVG as React Component
+
+```tsx
+import Logo from "./logo.svg?react";
+
+<Logo />;
+```
+
+### Bundle Analysis
+
+Find large packages. Useful for performance optimization.
+
+```bash
+npm install -D rollup-plugin-visualizer
+```
+
+### Code Splitting
+
+| Purpose            | Load JavaScript Only When Needed |
+| ------------------ | -------------------------------- |
+| Benefit            | Faster Initial Page Load         |
+| Commonly Used With | React.lazy + Suspense            |
+
+- Without Code Splitting
+
+```txt
+Login Page
+Dashboard
+Users Page
+Reports Page
+Settings Page
+
+↓
+Load Everything, Even if user only visits Login Page.
+↓
+5 MB Bundle
+```
+
+- Solution
+
+```txt
+Load Current Page
+↓
+Download Other Pages Later
+```
+
+- Lazy Import
+
+```tsx
+const UsersPage = lazy(() => import("./UsersPage"));
+
+// UsersPage Downloaded Only When Visited
+```
+
+```tsx
+import { lazy, Suspense } from "react";
+
+const UsersPage = lazy(() => import("./UsersPage"));
+
+export default function App() {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <UsersPage />
+    </Suspense>
+  );
+}
+```
+
+### Most Common Production Setup
+
+```txt
+React
+↓
+Vite
+↓
+TypeScript
+↓
+Path Aliases
+↓
+Environment Variables
+↓
+Proxy
+↓
+Lazy Loading
+↓
+Production Build
+```
+
+---
+
+## 📌 Nx (Monorepo)
+
+- Nx is a monorepo tool that manages multiple applications and shared libraries in a single repository while providing code sharing, dependency management, and optimized builds.
+
+| Item        | Description                                                          |
+| ----------- | -------------------------------------------------------------------- |
+| Definition  | Tool for managing multiple apps & shared libraries in one repository |
+| Type        | Monorepo Build System                                                |
+| Used For    | React, Angular, Node.js, NestJS                                      |
+| Competitors | Turborepo, Lerna                                                     |
+
+### Compare
+
+- Traditional Setup
+
+```txt
+frontend-app
+admin-app
+api-app
+ui-library
+
+4 Repositories
+
+Problems: Code Duplication | Shared Component Issues | Multiple CI/CD | Version Mismatch
+```
+
+- Nx Setup
+
+```txt
+workspace
+
+├── apps
+│   ├── web
+│   ├── admin
+│   └── api
+│
+└── libs
+    ├── ui
+    ├── types
+    └── utils
+
+Benefits: Shared Code | Single Repository | Consistent Architecture | Easier Maintenance
+```
+
+| Concept    | Purpose                          | Example            |
+| ---------- | -------------------------------- | ------------------ |
+| apps       | Deployable Applications          | web, admin, api    |
+| libs       | Shared Code                      | ui, types, utils   |
+| workspace  | Entire Monorepo                  | company repo       |
+| generators | Auto Code Creation               | component, library |
+| affected   | Build/Test Changed Projects Only | faster CI          |
+
+```txt
+apps
+├── web
+└── admin
+
+libs
+├── ui (Button, Input, Modal, Table, Card)
+├── forms
+├── hooks
+├── api-client
+└── types (User, Order, Product)
+```
 
 ---

@@ -64,3 +64,30 @@ Yup.object({
 **_Formik:_** Older form management library using controlled components with higher re-render cost.
 
 ---
+
+## 📌 Structure
+
+### public Folder
+
+| Purpose                 | Store Static Assets |
+| ----------------------- | ------------------- |
+| Location                | `/public`           |
+| Processed By Build Tool | ❌ No               |
+| Accessible Via URL      | ✅ Yes              |
+
+### Modules
+
+A module is a JavaScript/TypeScript file that exports functionality, allowing code to be organized, reused, and imported across a React application.
+
+| Type             | Example         |
+| ---------------- | --------------- |
+| Component Module | UserCard.tsx    |
+| Hook Module      | useUsers.ts     |
+| API Module       | userApi.ts      |
+| State Module     | authStore.ts    |
+| Context Module   | AuthContext.tsx |
+| Utility Module   | formatDate.ts   |
+| Type Module      | user.types.ts   |
+| Config Module    | env.ts          |
+
+---

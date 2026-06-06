@@ -175,3 +175,33 @@ UI Re-renders
 | Notifications    | Shared alert system    |
 
 ---
+
+## 📌 REST vs GraphQL
+
+- REST exposes multiple resource-based endpoints, while GraphQL uses a single endpoint that allows clients to request exactly the data they need.
+
+| Feature        | REST             | GraphQL                 |
+| -------------- | ---------------- | ----------------------- |
+| Type           | API Architecture | Query Language For APIs |
+| Endpoint       | Multiple         | Single                  |
+| Data Fetching  | Fixed Response   | Client Chooses Data     |
+| Over Fetching  | Possible         | ❌                      |
+| Under Fetching | Possible         | ❌                      |
+| Learning Curve | Easy             | Medium                  |
+| Caching        | Easy             | More Complex            |
+| Popularity     | Most Common      | Growing                 |
+
+| Scenario                  | REST | GraphQL |
+| ------------------------- | ---- | ------- |
+| CRUD Applications         | ✅   | ⚠️      |
+| Admin Panels              | ✅   | ⚠️      |
+| ERP Systems               | ✅   | ⚠️      |
+| CRM Systems               | ✅   | ⚠️      |
+| Internal Business Tools   | ✅   | ⚠️      |
+| E-Commerce APIs           | ✅   | ✅      |
+| Mobile Apps               | ⚠️   | ✅      |
+| Social Media Apps         | ⚠️   | ✅      |
+| Complex Dashboards        | ⚠️   | ✅      |
+| Data-Heavy Applications   | ⚠️   | ✅      |
+| Multiple Data Sources     | ❌   | ✅      |
+| Microservices Aggregation | ❌   | ✅      |

@@ -155,6 +155,13 @@ A Promise handles asynchronous operations and future results.
 | `fulfilled` | Operation successful  |
 | `rejected`  | Operation failed      |
 
+```js
+// Syntax
+const promise = new Promise((resolve, reject) => {
+  // async work
+});
+```
+
 | Promise Methods  | Purpose                 | Example             |
 | ---------------- | ----------------------- | ------------------- |
 | `.then()`        | Handle success          | `promise.then()`    |
@@ -209,6 +216,44 @@ Rejected  → .catch()
 - Solves callback hell problem
 - Used heavily with APIs and async tasks
 - Foundation for `async/await`
+
+### Example
+
+```js
+const foodOrder = new Promise((resolve, reject) => {
+  const delivered = true;
+
+  setTimeout(() => {
+    if (delivered) {
+      resolve("Food Delivered");
+    } else {
+      reject("Order Cancelled");
+    }
+  }, 2000);
+});
+
+foodOrder
+  .then((result) => console.log(result))
+  .catch((error) => console.log(error));
+```
+
+```txt
+Promise Created
+↓
+Pending
+↓
+resolve() called → Fulfilled → .then()
+OR
+reject() called → Rejected → .catch()
+
+// Flow
+Order Placed     → Pending
+Food Delivered   → Fulfilled → then()
+Order Cancelled  → Rejected  → catch()
+```
+
+- A Promise starts as Pending and eventually settles into either Fulfilled (resolve) or Rejected (reject), which are handled using .then() and .catch().
+- 2000 is just a simulated delay to mimic an asynchronous operation such as an API request. It is not required for Promises.
 
 ---
 
@@ -1252,3 +1297,254 @@ observer.observe(list, {
 | `DOMCharacterDataModified` | Detect text changes     |
 
 ---
+
+## 📌 REST (Representational State Transfer)
+
+- API > Application Programming Interface
+- REST > Representational State Transfer
+- URI > Uniform Resource Identifier
+
+| Item               | Description                   |
+| ------------------ | ----------------------------- |
+| Purpose            | Standard Way To Design APIs   |
+| Uses               | HTTP Protocol                 |
+| Data Format        | Usually JSON                  |
+| Architecture Style | Client ↔ Server Communication |
+
+```txt
+Frontend
+↓
+HTTP Request
+↓
+REST API
+↓
+Database
+↓
+JSON Response
+↓
+Frontend
+```
+
+- Resource-Based URLs
+
+```txt
+/users
+/products
+/orders
+/payments
+```
+
+### CRUD Mapping
+
+| Operation | HTTP Method | Endpoint   |
+| --------- | ----------- | ---------- |
+| Create    | POST        | `/users`   |
+| Read All  | GET         | `/users`   |
+| Read One  | GET         | `/users/1` |
+| Update    | PUT/PATCH   | `/users/1` |
+| Delete    | DELETE      | `/users/1` |
+
+```json
+// Response:
+[
+  {
+    "id": 1,
+    "name": "John"
+  }
+]
+```
+
+```ts
+// React Example
+fetch("/users");
+axios.get("/users");
+apiClient("/users");
+```
+
+## API Versioning
+
+| Purpose         | Manage API Changes Without Breaking Existing Clients |
+| --------------- | ---------------------------------------------------- |
+| Common Versions | v1, v2, v3                                           |
+| Used By         | Public APIs & Enterprise APIs                        |
+
+```http
+GET /api/v1/users
+GET /api/v2/users
+```
+
+```http
+GET https://api.company.com/api/v1/users
+GET https://api.company.com/api/v2/users
+```
+
+---
+
+## 📌 JSON (JavaScript Object Notation)
+
+- JSON is a lightweight key-value data format used for exchanging data between frontend applications, APIs, and backend systems.
+
+| Item        | Description                   |
+| ----------- | ----------------------------- |
+| Full Form   | JavaScript Object Notation    |
+| Purpose     | Data Exchange Format          |
+| Used In     | APIs, Config Files, Databases |
+| Format      | Key-Value Pairs               |
+| Readable By | Humans & Machines             |
+
+- Keys Must Be In Double Quotes
+- No Functions
+- No Comments
+
+```json
+{
+  "name": "John",
+  "age": 25
+}
+```
+
+### JSON Data Types
+
+| Type    | Example  |
+| ------- | -------- |
+| String  | `"John"` |
+| Number  | `25`     |
+| Boolean | `true`   |
+| Null    | `null`   |
+| Array   | `[]`     |
+| Object  | `{}`     |
+
+```js
+const data = {
+  name: "John",
+  age: 25,
+  isAdmin: true,
+  salary: null,
+
+  skills: ["React", "TypeScript"],
+
+  address: {
+    city: "London",
+  },
+};
+```
+
+### Nested Object
+
+```json
+{
+  "user": {
+    "id": 1,
+    "profile": {
+      "city": "London",
+      "country": "UK"
+    }
+  }
+}
+```
+
+### Array Of Objects
+
+```json
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John"
+    },
+    {
+      "id": 2,
+      "name": "Jane"
+    }
+  ]
+}
+```
+
+### Real API Response
+
+```json
+// Users Fetched
+{
+  "success": true,
+  "message": "Users fetched successfully",
+  "data": [
+    {
+      "id": 1,
+      "name": "John",
+      "email": "john@test.com"
+    }
+  ]
+}
+
+// Search + Pagination Response
+{
+  "page": 1,
+  "limit": 10,
+  "total": 250,
+  "data": [
+    {
+      "id": 1,
+      "name": "John"
+    }
+  ]
+}
+
+//  Request Payload (POST /users)
+{
+  "name": "John",
+  "email": "john@test.com"
+}
+```
+
+### Converts Methods
+
+| Method           | Converts                | Use When       |
+| ---------------- | ----------------------- | -------------- |
+| JSON.stringify() | JS Object → JSON String | Sending Data   |
+| JSON.parse()     | JSON String → JS Object | Receiving Data |
+
+```txt
+API Request Body → stringify()
+API Response → parse()
+Local Storage Save → stringify()
+Local Storage Read → parse()
+```
+
+```js
+// JavaScript ↔ JSON (Stringify)
+const json = JSON.stringify(data);
+```
+
+```json
+{
+  "name": "John",
+  "age": 25,
+  "isAdmin": true,
+  "salary": null,
+  "skills": ["React", "TypeScript"],
+  "address": {
+    "city": "London"
+  }
+}
+```
+
+```js
+// JSON → Object (Parse Back)
+const parsed = JSON.parse(json);
+```
+
+```js
+{
+  name: "John",
+  age: 25,
+  isAdmin: true,
+  salary: null,
+  skills: [
+    "React",
+    "TypeScript"
+  ],
+  address: {
+    city: "London"
+  }
+}
+```
