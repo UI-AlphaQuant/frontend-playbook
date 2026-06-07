@@ -499,6 +499,49 @@ Group related form controls.
 
 ---
 
+## 📌 ANSI
+
+- ANSI is a standards organization often associated with character encoding and terminal formatting, while HTML primarily uses Unicode (UTF-8) for displaying text on web pages.
+- ANSI > American National Standards Institute
+- Is ANSI Related To HTML? Not Directly.
+- ANSI is mainly associated with:
+  - Character Encoding
+  - Terminal Colors
+  - Console Formatting
+- HTML uses: ASCII, Unicode (UTF-8), HTML Entities
+- UTF-8 supports: English, Hindi, Chinese, Japanese, Emojis
+
+### ANSI / Unicode / HTML Entity
+
+| Type        | Example   | Output | Usage              |
+| ----------- | --------- | ------ | ------------------ |
+| ASCII       | `65`      | A      | Character Code     |
+| ASCII       | `97`      | a      | Character Code     |
+| Unicode     | `U+1F600` | 😀     | Emoji              |
+| HTML Entity | `&lt;`    | <      | Less Than          |
+| HTML Entity | `&gt;`    | >      | Greater Than       |
+| HTML Entity | `&amp;`   | &      | Ampersand          |
+| HTML Entity | `&copy;`  | ©      | Copyright          |
+| HTML Entity | `&reg;`   | ®      | Registered         |
+| HTML Entity | `&trade;` | ™      | Trademark          |
+| HTML Entity | `&nbsp;`  | Space  | Non-Breaking Space |
+
+### Modern Web Encoding
+
+```html
+<meta charset="UTF-8" />
+```
+
+| Supports: Content | Example    |
+| ----------------- | ---------- |
+| English           | Hello      |
+| Gujarati          | નમસ્તે     |
+| Hindi             | नमस्ते     |
+| Japanese          | こんにちは |
+| Emoji             | 😀 🚀 ❤️   |
+
+---
+
 ## 📌 Quick Recall
 
 - HTML → Structure of web pages
@@ -539,3 +582,7 @@ Group related form controls.
 | `width`   | layout tables   | CSS (`width`)            |
 | `height`  | layout elements | CSS (`height`)           |
 | `valign`  | table cells     | CSS (`vertical-align`)   |
+
+```
+
+```

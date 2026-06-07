@@ -906,16 +906,11 @@ setTimeout(() => {
 const user = {
   name: "John",
 };
-
 const json = JSON.stringify(user);
-
-console.log(json);
-// '{"name":"John"}'
+console.log(json); // '{"name":"John"}'
 
 const data = JSON.parse(json);
-
-console.log(data.name);
-// "John"
+console.log(data.name); // "John"
 ```
 
 ```js
@@ -926,10 +921,7 @@ const user = {
 };
 
 const json = JSON.stringify(user);
-
-console.log(json);
-
-// '{"name":"John","role":"Admin"}'
+console.log(json); // '{"name":"John","role":"Admin"}'
 ```
 
 ---

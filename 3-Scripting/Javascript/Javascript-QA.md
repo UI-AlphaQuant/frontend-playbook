@@ -615,17 +615,17 @@ console.log(a); // 10 (unchanged)
   - for (fixed iteration), while (condition-based), do-while (run once first), for...of (values), for...in (object keys), and forEach (array functional iteration).
 - JavaScript provides loops like for, while, do-while, for...of, for...in, and forEach to iterate over data structures.
   1. for - When you know exact number of iterations
-  - Fixed range looping, Index-based iteration
+     - Fixed range looping, Index-based iteration
   2. while - When condition decides repetition
-  - Unknown number of iterations, Run until condition becomes false
+     - Unknown number of iterations, Run until condition becomes false
   3. do...while - Runs at least once
-  - Execute first, then check condition, Input validation cases
+     - Execute first, then check condition, Input validation cases
   4. for...of - Iterate values of arrays / iterables
-  - Get values directly, Clean array iteration
+     - Get values directly, Clean array iteration
   5. for...in - Iterate keys of object
-  - Loop through object properties
+     - Loop through object properties
   6. forEach - Array method for iteration
-  - Functional style looping, Cleaner array operations, No manual index handling
+     - Functional style looping, Cleaner array operations, No manual index handling
 
 ```js
 // >>>>> for loop
@@ -676,11 +676,493 @@ for (let key in obj) {
 // 3
 ```
 
+### ❓ How to convert an object into an array in JavaScript
+
+- Use Object.keys() for keys, Object.values() for values, and Object.entries() for key-value pairs when converting objects into arrays.
+
+```js
+// Object.keys() → keys array
+const obj = { a: 1, b: 2 };
+console.log(Object.keys(obj)); // ["a", "b"]
+
+// Object.values() → values array
+const obj = { a: 1, b: 2 };
+console.log(Object.values(obj)); // [1, 2]
+
+// Object.entries() → key-value pairs array
+const obj = { a: 1, b: 2 };
+console.log(Object.entries(obj)); // [["a", 1], ["b", 2]]
+```
+
+```js
+// Convert entries back to array processing
+const obj = { a: 1, b: 2 };
+const arr = Object.entries(obj).map(([key, value]) => {
+  return key + value;
+});
+
+console.log(arr); // ["a1", "b2"]
+```
+
+### ❓ Function Declaration vs Function Expression
+
+- Function declaration is hoisted and can be called before definition, while function expression is not hoisted and is assigned to a variable.
+
+```js
+// >>>>> Function declaration
+// Hoisted (can be called before declaration)
+function greet() {
+  console.log("Hello");
+}
+greet(); // Hello
+
+// >>>>> Function expression
+// Not hoisted (cannot be called before)
+const greet = function () {
+  console.log("Hello");
+};
+greet(); // Hello
+```
+
+### ❓ Higher Order Function (HOF)
+
+- A Higher Order Function is a function that takes another function as an argument or returns a function.
+- Common HOFs in JS: map(), filter(), reduce(), forEach()
+
+```js
+// Takes function as argument
+function greet(name) {
+  return `Hello ${name}`;
+}
+function processUser(fn) {
+  console.log(fn("Ram"));
+}
+processUser(greet); // Hello Ram
+
+// Real Example (Array Methods)
+[1, 2, 3].map((num) => num * 2); // [2, 4, 6]
+```
+
+- map() iterates over an array, applies a function to each element, and returns a new transformed array.
+
+### ❓ map() vs forEach()
+
+- map() returns a new transformed array, while forEach() is used only for iteration and does not return anything.
+- map()
+  - Used for transformation
+  - Chainable
+- forEach()
+  - Used for iteration
+  - Not chainable
+
+```js
+// map → when you need transformed data
+const prices = [100, 200, 300];
+const gstPrices = prices.map((p) => p * 1.18);
+console.log(gstPrices); // [ 118, 236, 354 ]
+
+// forEach → when you just want to perform action
+prices.forEach((p) => console.log(p)); // 100, 200, 300
+```
+
+### ❓ Rest Operator (...) Example in JavaScript
+
+- The rest operator (...) collects multiple function arguments or remaining values into a single array.
+
+```js
+function sum(...nums) {
+  console.log(nums);
+}
+
+sum(1, 2, 3, 4); // [1, 2, 3, 4]
+```
+
+### ❓ JSON.parse() Usage in JavaScript?
+
+- JSON.parse() converts a JSON string into a JavaScript object
+- JSON.parse works only on valid JSON string
+
+```js
+const response = '{"id":1,"product":"Phone","price":20000}';
+const data = JSON.parse(response);
+console.log(data.product); // Phone
+
+// Another example:
+JSON.parse("{name: Ram}"); // Error (keys must be in double quotes)
+```
+
+### ❓ JSON Methods in JavaScript
+
+- JSON.parse() > Converts JSON string → JavaScript object
+- JSON.stringify() > Converts JavaScript object → JSON string
+
+```js
+// parse
+const str = '{"name":"Ram","age":25}';
+const obj = JSON.parse(str);
+console.log(obj.name); // Ram
+
+// stringify
+const obj = { name: "Ram", age: 25 };
+const str = JSON.stringify(obj);
+console.log(str); // {"name":"Ram","age":25}
+```
+
+- Real-life use: API request/response
+
+```js
+// sending data
+fetch("/api", {
+  method: "POST",
+  body: JSON.stringify({ name: "Ram" }),
+});
+
+// receiving data
+const data = JSON.parse(response);
+```
+
+### ❓ call, apply, bind in JavaScript
+
+- All three are used to control this context in functions.
+  - call() - Calls function immediately, Arguments passed one by one
+  - apply() - Calls function immediately, Arguments passed as array
+  - bind() - Does NOT call immediately, Returns a new function
+
+```js
+// call
+function order(city) {
+  console.log(this.name + " orders food from " + city);
+}
+const user = { name: "Ram" };
+order.call(user, "Delhi"); // Ram orders food from Delhi
+
+// apply
+order.apply(user, ["Delhi"]); // Ram orders food from Delhi
+
+// bind
+const task = order.bind(user, "Delhi");
+task(); // Ram orders food from Delhi
+```
+
+```text
+greet() called
+→ this = undefined (or window in non-strict)
+→ output may be undefined
+
+// Call
+1. Function is called
+2. JS sets this = user
+3. Executes immediately
+4. prints "Ram"
+
+// apply
+1. Function is called
+2. this = user
+3. arguments passed as array
+4. executes immediately
+
+// bind
+STEP 1:
+bind() creates NEW function
+→ this is locked to user
+→ NOT executed yet
+
+STEP 2:
+fn() called later
+→ now function executes
+→ prints "Ram"
+```
+
+### ❓ Normal Function vs Arrow Function
+
+```js
+// Normal Funtion
+function sum(a, b) {
+  return a + b;
+}
+
+// Arrow Function
+const sum = (a, b) => a + b;
+```
+
+- Normal Funtion, use function keyword
+  - Normal Function → has its own this
+  - Own this
+  - Fully hoisted (can use before declaration)
+- Arrow Function, use =>
+  - Arrow Function → no own this (inherits)
+  - Lexical this
+  - Only variable is hoisted (as undefined)
+
+### ❓ Types of Scope in JavaScript?
+
+- Global Scope - Variables declared outside any function/block
+- Local Scope (Function Scope) - Variables Only accessible inside function
+- Block Scope - Variables inside { } (with let, const)
+- Lexical Scope - Inner function can access outer variables
+
+```js
+// Global Scope
+let a = 10;
+function test() {
+  console.log(a);
+}
+test(); // 10
+
+// Function Scope (Local Scope)
+function test() {
+  let b = 20;
+  console.log(b);
+}
+test(); // 20
+
+// Block Scope
+{
+  let c = 30;
+  const d = 40;
+}
+console.log(c); // ❌ Error
+console.log(d); // ❌ Error
+
+// Lexical Scope
+function outer() {
+  let x = 50;
+  function inner() {
+    console.log(x);
+  }
+  inner();
+}
+outer(); // 50
+```
+
+### ❓ Lexical Scope vs Closure
+
+- Closure is not just lexical scope; it is a function that remembers variables from its lexical scope even after the outer function has finished execution.
+
+```js
+function outer() {
+  let x = 10;
+  return function inner() {
+    console.log(x);
+  };
+}
+const fn = outer();
+fn(); // 10
+```
+
+```text
+outer() runs → finishes execution
+but inner() still remembers x = 10
+this "memory + function" = closure
+```
+
+- Lexical scope → house rules (who can access what)
+- Closure → you took keys of the house with you after leaving
+  - Closure = lexical scope + function + preserved memory
+
+### ❓ Methods vs Keywords in JavaScript
+
+- Keywords: Reserved words in JavaScript with special meaning, You cannot use them as variable names, Define logic
+- Methods: Functions that belong to an object, Perform actions
+
+### ❓ ES6 Features
+
+```js
+// let / const
+// Block scoped variables.
+// Let vs Var fix (Block scope introduced in ES6)
+
+// Arrow Functions
+const sum = (a, b) => a + b;
+
+// Template Literals
+`Hello ${name}`;
+
+// Destructuring
+const { name, age } = user;
+const [a, b] = arr;
+
+// Default Parameters
+function add(a = 0, b = 0) {}
+
+// spread / rest
+const newArr = [...arr, 4];
+function sum(...nums) {}
+
+// Promises
+fetch(url).then((res) => res.json());
+
+// Modules
+import x from "./file";
+export default x;
+```
+
+### ❓ Difference between == and ===?
+
+- == compares values after converting types
+- === compares value + type without conversion
+
+```js
+console.log("1" == 1); // true
+console.log("1" === 1); // false
+
+console.log([] == []); // false
+console.log([] === []); // false
+```
+
+- Arrays are reference types, so comparison checks memory address, not content.
+- Objects/arrays are compared by reference, not value.
+
+### ❓ primitive and non-primitive data types?
+
+- Primitive → single value, stored by value
+- Non-Primitive → objects, stored by reference
+
+```js
+// Primitive
+let num = 10;
+let str = "hello";
+let bool = true;
+let n = null;
+let u = undefined;
+let sym = Symbol("id");
+let big = 123n;
+
+// Non-Primitive
+let obj = { name: "Rao" };
+let arr = [1, 2, 3];
+function fn() {}
+```
+
+- Primitive stores value, Non-primitive stores reference.
+- Primitive = copy value, Non-primitive = share reference.
+
+### ❓ difference between every() and some()?
+
+- every() → all elements must pass condition
+  - Form Validation (every)
+- some() → at least one element must pass condition
+  - Permission / Feature Check (some)
+
+```js
+const nums = [2, 4, 6];
+
+// every
+console.log(nums.every((n) => n % 2 === 0)); // true
+
+// some
+console.log(nums.some((n) => n > 5)); // true
+```
+
+- every() = all true, some() = any one true.
+
+### ❓ difference between then() and finally() in Promises?
+
+- then() → runs when promise is resolved (success) show API data on UI
+- finally() → runs always (success or error) stop loader/spinner
+
+```js
+let loading = true;
+
+fetch("/api/data")
+  .then((res) => res.json()) // Converts response to JSON (success step)
+  .then((data) => console.log(data)) // Uses the data (success handling)
+  .finally(() => {
+    loading = false; // hide loader
+  }); // Runs ALWAYS (success or error) → cleanup step
+```
+
+### ❓ What is a constructor?
+
+- A constructor is a special function used to create and initialize objects.
+
+```js
+class User {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+const u1 = new User("Smith");
+console.log(u1.name); // Smith
+```
+
+### ❓ add and remove values in an array?
+
+- push/unshift = add, pop/shift = remove.
+
+```js
+let arr = [1, 2, 3];
+
+// add
+arr.push(4); // end
+arr.unshift(0); // start
+
+// remove
+arr.pop(); // end
+arr.shift(); // start
+```
+
+### ❓ add and remove elements in the middle of an array?
+
+```js
+// Example (Remove in between)
+let arr = [10, 20, 30, 40];
+arr.splice(2, 1); // remove index 2
+console.log(arr); // [10, 20, 40] // start at index 1, remove 2 items
+
+// Example (Add in between)
+let arr = [10, 40];
+arr.splice(1, 0, 20, 30);
+console.log(arr); // [10, 20, 30, 40] // at index 1, remove 0 items, add values
+```
+
+### ❓ typeof null and typeof undefined?
+
+```js
+console.log(typeof null); // "object"
+console.log(typeof undefined); // "undefined"
+```
+
+- Returns "object" (historical JavaScript bug)
+
+### ❓ Run a JavaScript file from VS Code terminal?
+
+```bash
+node main.js
+```
+
+### ❓ difference between filter() and find()?
+
+- filter() → returns all matching items (array)
+- find() → returns first matching item
+
+```js
+const users = [
+  { id: 1, name: "Nick", active: true },
+  { id: 2, name: "John", active: false },
+  { id: 3, name: "Sam", active: true },
+];
+const activeUsers = users.filter((user) => user.active);
+const user = users.find((user) => user.id === 2);
+
+console.log(activeUsers); // find -> get user with id 2
+console.log(user); // filter -> get all active users
+```
+
 ### ❓
 
 ```js
 // Comment
 ```
+
+### ❓
+
+```js
+// Comment
+```
+
+### ❓
 
 ```js
 // Comment
