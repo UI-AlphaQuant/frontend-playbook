@@ -390,13 +390,20 @@ return { name: "John" }; // { name: 'John' }
 
 - Never put an object on the next line after return; Javascript Automatic Semicolon Insertion (ASI) returns undefined.
 
-### ❓ Problem
+### ❓ Problem 22
+
+- find elements greater than a specific value in an array?
 
 ```js
 // Problem
+let arr = [10, 15, 30, 75, 40, 61, 23];
 
 // Solution
+const result = arr.filter((num) => num > 40);
+console.log(result); // [75, 61]
 ```
+
+- Use filter() to return all elements matching a condition.
 
 ### ❓ Problem
 

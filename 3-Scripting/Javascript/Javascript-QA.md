@@ -1134,8 +1134,8 @@ node main.js
 
 ### ❓ difference between filter() and find()?
 
-- filter() → returns all matching items (array)
-- find() → returns first matching item
+- filter() → returns an array of all matching elements. (array)
+- find() → returns only the first matching element or undefined if none is found. (Single value)
 
 ```js
 const users = [
@@ -1148,6 +1148,165 @@ const user = users.find((user) => user.id === 2);
 
 console.log(activeUsers); // find -> get user with id 2
 console.log(user); // filter -> get all active users
+```
+
+### ❓ difference between some() and every()?
+
+- some() → at least one item matches
+  - Check if any required field is empty
+- every() → all items must match
+  - Validate all form fields before submit
+
+```js
+const users = [
+  { name: "Nick", active: true },
+  { name: "John", active: true },
+  { name: "Sam", active: false },
+];
+const hasInactiveUser = users.some((user) => !user.active); // some -> is any user inactive?
+const allUsersActive = users.every((user) => user.active); // every -> are all users active?
+
+console.log(hasInactiveUser); // true
+console.log(allUsersActive); // false
+```
+
+### ❓ Self-Invoking Function (IIFE) in JavaScript?
+
+- An IIFE (Immediately Invoked Function Expression) runs immediately after it is created.
+- Common in older JS code before modules
+
+```js
+(function () {
+  console.log("Hello");
+})();
+```
+
+### ❓ Anonymous Function in JavaScript?
+
+- An anonymous function is a function without a name.
+
+```js
+const users = ["Nick", "John"];
+const result = users.map(function (user) {
+  return user.toUpperCase();
+});
+
+console.log(result); // [ 'NICK', 'JOHN' ]
+```
+
+### ❓ Currying in JavaScript?
+
+- Currying converts a function with multiple arguments into a series of functions that take one argument at a time.
+- Currying breaks a function into multiple functions, each taking one argument.
+
+```js
+function add(a) {
+  return function (b) {
+    return a + b;
+  };
+}
+
+console.log(add(5)(3)); // 8
+```
+
+### ❓ scope of var in JavaScript?
+
+- var is function-scoped, not block-scoped.
+- var is function-scoped and ignores block scope (if, for, while).
+
+```js
+// S1
+if (true) {
+  var name = "Nick";
+}
+console.log(name); // Nick
+
+// S1
+function user() {
+  var role = "Admin";
+}
+console.log(role); // ReferenceError: role is not defined
+```
+
+### ❓ Callback Function in JavaScript?
+
+- A callback is a function passed as an argument to another function and executed later.
+- Event handlers (onClick), Array methods (map, filter, forEach), Timers (setTimeout)
+
+```js
+function greet(name, callback) {
+  console.log(`Hello ${name}`);
+  callback();
+}
+
+greet("Nick", () => console.log("Welcome")); // Hello Nick Welcome
+```
+
+### ❓ difference between var, let, and const?
+
+- var, let, and const are used to declare variables, but they differ in scope, redeclaration, and reassignment behavior.
+  - var - Function Scope, Hoisted
+  - let - Block Scope, Hoisted (TDZ)
+  - const - Block Scope, Hoisted (TDZ)
+- Use const by default, let when the value changes, and avoid var because it is function-scoped and allows redeclaration.
+
+```js
+// >>>>> var
+var a = 10;
+var a = 20; // ✅ redeclare
+a = 30; // ✅ update
+
+// >>>>> let
+let b = 10;
+// let b = 20; // ❌ redeclare
+b = 30; // ✅ update
+
+// >>>>> const
+const c = 10;
+// const c = 20; // ❌ redeclare
+// c = 30;       // ❌ update
+
+// >>>>> Real-life Usage
+const API_URL = "/users"; // fixed
+let count = 0; // changes
+var oldCode = "legacy"; // avoid in modern JS
+```
+
+### ❓
+
+- What will be the output?
+
+```js
+a = 34;
+let a;
+
+console.log(a); // ReferenceError: Cannot access 'a' before initialization
+```
+
+- You cannot use a variable before declaring it with let due to Temporal Dead Zone (TDZ).
+
+### ❓
+
+```js
+// Comment
+```
+
+### ❓
+
+```js
+// Comment
+```
+
+### ❓
+
+```js
+// Comment
+```
+
+### ❓
+
+```js
+// Comment
 ```
 
 ### ❓
