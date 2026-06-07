@@ -282,16 +282,39 @@
 </tr>
 ```
 
-### ❓
+### ❓ types of lists in HTML?
+
+- HTML has 3 types of lists: Ordered List, Unordered List, and Description List.
+  - ol → steps (checkout process, instructions)
+  - ul → menus, navigation, product lists
+  - dl → glossary, key-value data display
 
 ```html
+<!-- Ordered List -->
+<ol>
+  <li>Apple</li>
+  <li>Banana</li>
+</ol>
 
+<!-- Unordered List -->
+<ul>
+  <li>Apple</li>
+  <li>Banana</li>
+</ul>
+
+<!-- Description List -->
+<dl>
+  <dt>HTML</dt>
+  <dd>Markup language</dd>
+</dl>
 ```
 
-### ❓
+### ❓ HTML Lazy Loading (Images)
+
+- Image loads only when it enters viewport
 
 ```html
-
+<img src="image.jpg" loading="lazy" />
 ```
 
 ### ❓

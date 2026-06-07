@@ -815,43 +815,153 @@ Cleanup timers / listeners (unmount)
 
 - A Fragment in React is a wrapper that lets you group multiple elements without adding an extra DOM node.
 
-### ❓
+### ❓ Can we use JSX without React?
+
+- Yes, JSX can be used without React, but it must be compiled (usually by Babel) into JavaScript function calls like React.createElement or a custom function such as createElement, which returns a JavaScript object representation of UI.
 
 ```jsx
-// Code
+/** @jsx createElement */
+function createElement(tag, props, ...children) {
+  return { tag, props, children };
+}
+const element = <h1>Hello Rao</h1>;
+console.log(element);
+
+// Output
+{
+  tag: "h1",
+  props: null,
+  children: ["Hello Rao"]
+}
 ```
 
-### ❓
+### ❓ difference between Stateless and Stateful Components?
+
+- Stateless components do not manage internal state and only render UI based on props, while stateful components manage their own state and can update UI dynamically.
+  - Stateless → UI display components (buttons, labels, cards)
+  - Stateful → interactive components (forms, counters, modals)
 
 ```jsx
-// Code
+// Stateless Component (Title → renders text only)
+function Title({ text }) {
+  return <h1>{text}</h1>;
+}
+
+// Stateful Component (Counter → 0 → 1 → 2 (on click))
+function Counter() {
+  const [count, setCount] = useState(0);
+  return <button onClick={() => setCount(count + 1)}>{count}</button>;
+}
 ```
 
-### ❓
+### ❓ What is React Fiber?
+
+- React Fiber is React’s internal reconciliation algorithm that breaks rendering into small units of work, allowing updates to be prioritized and making UI rendering smoother and non-blocking.
+- UI updates smoothly without freezing
+- How it works?
+  1. Update Trigger
+  2. Update Trigger
+     - React creates a Fiber Node for each component:
+       - App → Header → Counter → Button
+       - Each node = small unit of work
+  3. Render Phase (Reconciliation)
+     - Virtual DOM is compared
+       - changes are calculated
+       - no UI update yet
+  4. Prioritization
+     - React decides what is important:
+       - 🔴 User input (high priority)
+       - 🟡 Animation
+       - 🟢 Background tasks
+  5. Commit Phase
+     - DOM is updated
+     - UI changes are applied
+
+### ❓ What is Code Splitting in React?
+
+- Code splitting is a performance technique in React where the application is divided into smaller chunks and loaded on demand using dynamic imports, improving initial load time and efficiency.
+- Instead of loading everything at start
+  - Home, About, Profile, Settings
+- Load only when needed
+  - About → loaded when user clicks
 
 ```jsx
-// Code
+import React, { Suspense, lazy } from "react";
+const Dashboard = lazy(() => import("./Dashboard"));
+function App() {
+  return (
+    <Suspense fallback={<h1>Loading...</h1>}>
+      <Dashboard />
+    </Suspense>
+  );
+}
+
+// Output:
+Loading...
+→ then Dashboard loads when required
 ```
 
-### ❓
+### ❓ stale closure in React?
+
+- A stale closure in React occurs when a function captures and uses an outdated state or props value due to closures, often happening inside effects or callbacks, and can be fixed by using functional updates or proper dependency arrays.
 
 ```jsx
-// Code
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setInterval(() => {
+      console.log(count);
+    }, 1000);
+  }, []);
+}
+// Output: 0 0 0 0 ... (always old value)
+
+// Fix
+useEffect(() => {
+  const id = setInterval(() => {
+    setCount((prev) => prev + 1);
+  }, 1000);
+
+  return () => clearInterval(id);
+}, []);
+// Output: 1 2 3 4 ...
 ```
 
-### ❓
+### ❓ What are Optimistic UI Updates?
+
+- Optimistic UI updates are a technique where the UI is updated immediately assuming success, and later corrected if the server request fails, improving user experience by making interactions feel faster.
 
 ```jsx
-// Code
+// >>>>> S1
+function likePost() {
+  setLiked(true); // UI updates immediately
+  fetch("/api/like", { method: "POST" }).catch(() => setLiked(false)); // rollback if failed
+}
+// Frontend: Click → UI shows "Liked" instantly (If error → reverts back to "Not Liked")
+
+// >>>>> S2
+setCart([...cart, product]); // immediate UI update
+await api.addToCart(product);
 ```
 
-### ❓
+- Real-life Usage"
+  - Like / unlike buttons
+  - Adding items to cart
+  - Sending chat messages
+  - Follow/unfollow actions
 
-```jsx
-// Code
-```
+### ❓ What is the difference between CSR and SSR?
 
-### ❓
+- CSR renders UI in the browser after JavaScript loads, while SSR renders HTML on the server and sends a fully rendered page, improving initial load speed and SEO.
+- CSR (React SPA)
+  - React app loads empty HTML first, then JS renders UI in browser
+  - **Steps:** Blank page > Loading JS > UI appears
+  - **Examples:** Angular (SPA mode), Vue.js SPA, Svelte SPA, Vanilla JavaScript apps
+- SSR (Next.js style)
+  - Server sends fully rendered HTML
+  - **Steps:** HTML already visible > Faster first content display
+  - **Examples:** PHP (Laravel, WordPress), Java (Spring MVC), Python (Django, Flask templates), Ruby on Rails, Node.js (Express + template engines like EJS, Pug)
 
 ```jsx
 // Code

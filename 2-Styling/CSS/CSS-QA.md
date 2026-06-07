@@ -243,16 +243,154 @@
 - Flexbox (1D Layout): Works in one direction only (row OR column) Ex. Navbar
 - Grid (2D Layout): Works in rows AND columns together Ex. PageLayout
 
-### ❓
+### ❓ pseudo-classes and pseudo-elements in CSS?
+
+- Pseudo-classes define the state of an element, while pseudo-elements style a specific part of an element.
+- Pseudo-classes target element states like hover or focus, while pseudo-elements style specific parts of an element like first letter, first line, or adding content before/after.
+
+```css
+/* pseudo-class */
+button:hover {
+  background: blue;
+}
+
+/* pseudo-element */
+p::first-line {
+  color: red;
+}
+```
+
+```text
+/* Pseudo-classes */
+:hover
+:focus
+:nth-child(n)
+:first-child
+:last-child
+:active
+:checked
+:disabled
+:visited
+
+/* Pseudo-elements */
+::before
+::after
+::first-letter
+::first-line
+::selection
+```
+
+### ❓ different CSS position types?
+
+- CSS position defines how an element is positioned in a document flow.
+
+```text
+static → normal flow
+relative → shifted position
+absolute → removed from flow, positioned to parent
+fixed → fixed on screen
+sticky → switches between relative & fixed on scroll
+```
+
+```css
+.static {
+  position: static;
+}
+.relative {
+  position: relative;
+  top: 10px;
+}
+.absolute {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.fixed {
+  position: fixed;
+  bottom: 0;
+}
+.sticky {
+  position: sticky;
+  top: 0;
+}
+```
 
 ### ❓
 
-### ❓
+```css
+
+```
 
 ### ❓
 
-### ❓
+```css
+
+```
 
 ### ❓
 
+```css
+
+```
+
 ### ❓
+
+```css
+
+```
+
+### ❓
+
+```css
+
+```
+
+### ❓
+
+```css
+
+```
+
+### ❓
+
+```css
+
+```
+
+### ❓
+
+```css
+
+```
+
+### ❓
+
+```css
+
+```
+
+### ❓
+
+```css
+
+```
+
+### ❓
+
+```css
+
+```
+
+### ❓
+
+```css
+
+```
+
+### ❓
+
+```css
+
+```
+
+---
