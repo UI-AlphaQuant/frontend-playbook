@@ -208,3 +208,79 @@
 | Meta tags     | SEO, mobile responsiveness, social sharing      |
 | Accessibility | Screen readers, keyboard navigation, ARIA       |
 | Performance   | Lazy loading, image optimization, async scripts |
+
+---
+
+### ❓ What is a Void Element in HTML?
+
+- A void element is an HTML tag that does NOT have a closing tag and cannot contain content inside it.
+
+```html
+<img src="photo.jpg" />
+<br />
+<input type="text" />
+<hr />
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="style.css" />
+```
+
+### ❓ Cell Padding vs Cell Spacing (HTML Tables)?
+
+- Cell Padding: Space inside the cell (between content and border)
+- Cell Spacing: Space between cells (Creates gap between table cells)
+
+```html
+<table border="1" cellspacing="10" cellpadding="10">
+  <tr>
+    <td>Ram</td>
+    <td>25</td>
+  </tr>
+</table>
+```
+
+### ❓ Image Map in HTML?
+
+- An image map allows you to make different clickable areas inside a single image.
+- Real-life: World map → click country, Floor plan → click room, Product image → click different parts
+- One image, multiple clickable areas, Works using coordinates
+
+```html
+<img src="world-map.jpg" usemap="#worldmap" />
+
+<map name="worldmap">
+  <area shape="rect" coords="34,44,270,350" href="india.html" />
+  <area shape="circle" coords="500,200,75" href="usa.html" />
+</map>
+```
+
+### ❓
+
+### ❓
+
+```html
+
+```
+
+### ❓
+
+```html
+
+```
+
+### ❓
+
+```html
+
+```
+
+### ❓
+
+```html
+
+```
+
+```html
+
+```
+
+---

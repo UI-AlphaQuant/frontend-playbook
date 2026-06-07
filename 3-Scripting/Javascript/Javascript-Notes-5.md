@@ -202,3 +202,23 @@ canvas.addEventListener("mousemove", (e) => {
 | Canvas State           | Use `save()` / `restore()`   |
 
 ---
+
+## 📌 Famous JavaScript Quirks / WTFs
+
+| Code                 | Result                | Why?                     |
+| -------------------- | --------------------- | ------------------------ |
+| `typeof null`        | `"object"`            | Historical Bug           |
+| `[] + []`            | `""`                  | Array → String           |
+| `[] + {}`            | `"[object Object]"`   | Type Coercion            |
+| `{}` + []            | `0`                   | Parsed As Empty Block    |
+| `1 + "1"`            | `"11"`                | Number → String          |
+| `"5" - 1`            | `4`                   | String → Number          |
+| `"5" + 1`            | `"51"`                | String Concatenation     |
+| `true + true`        | `2`                   | `true = 1`               |
+| `false + false`      | `0`                   | `false = 0`              |
+| `[] == false`        | `true`                | Type Coercion            |
+| `"" == 0`            | `true`                | Type Coercion            |
+| `null == undefined`  | `true`                | Special Equality Rule    |
+| `null === undefined` | `false`               | Different Types          |
+| `NaN === NaN`        | `false`               | NaN Never Equals Itself  |
+| `0.1 + 0.2`          | `0.30000000000000004` | Floating Point Precision |

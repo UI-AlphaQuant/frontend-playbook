@@ -726,6 +726,12 @@ const activeUsers = users.filter((user) => user.active);
 | Mutable   | Changes original array  | `push()` `pop()` `splice()` `sort()` `reverse()`            |
 | Immutable | Returns new array/value | `map()` `filter()` `find()` `reduce()` `slice()` `concat()` |
 
+#### splice
+
+```js
+array.splice(startIndex, deleteCount, item1, item2, ...)
+```
+
 ---
 
 ## 📌 Closures
@@ -2408,8 +2414,6 @@ square(double(2));
 
 ### reduce()
 
-- Accumulator that collects and stores data for later use
-
 ```js
 // Syntax
 array.reduce((accumulator, currentValue) => {
@@ -2420,7 +2424,18 @@ array.reduce((accumulator, currentValue) => {
 const arr = [1, 2, 3, 4];
 const sum = arr.reduce((acc, curr) => acc + curr, 0);
 console.log(sum); // 10
+
+// Flow
+// Step 1: 0 + 1 = 1
+// Step 2: 1 + 2 = 3
+// Step 3: 3 + 3 = 6
+// Step 4: 6 + 4 = 10
 ```
+
+- Accumulator that collects and stores data for later use
+  - acc → accumulator (stores result)
+  - curr → current value
+  - 0 → starting value
 
 ---
 

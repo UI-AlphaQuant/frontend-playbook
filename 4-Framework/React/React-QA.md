@@ -325,35 +325,204 @@ import { add, sub } from "./utils";
 import { add as sum } from "./utils"; // rename
 ```
 
+### ❓ Context API vs Redux
+
+- Context API is used for lightweight global state sharing, while Redux is a powerful state management library for handling complex application state with better scalability and control.
+
+```jsx
+// Context API
+const ThemeContext = createContext();
+<ThemeContext.Provider value="dark">
+  <App />
+</ThemeContext.Provider>;
+
+// Redux
+const store = configureStore({
+  reducer: counterReducer,
+});
+```
+
+### ❓ How to avoid Prop Drilling?
+
+- Prop drilling happens when you pass props through multiple nested components just to reach a deep child.
+- Prop drilling can be avoided using Context API for simple cases and Redux or state management libraries for complex applications.
+- Context API is used to avoid prop drilling by providing global access to shared data like user, theme, or settings, and it can hold multiple values in a single context object.
+  - createContext()
+  - Context.Provider
+  - useContext()
+
+```jsx
+// Problem (Prop Drilling)
+// Without Context, you keep passing props like this: App → Layout → Sidebar → Header → UserProfile
+function App() {
+  const user = "Ram";
+  return <Parent user={user} />;
+}
+function Parent({ user }) {
+  return <Child user={user} />;
+}
+function Child({ user }) {
+  return <GrandChild user={user} />;
+}
+function GrandChild({ user }) {
+  return <h1>{user}</h1>;
+}
+
+// Solution 1: Context API (Best simple fix)
+const AppContext = createContext();
+
+function App() {
+  const data = {
+    user: "Ram",
+    theme: "dark",
+    token: "abc123",
+  };
+
+  return (
+    <AppContext.Provider value={data}>
+      <Child />
+    </AppContext.Provider>
+  );
+}
+
+function UserProfile() {
+  const { user, theme } = useContext(AppContext);
+
+  return (
+    <div>
+      <h1>{user}</h1>
+      <p>Theme: {theme}</p>
+    </div>
+  );
+}
+```
+
+### ❓ useEffect Hook – Syntax & Parameters
+
+- useEffect is a React hook used for side effects. It takes a function and an optional dependency array, controlling when the effect runs and allowing cleanup logic on unmount.
+- Side effects are anything that happens outside of rendering UI or affects something external to the component.
+  - API calls, Timers, DOM manipulation, Local storage access,
+
+```jsx
+// Syntax
+useEffect(() => {
+  // side effect logic, runs when dependencies change
+  console.log("Component Mounted");
+}, [dependency]);
+
+// Cleanup Function
+useEffect(() => {
+  const timer = setInterval(() => {
+    console.log("Running...");
+  }, 1000);
+
+  return () => {
+    clearInterval(timer);
+  };
+}, []);
+```
+
+### ❓ How Dependency Array Works in useEffect?
+
+- Dependency array in useEffect controls when the effect runs:
+  - no array means every render
+  - empty array means only once
+  - values inside array trigger the effect when they change.
+
+```jsx
+// First render, Runs Whenever count changes
+const [count, setCount] = useState(0);
+
+useEffect(() => {
+  console.log("Count updated:", count);
+}, [count]);
+
+return (
+  <div>
+    <h1>Count: {count}</h1>
+    <button onClick={() => setCount(count + 1)}>Increase</button>
+    <button onClick={() => setCount(count - 1)}>Decrease</button>
+  </div>
+);
+```
+
+### ❓ How Routing works in React?
+
+- React routing works using React Router, which maps URLs to components and updates the UI without reloading the page using client-side routing.
+  - Normal Routing: Fixed routes (static paths)
+  - Dynamic Routing: Routes with parameters
+
+```jsx
+// Normal Routing
+<Route path="/about" element={<About />} />
+
+// Dynamic Routing
+<Route path="/user/:id" element={<User />} />
+
+import { useParams } from "react-router-dom";
+function User() {
+  const { id } = useParams();
+  return <h1>User ID: {id}</h1>;
+}
+```
+
+### ❓ Lazy Loading in React?
+
+- Lazy loading in React loads components only when they are needed, improving performance and reducing initial bundle size using React.lazy and Suspense.
+  - Usage with Suspense
+  - Loads immediately with main bundle
+- Do we have to use Suspense with lazy?
+  - Yes, Because React.lazy() loads component asynchronously, React needs Suspense fallback UI while loading. Without Suspense, React will throw an error.
+- React.lazy is used for code-splitting and loads components on demand, while Suspense is required to show a fallback UI during the loading phase.
+
+```jsx
+// Without Lazy Loading
+import About from "./About";
+
+// With Lazy Loading
+import { lazy, Suspense } from "react";
+const About = lazy(() => import("./About"));
+
+// Usage with Suspense
+<Suspense fallback={<h1>Loading...</h1>}>
+  <About />
+</Suspense>;
+```
+
+```jsx
+import { lazy, Suspense } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+const Home = lazy(() => import("./Home"));
+const Profile = lazy(() => import("./Profile"));
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Home</Link> | <Link to="/profile">Profile</Link>
+      </nav>
+
+      <Suspense fallback={<h3>Loading page...</h3>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
+  );
+}
+```
+
 ### ❓
 
-- Data
+```jsx
+// Code
+```
 
 ### ❓
 
-- Data
-
-### ❓
-
-- Data
-
-```js
-// Code
-```
-
-```js
-// Code
-```
-
-```js
-// Code
-```
-
-```js
-// Code
-```
-
-```js
+```jsx
 // Code
 ```
 
