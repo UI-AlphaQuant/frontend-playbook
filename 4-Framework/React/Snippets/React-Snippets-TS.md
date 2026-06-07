@@ -533,3 +533,29 @@ export default function App() {
   ]
 }
 ```
+
+---
+
+## 📌 Custom Hooks
+
+### useLocalStorage.js
+
+```tsx
+import { useState } from "react";
+
+export function useLocalStorage(key, initialValue) {
+  const [value, setValue] = useState(localStorage.getItem(key) || initialValue);
+
+  const updateValue = (newValue) => {
+    localStorage.setItem(key, newValue);
+    setValue(newValue);
+  };
+
+  return [value, updateValue];
+}
+
+// Usage
+const [theme, setTheme] = useLocalStorage("theme", "light");
+
+console.log(theme);
+```

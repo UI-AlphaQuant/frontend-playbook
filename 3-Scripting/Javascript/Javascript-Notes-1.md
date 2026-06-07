@@ -2414,6 +2414,9 @@ square(double(2));
 
 ### reduce()
 
+- reduce() iterates through an array and reduces it to a single value.
+  - Calculate cart total, Count occurrences, Sum marks, prices, quantities
+
 ```js
 // Syntax
 array.reduce((accumulator, currentValue) => {
@@ -2421,15 +2424,14 @@ array.reduce((accumulator, currentValue) => {
 }, initialValue);
 
 // Usage
-const arr = [1, 2, 3, 4];
-const sum = arr.reduce((acc, curr) => acc + curr, 0);
-console.log(sum); // 10
+let arr = [10, 15, 30];
+const sum = arr.reduce((total, item) => total + item, 0);
+console.log(sum); // 55
 
 // Flow
-// Step 1: 0 + 1 = 1
-// Step 2: 1 + 2 = 3
-// Step 3: 3 + 3 = 6
-// Step 4: 6 + 4 = 10
+// total = 0,  item = 10 (0 + 10 = 10)
+// total = 10, item = 15 (10 + 15 = 25)
+// total = 25, item = 30 (25 + 30 = 55)
 ```
 
 - Accumulator that collects and stores data for later use

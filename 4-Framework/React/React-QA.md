@@ -273,8 +273,20 @@
 
 ### ❓Redux vs Context API – When should each be used?
 
-- Context API > Small to medium apps, Theme, Auth, User Settings
-- Redux / RTK > Medium to large apps, Complex global state
+- Context API > Context API is built into React and is used to share simple global data.
+  - Small to medium apps, Theme, Auth, User Settings
+- Redux / RTK > Redux is a dedicated state management library for handling complex global state.
+  - Medium to large apps, Complex global state
+
+```jsx
+// Context API > Context -> theme = "dark"
+<ThemeProvider>
+  <App />
+</ThemeProvider>;
+
+// Redux > Redux -> cart = [product]
+dispatch(addToCart(product));
+```
 
 ### ❓dependencies vs devDependencies
 
@@ -400,14 +412,17 @@ function UserProfile() {
 ### ❓ useEffect Hook – Syntax & Parameters
 
 - useEffect is a React hook used for side effects. It takes a function and an optional dependency array, controlling when the effect runs and allowing cleanup logic on unmount.
+  - Syntax:
+    - A callback function
+    - An optional dependency array
 - Side effects are anything that happens outside of rendering UI or affects something external to the component.
   - API calls, Timers, DOM manipulation, Local storage access,
 
 ```jsx
 // Syntax
+useEffect(callback, dependencies);
 useEffect(() => {
-  // side effect logic, runs when dependencies change
-  console.log("Component Mounted");
+  console.log("Component Mounted"); // side effect logic, runs when dependencies change
 }, [dependency]);
 
 // Cleanup Function
@@ -512,6 +527,352 @@ export default function App() {
     </BrowserRouter>
   );
 }
+```
+
+### ❓ difference between useMemo and useCallback?
+
+- useMemo → memoizes a value
+  - expensive calculations
+  - cart total, filtering, sorting
+- useCallback → memoizes a function
+  - pass stable functions to child components
+  - button handlers, API calls, child props
+
+```jsx
+// useMemo
+const total = useMemo(() => price * qty, [price, qty]);
+
+// useCallback
+const handleClick = useCallback(() => {
+  console.log("Clicked");
+}, []);
+```
+
+### ❓ difference between Memoization and Memorization?
+
+- Memoization stores computed results for reuse; memorization is remembering information as a human.
+- Memoization ✅ JavaScript/Programming concept
+- Memorization ✅ Human learning concept
+
+### ❓ difference between State and Props in React?
+
+- Props are read-only inputs from parent; State is mutable data owned by the component.
+- State → managed inside component, can change
+  - form inputs, loaders, modal visibility, counters
+- Props → passed from parent, read-only
+  - user data, settings, API data passed down
+
+```jsx
+// Props
+<Profile name="Nick" />; // name comes from parent → Prop
+
+// State
+const [isOpen, setIsOpen] = useState(false); // Modal open/close status → State
+```
+
+### ❓ Controlled and Uncontrolled Components in React?
+
+- Controlled components use React state; uncontrolled components use DOM refs.
+- Controlled → React state controls the input
+- Uncontrolled → DOM controls the input
+
+```jsx
+// Controlled
+const [name, setName] = useState("");
+<input value={name} onChange={(e) => setName(e.target.value)} />;
+
+// Uncontrolled
+const inputRef = useRef();
+<input ref={inputRef} />;
+console.log(inputRef.current.value);
+```
+
+### ❓ Higher-Order Component (HOC) in React?
+
+- A HOC is a function that takes a component and returns a new enhanced component.
+- A HOC is a function that adds reusable behavior to a component without modifying it.
+  - withAuth(Profile), withLoader(Dashboard), withPermission(AdminPage)
+
+```jsx
+const withAuth = (Component) => {
+  return () => (isLoggedIn ? <Component /> : <h1>Please Login</h1>);
+};
+const Dashboard = () => <h1>Dashboard</h1>;
+const ProtectedDashboard = withAuth(Dashboard);
+// if isLoggedIn = true > Dashboard
+// if isLoggedIn = false > Please Login
+```
+
+- HOC wraps a component and adds reusable behavior like authentication or permissions.
+
+### ❓ Custom Hook in React?
+
+- A Custom Hook is a reusable function that encapsulates React stateful logic, allowing it to be shared across multiple components.
+- useCounter(), useFetch(), useLocalStorage(), useDebounce()
+
+```jsx
+// useCounter.js
+import { useState } from "react";
+
+export function useCounter() {
+  const [count, setCount] = useState(0);
+  return { count, setCount };
+}
+
+// Home.jsx
+import { useCounter } from "./useCounter";
+
+function Home() {
+  const { count } = useCounter();
+
+  return <h1>{count}</h1>;
+}
+```
+
+### ❓ Why is Fragment better than a div in React?
+
+- Use Fragment when you need a wrapper but don't want an unnecessary DOM element.
+- A div inside table would create invalid HTML.
+
+```jsx
+return (
+  <>
+    <h1>Title</h1>
+    <p>Description</p>
+  </>
+);
+```
+
+### ❓ What is Jest?
+
+- Jest is a JavaScript testing framework used to write and run automated tests for React and JavaScript applications.
+- Jest is a testing framework used to automatically verify that JavaScript and React code works as expected.
+
+```jsx
+// Code
+function sum(a, b) {
+  return a + b;
+}
+
+test("adds two numbers", () => {
+  expect(sum(2, 3)).toBe(5);
+});
+```
+
+### ❓ Redux Toolkit?
+
+- Redux Toolkit is the official Redux library that simplifies state management by reducing boilerplate and providing built-in best practices.
+
+```jsx
+import { createSlice } from "@reduxjs/toolkit";
+
+const counterSlice = createSlice({
+  name: "counter",
+  initialState: { count: 0 },
+  reducers: {
+    increment: (state) => {
+      state.count++;
+    },
+  },
+});
+
+export const { increment } = counterSlice.actions;
+```
+
+### ❓ Redux DevTools?
+
+- Redux DevTools is a browser extension that lets you inspect, track, and debug Redux state changes in real time.
+
+```jsx
+dispatch(increment());
+dispatch(increment());
+dispatch(increment());
+
+// Redux DevTools shows:
+State Before: { count: 2 }
+Action: increment
+State After: { count: 3 }
+```
+
+### ❓ difference between Real DOM and Virtual DOM?
+
+- Virtual DOM is a lightweight copy of the Real DOM that React uses to detect changes and update only the necessary DOM elements, improving performance.
+
+- Real DOM is the actual browser DOM. (Browser DOM)
+  - Real DOM approach → may re-check/update many nodes
+  - Slower, Updates Direct, Vanilla JS
+- Virtual DOM is a lightweight JavaScript copy of the DOM used by React to optimize updates. (JS Object)
+  - Virtual DOM → finds only changed rows and updates them
+  - Faster, Compare then update, React
+
+```jsx
+setCount(count + 1);
+
+// Step 1: React updates Virtual DOM
+// Step 2: Compares old vs new Virtual DOM
+// Step 3: Updates only changed elements in Real DOM
+```
+
+### ❓ transfer data from a Child Component to a Parent Component?
+
+- Parent-to-child communication uses props. Child-to-parent communication uses callback functions passed through props.
+- Parent → Child: Pass data using props.
+- Child → Parent: Pass a callback function as a prop and call it from the child.
+
+```jsx
+// Parent → Child
+function Parent() {
+  return <Child name="Nick" />;
+}
+function Child({ name }) {
+  return <h1>{name}</h1>;
+}
+```
+
+```jsx
+// Child → Parent
+function Parent() {
+  const handleData = (name) => {
+    console.log(name);
+  };
+  return <Child sendData={handleData} />;
+}
+
+function Child({ sendData }) {
+  return <button onClick={() => sendData("Nick")}>Send</button>;
+}
+```
+
+### ❓ Pure Component in React?
+
+- A Pure Component performs a shallow comparison of props and state and re-renders only when their values change, helping improve performance by avoiding unnecessary renders.
+
+```jsx
+// Code
+import React, { PureComponent } from "react";
+
+class User extends PureComponent {
+  render() {
+    console.log("Rendered");
+
+    return <h1>{this.props.name}</h1>;
+  }
+}
+```
+
+- When parent re-renders frequently, User won't re-render unless name changes.
+  - User cards, Product cards, Large tables/lists
+
+### ❓ useReducer in React?
+
+- useReducer is a React hook used to manage complex state using a reducer function and actions, making state updates more predictable and structured than useState.
+
+```jsx
+function reducer(state, action) {
+  switch (action.type) {
+    case "inc":
+      return { count: state.count + 1 };
+    case "dec":
+      return { count: state.count - 1 };
+    default:
+      return state;
+  }
+}
+
+const [state, dispatch] = useReducer(reducer, { count: 0 });
+
+dispatch({ type: "inc" });
+```
+
+### ❓ Component Lifecycle in React?
+
+- Component lifecycle in React refers to the three phases—mounting, updating, and unmounting, where components are created, re-rendered on state/prop changes, and cleaned up when removed from the DOM.
+
+```jsx
+// S1
+useEffect(() => {
+  console.log("Component mounted");
+  return () => {
+    console.log("Component unmounted");
+  };
+}, []);
+
+// S2
+useEffect(() => {
+  const timer = setInterval(() => {}, 1000);
+  return () => clearInterval(timer);
+}, []);
+```
+
+```text
+// Real-life Usage
+Fetch API on page load (mount)
+Update UI when state changes (update)
+Cleanup timers / listeners (unmount)
+```
+
+### ❓ Fragment in React?
+
+- A Fragment in React is a wrapper that lets you group multiple elements without adding an extra DOM node.
+
+### ❓
+
+```jsx
+// Code
+```
+
+### ❓
+
+```jsx
+// Code
+```
+
+### ❓
+
+```jsx
+// Code
+```
+
+### ❓
+
+```jsx
+// Code
+```
+
+### ❓
+
+```jsx
+// Code
+```
+
+### ❓
+
+```jsx
+// Code
+```
+
+### ❓
+
+```jsx
+// Code
+```
+
+### ❓
+
+```jsx
+// Code
+```
+
+### ❓
+
+```jsx
+// Code
+```
+
+### ❓
+
+```jsx
+// Code
 ```
 
 ### ❓

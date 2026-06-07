@@ -253,12 +253,33 @@
 </map>
 ```
 
-### ❓
+### ❓ Empty Elements in HTML?
 
-### ❓
+- Empty elements are HTML elements that do not have a closing tag and cannot contain content.
 
 ```html
+<br />
+<hr />
+<img src="product.jpg" alt="Product" />
+<input type="email" placeholder="Enter email" />
+```
 
+### ❓ How do you merge rows and columns in an HTML table?
+
+- colspan → merges columns
+- rowspan → merges rows
+
+```html
+<tr>
+  <th colspan="2">Name</th>
+  <th>Age</th>
+</tr>
+
+<tr>
+  <td rowspan="2">Rao</td>
+  <td>React</td>
+  <td>28</td>
+</tr>
 ```
 
 ### ❓
