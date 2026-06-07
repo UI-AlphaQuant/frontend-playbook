@@ -1,5 +1,7 @@
 ## 📌 Practical Problems
 
+---
+
 ### ❓ Problem 1
 
 ```js
@@ -13,6 +15,8 @@ console.log(x);
 // S1 Output: "10undefined"
 // S2 Output: NaN
 ```
+
+---
 
 ### ❓ Problem 2
 
@@ -28,6 +32,8 @@ console.log(x == y, z == y, z == x);
 - Arrays and objects are compared by reference, not by value.
 - x and y are different array references.
 - z and y point to the same array.
+
+---
 
 ### ❓ Problem 3
 
@@ -58,6 +64,8 @@ const { pqr: p } = obj.xyz; // 300
 
 - pqr: p means: Get pqr from xyz, Store it in variable p
 
+---
+
 ### ❓ Problem 4
 
 ```js
@@ -74,6 +82,8 @@ console.log(filterArr);
 4 > 3; // true
 5 > 3; // true
 ```
+
+---
 
 ### ❓ Problem 5
 
@@ -104,6 +114,8 @@ str.split(" "); // "My name is John" > ["My", "name", "is", "John"]
 "My"
 ```
 
+---
+
 ### ❓ Problem 6
 
 - What will be the output?
@@ -122,6 +134,8 @@ console.log(a); // ReferenceError: a is not defined
 - Since a is assigned without let, const, or var, JavaScript creates a global variable (in non-strict mode).
 - Assigning a variable without let, const, or var creates a global variable in non-strict mode, but throws a ReferenceError in strict mode.
 
+---
+
 ### ❓ Problem 7 TDZ
 
 ```js
@@ -133,6 +147,8 @@ let b = 100;
 // undefined
 // ReferenceError: Cannot access 'b' before initialization
 ```
+
+---
 
 ### ❓ Problem 8
 
@@ -161,6 +177,8 @@ ignored (no error, no change)
   - Arrays → mutable
   - Strings → immutable
 
+---
+
 ### ❓ Problem 9
 
 ```js
@@ -176,6 +194,8 @@ z = 100; // old value
 a = 101; // then increment
 a + z = 101 + 100
 ```
+
+---
 
 ### ❓ Problem 10
 
@@ -196,6 +216,8 @@ console.log(result); // "yM eman nhoJ"
 ```
 
 - We split the sentence into words, reverse each word using split("") → reverse() → join(""), and then join them back into a string.
+
+---
 
 ### ❓ Problem 11
 
@@ -220,6 +242,8 @@ console.log(result);
 
 - We split the string into characters and use a loop or reduce to count occurrences of each character while ignoring spaces.
 
+---
+
 ### ❓ Problem 12
 
 ```js
@@ -229,6 +253,8 @@ function abc(b, ...a) {
 abc(8, 9, 10, 11, 12);
 // Output: [9, 10, 11, 12]
 ```
+
+---
 
 ### ❓ Problem 13
 
@@ -254,6 +280,8 @@ console.log(nums); // [1, 2, 3]
 
 - We separate values by checking their type using typeof and push them into different arrays using forEach() or reduce().
 
+---
+
 ### ❓ Problem 14
 
 - Swap values without 3rd variable
@@ -267,6 +295,8 @@ let b = 3;
 [a, b] = [b, a]; // Using Destructuring
 console.log(a, b); // 3 2
 ```
+
+---
 
 ### ❓ Problem 15
 
@@ -284,6 +314,8 @@ console.log(result);
 ```
 
 - Array intersection can be found using filter() with includes() or optimized using a Set for faster lookup.
+
+---
 
 ### ❓ Problem 16
 
@@ -311,6 +343,8 @@ function abc() {
 console.log(b); // Output: 50 (var is function scoped, but no function call = no effect on outer value.)
 ```
 
+---
+
 ### ❓ Problem 17
 
 - What is the output of this code?
@@ -324,6 +358,8 @@ console.log(2 + "2"); // 22
 
 - (+) triggers string concatenation
 - (-) converts to number, (+) converts to string when one operand is string.
+
+---
 
 ### ❓ Problem 18
 
@@ -341,6 +377,8 @@ const duplicates = [
 console.log(duplicates); // [2, 1, 8]
 ```
 
+---
+
 ### ❓ Problem 19
 
 - What is the output of this code?
@@ -355,6 +393,8 @@ console.log([] !== []); // true
   - [] --> 0x200
 - Different memory locations = different references.
 - Each [] creates a new array in memory, so their references are different.
+
+---
 
 ### ❓ Problem 20
 
@@ -371,6 +411,8 @@ console.log("" == 0); // true
 
 - In numeric operations, true becomes 1 and false becomes 0.
 - With ==, an empty string "" is converted to 0 before comparison.
+
+---
 
 ### ❓ Problem 21
 
@@ -390,6 +432,8 @@ return { name: "John" }; // { name: 'John' }
 
 - Never put an object on the next line after return; Javascript Automatic Semicolon Insertion (ASI) returns undefined.
 
+---
+
 ### ❓ Problem 22
 
 - find elements greater than a specific value in an array?
@@ -405,6 +449,8 @@ console.log(result); // [75, 61]
 
 - Use filter() to return all elements matching a condition.
 
+---
+
 ### ❓ Problem 23
 
 - What will be the output?
@@ -418,6 +464,8 @@ console.log(a); // ReferenceError: Cannot access 'a' before initialization
 
 - You cannot use a variable before declaring it with let due to Temporal Dead Zone (TDZ).
 
+---
+
 ### ❓ Problem 24
 
 ```js
@@ -430,13 +478,7 @@ console.log(typeof c, c);
 // Output: number NaN
 ```
 
-### ❓ Problem
-
-```js
-// Problem
-
-// Solution
-```
+---
 
 ### ❓ Problem
 
@@ -446,13 +488,7 @@ console.log(typeof c, c);
 // Solution
 ```
 
-### ❓ Problem
-
-```js
-// Problem
-
-// Solution
-```
+---
 
 ### ❓ Problem
 
@@ -462,13 +498,7 @@ console.log(typeof c, c);
 // Solution
 ```
 
-### ❓ Problem
-
-```js
-// Problem
-
-// Solution
-```
+---
 
 ### ❓ Problem
 
@@ -478,13 +508,7 @@ console.log(typeof c, c);
 // Solution
 ```
 
-### ❓ Problem
-
-```js
-// Problem
-
-// Solution
-```
+---
 
 ### ❓ Problem
 
@@ -494,13 +518,7 @@ console.log(typeof c, c);
 // Solution
 ```
 
-### ❓ Problem
-
-```js
-// Problem
-
-// Solution
-```
+---
 
 ### ❓ Problem
 
@@ -510,6 +528,8 @@ console.log(typeof c, c);
 // Solution
 ```
 
+---
+
 ### ❓ Problem
 
 ```js
@@ -517,6 +537,58 @@ console.log(typeof c, c);
 
 // Solution
 ```
+
+---
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+---
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+---
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+---
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+---
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+---
 
 ### ❓ Problem
 

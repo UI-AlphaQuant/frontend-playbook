@@ -259,17 +259,23 @@
 
 ---
 
+---
+
 ### ❓What is componentWillUnmount in React?
 
 - componentWillUnmount() is a lifecycle method in Class Components that runs just before a component is removed from the DOM.
 - It is commonly used for: Removing event listeners, Clearing timers, Cancelling API requests,
 - In Functional Components, we use useEffect cleanup function.
 
+---
+
 ### ❓What is the difference between Redux and Redux Toolkit?
 
 - Redux → More code, manual setup.
 - Redux Toolkit is the modern, recommended way to use Redux with less boilerplate and easier state management.
 - Redux is a state management library that requires actions, reducers, and store setup manually. Redux Toolkit (RTK) is the official Redux solution that reduces boilerplate using createSlice and configureStore.
+
+---
 
 ### ❓Redux vs Context API – When should each be used?
 
@@ -288,15 +294,21 @@
 dispatch(addToCart(product));
 ```
 
+---
+
 ### ❓dependencies vs devDependencies
 
 - dependencies are required to run the application, while devDependencies are only needed during development, testing, or building the application.
 - dependencies: react, axios, redux
 - devDependencies: eslint, vite, typescript
 
+---
+
 ### ❓package.json vs package-lock.json
 
 - package.json defines what dependencies a project needs, while package-lock.json locks the exact versions to ensure consistent installations across environments.
+
+---
 
 ### ❓What if we do not use keys in React?
 
@@ -309,6 +321,8 @@ dispatch(addToCart(product));
   users.map((user) => <li key={user.id}>{user.name}</li>);
 }
 ```
+
+---
 
 ### ❓Default Export vs Named Export
 
@@ -337,6 +351,8 @@ import { add, sub } from "./utils";
 import { add as sum } from "./utils"; // rename
 ```
 
+---
+
 ### ❓ Context API vs Redux
 
 - Context API is used for lightweight global state sharing, while Redux is a powerful state management library for handling complex application state with better scalability and control.
@@ -353,6 +369,8 @@ const store = configureStore({
   reducer: counterReducer,
 });
 ```
+
+---
 
 ### ❓ How to avoid Prop Drilling?
 
@@ -409,6 +427,8 @@ function UserProfile() {
 }
 ```
 
+---
+
 ### ❓ useEffect Hook – Syntax & Parameters
 
 - useEffect is a React hook used for side effects. It takes a function and an optional dependency array, controlling when the effect runs and allowing cleanup logic on unmount.
@@ -437,6 +457,8 @@ useEffect(() => {
 }, []);
 ```
 
+---
+
 ### ❓ How Dependency Array Works in useEffect?
 
 - Dependency array in useEffect controls when the effect runs:
@@ -461,6 +483,8 @@ return (
 );
 ```
 
+---
+
 ### ❓ How Routing works in React?
 
 - React routing works using React Router, which maps URLs to components and updates the UI without reloading the page using client-side routing.
@@ -480,6 +504,8 @@ function User() {
   return <h1>User ID: {id}</h1>;
 }
 ```
+
+---
 
 ### ❓ Lazy Loading in React?
 
@@ -529,6 +555,8 @@ export default function App() {
 }
 ```
 
+---
+
 ### ❓ difference between useMemo and useCallback?
 
 - useMemo → memoizes a value
@@ -548,11 +576,15 @@ const handleClick = useCallback(() => {
 }, []);
 ```
 
+---
+
 ### ❓ difference between Memoization and Memorization?
 
 - Memoization stores computed results for reuse; memorization is remembering information as a human.
 - Memoization ✅ JavaScript/Programming concept
 - Memorization ✅ Human learning concept
+
+---
 
 ### ❓ difference between State and Props in React?
 
@@ -569,6 +601,8 @@ const handleClick = useCallback(() => {
 // State
 const [isOpen, setIsOpen] = useState(false); // Modal open/close status → State
 ```
+
+---
 
 ### ❓ Controlled and Uncontrolled Components in React?
 
@@ -587,6 +621,8 @@ const inputRef = useRef();
 console.log(inputRef.current.value);
 ```
 
+---
+
 ### ❓ Higher-Order Component (HOC) in React?
 
 - A HOC is a function that takes a component and returns a new enhanced component.
@@ -604,6 +640,8 @@ const ProtectedDashboard = withAuth(Dashboard);
 ```
 
 - HOC wraps a component and adds reusable behavior like authentication or permissions.
+
+---
 
 ### ❓ Custom Hook in React?
 
@@ -629,6 +667,8 @@ function Home() {
 }
 ```
 
+---
+
 ### ❓ Why is Fragment better than a div in React?
 
 - Use Fragment when you need a wrapper but don't want an unnecessary DOM element.
@@ -642,6 +682,8 @@ return (
   </>
 );
 ```
+
+---
 
 ### ❓ What is Jest?
 
@@ -658,6 +700,8 @@ test("adds two numbers", () => {
   expect(sum(2, 3)).toBe(5);
 });
 ```
+
+---
 
 ### ❓ Redux Toolkit?
 
@@ -679,6 +723,8 @@ const counterSlice = createSlice({
 export const { increment } = counterSlice.actions;
 ```
 
+---
+
 ### ❓ Redux DevTools?
 
 - Redux DevTools is a browser extension that lets you inspect, track, and debug Redux state changes in real time.
@@ -693,6 +739,8 @@ State Before: { count: 2 }
 Action: increment
 State After: { count: 3 }
 ```
+
+---
 
 ### ❓ difference between Real DOM and Virtual DOM?
 
@@ -712,6 +760,8 @@ setCount(count + 1);
 // Step 2: Compares old vs new Virtual DOM
 // Step 3: Updates only changed elements in Real DOM
 ```
+
+---
 
 ### ❓ transfer data from a Child Component to a Parent Component?
 
@@ -743,6 +793,8 @@ function Child({ sendData }) {
 }
 ```
 
+---
+
 ### ❓ Pure Component in React?
 
 - A Pure Component performs a shallow comparison of props and state and re-renders only when their values change, helping improve performance by avoiding unnecessary renders.
@@ -762,6 +814,8 @@ class User extends PureComponent {
 
 - When parent re-renders frequently, User won't re-render unless name changes.
   - User cards, Product cards, Large tables/lists
+
+---
 
 ### ❓ useReducer in React?
 
@@ -783,6 +837,8 @@ const [state, dispatch] = useReducer(reducer, { count: 0 });
 
 dispatch({ type: "inc" });
 ```
+
+---
 
 ### ❓ Component Lifecycle in React?
 
@@ -811,9 +867,13 @@ Update UI when state changes (update)
 Cleanup timers / listeners (unmount)
 ```
 
+---
+
 ### ❓ Fragment in React?
 
 - A Fragment in React is a wrapper that lets you group multiple elements without adding an extra DOM node.
+
+---
 
 ### ❓ Can we use JSX without React?
 
@@ -835,6 +895,8 @@ console.log(element);
 }
 ```
 
+---
+
 ### ❓ difference between Stateless and Stateful Components?
 
 - Stateless components do not manage internal state and only render UI based on props, while stateful components manage their own state and can update UI dynamically.
@@ -853,6 +915,8 @@ function Counter() {
   return <button onClick={() => setCount(count + 1)}>{count}</button>;
 }
 ```
+
+---
 
 ### ❓ What is React Fiber?
 
@@ -877,6 +941,8 @@ function Counter() {
      - DOM is updated
      - UI changes are applied
 
+---
+
 ### ❓ What is Code Splitting in React?
 
 - Code splitting is a performance technique in React where the application is divided into smaller chunks and loaded on demand using dynamic imports, improving initial load time and efficiency.
@@ -900,6 +966,8 @@ function App() {
 Loading...
 → then Dashboard loads when required
 ```
+
+---
 
 ### ❓ stale closure in React?
 
@@ -928,6 +996,8 @@ useEffect(() => {
 // Output: 1 2 3 4 ...
 ```
 
+---
+
 ### ❓ What are Optimistic UI Updates?
 
 - Optimistic UI updates are a technique where the UI is updated immediately assuming success, and later corrected if the server request fails, improving user experience by making interactions feel faster.
@@ -951,6 +1021,8 @@ await api.addToCart(product);
   - Sending chat messages
   - Follow/unfollow actions
 
+---
+
 ### ❓ What is the difference between CSR and SSR?
 
 - CSR renders UI in the browser after JavaScript loads, while SSR renders HTML on the server and sends a fully rendered page, improving initial load speed and SEO.
@@ -967,11 +1039,7 @@ await api.addToCart(product);
 // Code
 ```
 
-### ❓
-
-```jsx
-// Code
-```
+---
 
 ### ❓
 
@@ -979,17 +1047,31 @@ await api.addToCart(product);
 // Code
 ```
 
-### ❓
-
-```jsx
-// Code
-```
+---
 
 ### ❓
 
 ```jsx
 // Code
 ```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
 
 ### ❓
 

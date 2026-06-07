@@ -220,6 +220,8 @@
 
 ---
 
+---
+
 ### ❓ display: none vs visibility: hidden?
 
 - display: none
@@ -230,6 +232,8 @@
   - Element still rendered
 - Both make element non-interactive (no clicks possible)
 
+---
+
 ### ❓ CSS Specificity (Lowest → Highest)
 
 - CSS specificity determines priority of styles, where \* has the lowest priority and !important has the highest, overriding all other rules.
@@ -238,10 +242,14 @@
   - Highest → !important
 - Lowest → \* → element → class → ID → inline → !important → Highest
 
+---
+
 ### ❓ Flexbox vs Grid (CSS)?
 
 - Flexbox (1D Layout): Works in one direction only (row OR column) Ex. Navbar
 - Grid (2D Layout): Works in rows AND columns together Ex. PageLayout
+
+---
 
 ### ❓ pseudo-classes and pseudo-elements in CSS?
 
@@ -280,6 +288,8 @@ p::first-line {
 ::selection
 ```
 
+---
+
 ### ❓ different CSS position types?
 
 - CSS position defines how an element is positioned in a document flow.
@@ -315,11 +325,7 @@ sticky → switches between relative & fixed on scroll
 }
 ```
 
-### ❓
-
-```css
-
-```
+---
 
 ### ❓
 
@@ -327,11 +333,7 @@ sticky → switches between relative & fixed on scroll
 
 ```
 
-### ❓
-
-```css
-
-```
+---
 
 ### ❓
 
@@ -339,11 +341,7 @@ sticky → switches between relative & fixed on scroll
 
 ```
 
-### ❓
-
-```css
-
-```
+---
 
 ### ❓
 
@@ -351,11 +349,7 @@ sticky → switches between relative & fixed on scroll
 
 ```
 
-### ❓
-
-```css
-
-```
+---
 
 ### ❓
 
@@ -363,11 +357,7 @@ sticky → switches between relative & fixed on scroll
 
 ```
 
-### ❓
-
-```css
-
-```
+---
 
 ### ❓
 
@@ -375,17 +365,63 @@ sticky → switches between relative & fixed on scroll
 
 ```
 
-### ❓
-
-```css
-
-```
+---
 
 ### ❓
 
 ```css
 
 ```
+
+---
+
+### ❓
+
+```css
+
+```
+
+---
+
+### ❓
+
+```css
+
+```
+
+---
+
+### ❓
+
+```css
+
+```
+
+---
+
+### ❓
+
+```css
+
+```
+
+---
+
+### ❓
+
+```css
+
+```
+
+---
+
+### ❓
+
+```css
+
+```
+
+---
 
 ### ❓
 

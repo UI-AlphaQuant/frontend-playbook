@@ -211,6 +211,8 @@
 
 ---
 
+---
+
 ### ❓ What is a Void Element in HTML?
 
 - A void element is an HTML tag that does NOT have a closing tag and cannot contain content inside it.
@@ -223,6 +225,8 @@
 <meta charset="UTF-8" />
 <link rel="stylesheet" href="style.css" />
 ```
+
+---
 
 ### ❓ Cell Padding vs Cell Spacing (HTML Tables)?
 
@@ -237,6 +241,8 @@
   </tr>
 </table>
 ```
+
+---
 
 ### ❓ Image Map in HTML?
 
@@ -253,6 +259,8 @@
 </map>
 ```
 
+---
+
 ### ❓ Empty Elements in HTML?
 
 - Empty elements are HTML elements that do not have a closing tag and cannot contain content.
@@ -263,6 +271,8 @@
 <img src="product.jpg" alt="Product" />
 <input type="email" placeholder="Enter email" />
 ```
+
+---
 
 ### ❓ How do you merge rows and columns in an HTML table?
 
@@ -281,6 +291,8 @@
   <td>28</td>
 </tr>
 ```
+
+---
 
 ### ❓ types of lists in HTML?
 
@@ -309,6 +321,8 @@
 </dl>
 ```
 
+---
+
 ### ❓ HTML Lazy Loading (Images)
 
 - Image loads only when it enters viewport
@@ -316,6 +330,8 @@
 ```html
 <img src="image.jpg" loading="lazy" />
 ```
+
+---
 
 ### ❓
 

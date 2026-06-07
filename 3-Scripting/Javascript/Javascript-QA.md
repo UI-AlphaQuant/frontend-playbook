@@ -199,6 +199,8 @@
 
 ---
 
+---
+
 ### ❓ Q: What is Destructuring in JavaScript?
 
 - Destructuring is a JavaScript feature that allows you to extract values from arrays or properties from objects into separate variables in a concise way.
@@ -221,6 +223,8 @@ const { name, role } = user;
 console.log(name); // Naimesh
 console.log(role); // Frontend Developer
 ```
+
+---
 
 ### ❓ Difference between the Rest (...) and Spread (...) operators.
 
@@ -259,6 +263,8 @@ const props = {
 };
 <UserCard {...props} />;
 ```
+
+---
 
 ### ❓ What will be the output?
 
@@ -304,6 +310,8 @@ console.log(employ);
 let employ = person;
 ```
 
+---
+
 ### ❓ Why were Promises introduced in JavaScript?
 
 - Promises were introduced to simplify asynchronous programming, avoid callback hell, and provide better error handling and chaining.
@@ -321,6 +329,8 @@ getUser(function (user) {
 // With Promises
 getUser().then(getOrders).then(getPayment).catch(handleError);
 ```
+
+---
 
 ### ❓ What are Promises, and how do they help in handling asynchronous operations?
 
@@ -365,6 +375,8 @@ const foodOrder = new Promise((resolve, reject) => {
 foodOrder.then((msg) => console.log(msg)).catch((err) => console.log(err));
 ```
 
+---
+
 ### ❓ Explain the JavaScript Event Loop. What are the Microtask Queue and Macrotask Queue?
 
 - JavaScript is single-threaded, but it can handle async tasks using the Event Loop.
@@ -390,6 +402,8 @@ console.log("4");
 // 2
 ```
 
+---
+
 ### ❓ null vs undefined
 
 - null: Intentional absence of value
@@ -409,6 +423,8 @@ console.log(null == undefined); // true
 console.log(null === undefined); // false
 ```
 
+---
+
 ### ❓ Template Literals
 
 - Use backticks ` ` to embed variables and expressions inside strings.
@@ -421,6 +437,8 @@ const sum = `Sum: ${a + b}`;
 console.log(sum);
 // Sum: 30
 ```
+
+---
 
 ### ❓ Why use Optional Chaining (?.)?
 
@@ -439,6 +457,8 @@ console.log(user.address?.city); // undefined
 console.log(user?.profile?.name);
 ```
 
+---
+
 ### ❓ What is a Polyfill?
 
 - A polyfill is custom code that adds support for modern JavaScript features in older browsers that don't natively support them.
@@ -452,6 +472,8 @@ Array.prototype.flat
 Promise
 fetch
 ```
+
+---
 
 ### ❓ What is a Transpiler?
 
@@ -469,6 +491,8 @@ var sum = function (a, b) {
 };
 ```
 
+---
+
 ### ❓ Undeclared vs Undefined
 
 - Undeclared: Variable does not exist (Never declared)
@@ -484,6 +508,8 @@ console.log(b); // ReferenceError: b is not defined
 let a;
 console.log(a);
 ```
+
+---
 
 ### ❓ Types of Errors in JavaScript
 
@@ -519,6 +545,8 @@ throw new Error("Something went wrong"); // Error: Something went wrong
 
 - EvalError is a legacy error type related to eval(). Modern JavaScript engines rarely throw it in real-world applications.
 
+---
+
 ### ❓ Can let and const be redeclared?
 
 - No. Both let and const cannot be redeclared in the same scope.
@@ -536,6 +564,8 @@ a = 20; // ✅ Allowed
 const b = 10;
 b = 20; // TypeError: Assignment to constant variable
 ```
+
+---
 
 ### ❓ What is Temporal Dead Zone (TDZ)?
 
@@ -559,6 +589,8 @@ console.log(a); // undefined
 var a = 10;
 ```
 
+---
+
 ### ❓ Object Destructuring
 
 - Object destructuring is a way to extract values from an object into variables.
@@ -574,6 +606,8 @@ const { name, age } = user;
 console.log(name); // Ram
 console.log(age); // 25
 ```
+
+---
 
 ### ❓ How to delete object properties in JavaScript?
 
@@ -607,6 +641,8 @@ console.log(a); // 10 (unchanged)
 - delete → only works on object properties (not on variables)
 - Cannot delete variables declared with let, const, var
 - Variables are stored in memory scope, not object properties.
+
+---
 
 ### ❓ Looping Structures in JavaScript
 
@@ -676,6 +712,8 @@ for (let key in obj) {
 // 3
 ```
 
+---
+
 ### ❓ How to convert an object into an array in JavaScript
 
 - Use Object.keys() for keys, Object.values() for values, and Object.entries() for key-value pairs when converting objects into arrays.
@@ -704,6 +742,8 @@ const arr = Object.entries(obj).map(([key, value]) => {
 console.log(arr); // ["a1", "b2"]
 ```
 
+---
+
 ### ❓ Function Declaration vs Function Expression
 
 - Function declaration is hoisted and can be called before definition, while function expression is not hoisted and is assigned to a variable.
@@ -723,6 +763,8 @@ const greet = function () {
 };
 greet(); // Hello
 ```
+
+---
 
 ### ❓ Higher Order Function (HOF)
 
@@ -745,6 +787,8 @@ processUser(greet); // Hello Ram
 
 - map() iterates over an array, applies a function to each element, and returns a new transformed array.
 
+---
+
 ### ❓ map() vs forEach()
 
 - map() returns a new transformed array, while forEach() is used only for iteration and does not return anything.
@@ -765,6 +809,8 @@ console.log(gstPrices); // [ 118, 236, 354 ]
 prices.forEach((p) => console.log(p)); // 100, 200, 300
 ```
 
+---
+
 ### ❓ Rest Operator (...) Example in JavaScript
 
 - The rest operator (...) collects multiple function arguments or remaining values into a single array.
@@ -776,6 +822,8 @@ function sum(...nums) {
 
 sum(1, 2, 3, 4); // [1, 2, 3, 4]
 ```
+
+---
 
 ### ❓ JSON.parse() Usage in JavaScript?
 
@@ -790,6 +838,8 @@ console.log(data.product); // Phone
 // Another example:
 JSON.parse("{name: Ram}"); // Error (keys must be in double quotes)
 ```
+
+---
 
 ### ❓ JSON Methods in JavaScript
 
@@ -820,6 +870,8 @@ fetch("/api", {
 // receiving data
 const data = JSON.parse(response);
 ```
+
+---
 
 ### ❓ call, apply, bind in JavaScript
 
@@ -873,6 +925,8 @@ fn() called later
 → prints "Ram"
 ```
 
+---
+
 ### ❓ Normal Function vs Arrow Function
 
 ```js
@@ -893,6 +947,8 @@ const sum = (a, b) => a + b;
   - Arrow Function → no own this (inherits)
   - Lexical this
   - Only variable is hoisted (as undefined)
+
+---
 
 ### ❓ Types of Scope in JavaScript?
 
@@ -935,6 +991,8 @@ function outer() {
 outer(); // 50
 ```
 
+---
+
 ### ❓ Lexical Scope vs Closure
 
 - Closure is not just lexical scope; it is a function that remembers variables from its lexical scope even after the outer function has finished execution.
@@ -960,10 +1018,14 @@ this "memory + function" = closure
 - Closure → you took keys of the house with you after leaving
   - Closure = lexical scope + function + preserved memory
 
+---
+
 ### ❓ Methods vs Keywords in JavaScript
 
 - Keywords: Reserved words in JavaScript with special meaning, You cannot use them as variable names, Define logic
 - Methods: Functions that belong to an object, Perform actions
+
+---
 
 ### ❓ ES6 Features
 
@@ -997,6 +1059,8 @@ import x from "./file";
 export default x;
 ```
 
+---
+
 ### ❓ Difference between == and ===?
 
 - == compares values after converting types
@@ -1012,6 +1076,8 @@ console.log([] === []); // false
 
 - Arrays are reference types, so comparison checks memory address, not content.
 - Objects/arrays are compared by reference, not value.
+
+---
 
 ### ❓ primitive and non-primitive data types?
 
@@ -1037,6 +1103,8 @@ function fn() {}
 - Primitive stores value, Non-primitive stores reference.
 - Primitive = copy value, Non-primitive = share reference.
 
+---
+
 ### ❓ difference between every() and some()?
 
 - every() → all elements must pass condition
@@ -1056,6 +1124,8 @@ console.log(nums.some((n) => n > 5)); // true
 
 - every() = all true, some() = any one true.
 
+---
+
 ### ❓ difference between then() and finally() in Promises?
 
 - then() → runs when promise is resolved (success) show API data on UI
@@ -1072,6 +1142,8 @@ fetch("/api/data")
   }); // Runs ALWAYS (success or error) → cleanup step
 ```
 
+---
+
 ### ❓ What is a constructor?
 
 - A constructor is a special function used to create and initialize objects.
@@ -1086,6 +1158,8 @@ class User {
 const u1 = new User("Smith");
 console.log(u1.name); // Smith
 ```
+
+---
 
 ### ❓ add and remove values in an array?
 
@@ -1103,6 +1177,8 @@ arr.pop(); // end
 arr.shift(); // start
 ```
 
+---
+
 ### ❓ add and remove elements in the middle of an array?
 
 ```js
@@ -1117,6 +1193,8 @@ arr.splice(1, 0, 20, 30);
 console.log(arr); // [10, 20, 30, 40] // at index 1, remove 0 items, add values
 ```
 
+---
+
 ### ❓ typeof null and typeof undefined?
 
 ```js
@@ -1126,11 +1204,15 @@ console.log(typeof undefined); // "undefined"
 
 - Returns "object" (historical JavaScript bug)
 
+---
+
 ### ❓ Run a JavaScript file from VS Code terminal?
 
 ```bash
 node main.js
 ```
+
+---
 
 ### ❓ difference between filter() and find()?
 
@@ -1149,6 +1231,8 @@ const user = users.find((user) => user.id === 2);
 console.log(activeUsers); // find -> get user with id 2
 console.log(user); // filter -> get all active users
 ```
+
+---
 
 ### ❓ difference between some() and every()?
 
@@ -1170,6 +1254,8 @@ console.log(hasInactiveUser); // true
 console.log(allUsersActive); // false
 ```
 
+---
+
 ### ❓ Self-Invoking Function (IIFE) in JavaScript?
 
 - An IIFE (Immediately Invoked Function Expression) runs immediately after it is created.
@@ -1180,6 +1266,8 @@ console.log(allUsersActive); // false
   console.log("Hello");
 })();
 ```
+
+---
 
 ### ❓ Anonymous Function in JavaScript?
 
@@ -1193,6 +1281,8 @@ const result = users.map(function (user) {
 
 console.log(result); // [ 'NICK', 'JOHN' ]
 ```
+
+---
 
 ### ❓ Currying in JavaScript?
 
@@ -1208,6 +1298,8 @@ function add(a) {
 
 console.log(add(5)(3)); // 8
 ```
+
+---
 
 ### ❓ scope of var in JavaScript?
 
@@ -1228,6 +1320,8 @@ function user() {
 console.log(role); // ReferenceError: role is not defined
 ```
 
+---
+
 ### ❓ Callback Function in JavaScript?
 
 - A callback is a function passed as an argument to another function and executed later.
@@ -1241,6 +1335,8 @@ function greet(name, callback) {
 
 greet("Nick", () => console.log("Welcome")); // Hello Nick Welcome
 ```
+
+---
 
 ### ❓ difference between var, let, and const?
 
@@ -1272,6 +1368,8 @@ let count = 0; // changes
 var oldCode = "legacy"; // avoid in modern JS
 ```
 
+---
+
 ### ❓ Array Destructuring in JavaScript?
 
 - Array destructuring is a way to extract values from an array into variables using a simple syntax.
@@ -1284,6 +1382,8 @@ console.log(a);
 console.log(b);
 console.log(c);
 ```
+
+---
 
 ### ❓ What is variable shadowing in JavaScript?
 
@@ -1302,6 +1402,8 @@ test(); // 50
 console.log(a); // 10
 ```
 
+---
+
 ### ❓ Hoisting inside a function in JavaScript?
 
 - Hoisting is JavaScript’s behavior where variable and function declarations are moved to the top of their scope (function scope or block scope during compile phase) before code execution.
@@ -1314,6 +1416,8 @@ function test() {
 
 test(); // undefined
 ```
+
+---
 
 ### ❓ Declaration, Assignment, Expression in JavaScript?
 
@@ -1330,6 +1434,8 @@ console.log(a, b); // 10 15
 
 - Expressions are used everywhere where values are calculated or assigned.
 
+---
+
 ### ❓ What happens if two functions have the same name in JavaScript?
 
 - If two functions have the same name, the latest declaration overrides the previous one due to hoisting behavior.
@@ -1344,6 +1450,8 @@ function greet() {
 
 greet(); // Hello John
 ```
+
+---
 
 ### ❓ If a function and a variable have the same name, which one has priority in JavaScript?
 
@@ -1369,6 +1477,8 @@ var test;
   - var test is hoisted as undefined
   - test gets overwritten by 10 (Final value becomes number)
 
+---
+
 ### ❓ Execution Context in JavaScript?
 
 - Execution Context is the environment where JavaScript code runs, including variable storage, function execution, and scope management during program execution.
@@ -1385,6 +1495,8 @@ test = function
 a = 10
 test() runs → new execution context created
 ```
+
+---
 
 ### ❓ difference between Function Declaration and Function Expression?
 
@@ -1410,6 +1522,8 @@ const handleClick = function () {
 };
 ```
 
+---
+
 ### ❓ Tree Shaking in JavaScript?
 
 - Tree shaking is a build optimization technique that removes unused code (dead code) from the final bundle, resulting in a smaller and faster application.
@@ -1424,6 +1538,8 @@ export function multiply() {}
 
 import { add } from "./utils"; // Only add function is kept in final bundle
 ```
+
+---
 
 ### ❓ CORS in simple terms?
 
@@ -1449,6 +1565,8 @@ fetch("https://api.site.com/data")
 <script src="https://cdn.site.com/lib.js"></script>
 ```
 
+---
+
 ### ❓ What causes UI jank?
 
 - UI jank happens when the main thread is blocked by heavy computations or large DOM updates, causing the browser to drop frames and resulting in a laggy or unresponsive user interface.
@@ -1468,11 +1586,7 @@ for (let i = 0; i < 1e8; i++) {
 // UI freezes during execution
 ```
 
-### ❓
-
-```js
-// Comment
-```
+---
 
 ### ❓
 
@@ -1480,11 +1594,7 @@ for (let i = 0; i < 1e8; i++) {
 // Comment
 ```
 
-### ❓
-
-```js
-// Comment
-```
+---
 
 ### ❓
 
@@ -1492,11 +1602,7 @@ for (let i = 0; i < 1e8; i++) {
 // Comment
 ```
 
-### ❓
-
-```js
-// Comment
-```
+---
 
 ### ❓
 
@@ -1504,17 +1610,47 @@ for (let i = 0; i < 1e8; i++) {
 // Comment
 ```
 
-### ❓
-
-```js
-// Comment
-```
+---
 
 ### ❓
 
 ```js
 // Comment
 ```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
 
 ### ❓
 
