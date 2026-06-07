@@ -405,6 +405,87 @@ console.log(result); // [75, 61]
 
 - Use filter() to return all elements matching a condition.
 
+### ❓ Problem 23
+
+- What will be the output?
+
+```js
+a = 34;
+let a;
+
+console.log(a); // ReferenceError: Cannot access 'a' before initialization
+```
+
+- You cannot use a variable before declaring it with let due to Temporal Dead Zone (TDZ).
+
+### ❓ Problem 24
+
+```js
+// Problem
+const a = 10;
+const b = "Nick";
+const c = a - b;
+
+console.log(typeof c, c);
+// Output: number NaN
+```
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
 ### ❓ Problem
 
 ```js

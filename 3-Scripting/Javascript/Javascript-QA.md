@@ -1272,18 +1272,201 @@ let count = 0; // changes
 var oldCode = "legacy"; // avoid in modern JS
 ```
 
-### ❓
+### ❓ Array Destructuring in JavaScript?
 
-- What will be the output?
+- Array destructuring is a way to extract values from an array into variables using a simple syntax.
 
 ```js
-a = 34;
-let a;
+const arr = [10, 20, 30];
+const [a, b, c] = arr; // OR [a, b, c] = [10, 20, 30]
 
-console.log(a); // ReferenceError: Cannot access 'a' before initialization
+console.log(a);
+console.log(b);
+console.log(c);
 ```
 
-- You cannot use a variable before declaring it with let due to Temporal Dead Zone (TDZ).
+### ❓ What is variable shadowing in JavaScript?
+
+- Variable shadowing happens when a local variable (inside a block or function) has the same name as a global variable, and the local one overrides the global one within its scope.
+
+```js
+// Comment
+let a = 10;
+
+function test() {
+  let a = 50; // local shadows global
+  console.log(a);
+}
+
+test(); // 50
+console.log(a); // 10
+```
+
+### ❓ Hoisting inside a function in JavaScript?
+
+- Hoisting is JavaScript’s behavior where variable and function declarations are moved to the top of their scope (function scope or block scope during compile phase) before code execution.
+
+```js
+function test() {
+  console.log(a);
+  var a = 10;
+}
+
+test(); // undefined
+```
+
+### ❓ Declaration, Assignment, Expression in JavaScript?
+
+- Declaration is creating a variable, while assignment is giving a value to that variable.
+- An expression is any valid JavaScript code that produces a value.
+
+```js
+let a; // declaration
+a = 10; // assignment
+let b = 5 + 10; // expression
+
+console.log(a, b); // 10 15
+```
+
+- Expressions are used everywhere where values are calculated or assigned.
+
+### ❓ What happens if two functions have the same name in JavaScript?
+
+- If two functions have the same name, the latest declaration overrides the previous one due to hoisting behavior.
+
+```js
+function greet() {
+  console.log("Hello Nick");
+}
+function greet() {
+  console.log("Hello John");
+}
+
+greet(); // Hello John
+```
+
+### ❓ If a function and a variable have the same name, which one has priority in JavaScript?
+
+- Function declarations have higher priority than variables (var) during hoisting, so the function will override the variable.
+- Even though function declarations are hoisted first, the var assignment happens later at runtime and overwrites the function, so typeof test becomes "number".
+
+```js
+var test = 10;
+function test() {
+  console.log("Hello");
+}
+console.log(typeof test); // number
+```
+
+```js
+// Hoisting phase
+function test() {}
+var test;
+```
+
+- Steps
+  - Function is hoisted with full definition (function has priority initially)
+  - var test is hoisted as undefined
+  - test gets overwritten by 10 (Final value becomes number)
+
+### ❓ Execution Context in JavaScript?
+
+- Execution Context is the environment where JavaScript code runs, including variable storage, function execution, and scope management during program execution.
+  - Global Execution Context (GEC)
+  - Function Execution Context (FEC)
+  - Eval Execution Context (rarely used)
+
+```js
+// 1. Memory creation phase
+a = undefined
+test = function
+
+// 2. Execution phase
+a = 10
+test() runs → new execution context created
+```
+
+### ❓ difference between Function Declaration and Function Expression?
+
+- Function Declaration is hoisted completely and can be called before definition, while Function Expression is assigned to a variable and behaves like a normal variable, so it is not usable before initialization.
+  - Function Declaration
+    - Utility helpers
+    - Math functions
+    - API service functions
+  - Function Expression
+    - Event handlers
+    - Callbacks (map, filter)
+    - Conditional assignment
+
+```js
+// Declaration → utility functions
+function calculateTotal() {
+  return 100;
+}
+
+// Expression → event handlers
+const handleClick = function () {
+  console.log("Clicked");
+};
+```
+
+### ❓ Tree Shaking in JavaScript?
+
+- Tree shaking is a build optimization technique that removes unused code (dead code) from the final bundle, resulting in a smaller and faster application.
+  - Removing unused helper functions
+  - Reducing React app bundle size
+  - Used by tools like Webpack, Vite, Rollup
+
+```js
+// utils.js
+export function add() {}
+export function multiply() {}
+
+import { add } from "./utils"; // Only add function is kept in final bundle
+```
+
+### ❓ CORS in simple terms?
+
+- CORS is a browser security mechanism that controls whether a frontend application can access resources from a different domain, and it prevents unauthorized cross-origin requests.
+  - Frontend (React) calling backend APIs
+  - Third-party API integrations
+  - Payment gateways (Stripe, Razorpay)
+  - Prevents unauthorized cross-site data access
+
+```js
+fetch("https://api.example.com/data");
+// If your frontend is on: https://myapp.com
+// and API is on: https://api.example.com
+
+// Output: Blocked by CORS policy OR Data received successfully
+```
+
+- CORS is not only for APIs. It is a browser security rule for all cross-origin HTTP requests, including APIs, fonts, images, scripts, and any resource loaded from another domain.
+
+```jsx
+fetch("https://api.site.com/data")
+<img src="https://cdn.site.com/image.jpg" />
+<script src="https://cdn.site.com/lib.js"></script>
+```
+
+### ❓ What causes UI jank?
+
+- UI jank happens when the main thread is blocked by heavy computations or large DOM updates, causing the browser to drop frames and resulting in a laggy or unresponsive user interface.
+  - Scroll / click becomes laggy or frozen
+- Real-life Causes:
+  - Heavy JavaScript execution on main thread
+  - Large DOM updates at once
+  - Expensive re-renders in React
+  - Synchronous API/data processing
+  - Unoptimized loops or calculations
+
+```js
+for (let i = 0; i < 1e8; i++) {
+  // heavy loop blocking UI
+}
+// 1e8 = 1 × 10⁸ (100,000,000).
+// UI freezes during execution
+```
 
 ### ❓
 
@@ -1338,3 +1521,5 @@ console.log(a); // ReferenceError: Cannot access 'a' before initialization
 ```js
 // Comment
 ```
+
+---
