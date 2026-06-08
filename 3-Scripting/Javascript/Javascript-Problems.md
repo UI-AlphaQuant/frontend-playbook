@@ -480,12 +480,36 @@ console.log(typeof c, c);
 
 ---
 
-### ❓ Problem
+### ❓ Problem 25
 
 ```js
 // Problem
+const result1 = ["10", "10", "10"].map(parseInt);
+const result2 = ["10", "10", "10", "10", "10"].map(parseInt);
+const result3 = ["10", 10, "10", "10", "10"].map(parseInt);
 
-// Solution
+console.log(result1); // Output: [ 10, NaN, 2 ]
+console.log(result2); // Output: [ 10, NaN, 2, 3, 4 ]
+console.log(result3); // Output: [ 10, NaN, 2, 3, 4 ]
+```
+
+```text
+// Step-by-step Execution
+parseInt("10", 0); // 10 (base 10 default)
+parseInt("10", 1); // NaN (invalid radix)
+parseInt("10", 2); // 2 (binary)
+parseInt("10", 3); // 3 in base-3 → 3
+parseInt("10", 4); // 4 in base-4 → 4
+parseInt("10", 5); // 5 in base-5 → 5
+```
+
+- Wrong function is passed to map
+- The output is [10, NaN, 2, 3, 4, 5] because map passes index as the second argument, which is treated as radix in parseInt, leading to unexpected base conversions.
+- Yes, you can use parseInt with arrays using map(), but you should not directly pass parseInt into map, because it behaves unexpectedly due to extra arguments.
+
+```js
+const arr = ["10", "10", "10"];
+console.log(arr.map(Number));
 ```
 
 ---

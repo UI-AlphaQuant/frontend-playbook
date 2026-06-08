@@ -222,3 +222,141 @@ canvas.addEventListener("mousemove", (e) => {
 | `null === undefined` | `false`               | Different Types          |
 | `NaN === NaN`        | `false`               | NaN Never Equals Itself  |
 | `0.1 + 0.2`          | `0.30000000000000004` | Floating Point Precision |
+
+---
+
+## 📌 ECMAScript (ES)
+
+- ECMAScript is the official specification for JavaScript that defines the language syntax, features, and behavior implemented by JavaScript engines.
+
+| Item          | Description                           |
+| ------------- | ------------------------------------- |
+| Full Form     | ECMAScript                            |
+| Purpose       | JavaScript Language Specification     |
+| Maintained By | :contentReference[oaicite:0]{index=0} |
+| JavaScript    | Implementation Of ECMAScript          |
+
+```txt
+ECMAScript = Blueprint
+JavaScript = Actual Building
+```
+
+- Why ECMAScript?
+  - Before: Browsers Implemented JavaScript Differently
+  - Problem: Inconsistent Behavior
+  - Solution: ECMAScript Specification > Standard Rules
+
+### Version Timeline
+
+| Version      | Year    | Major Features                        |
+| ------------ | ------- | ------------------------------------- |
+| ES5          | 2009    | Strict Mode, JSON                     |
+| ES6 (ES2015) | 2015    | let, const, Arrow Functions, Classes  |
+| ES2016       | 2016    | `includes()`                          |
+| ES2017       | 2017    | Async/Await                           |
+| ES2018       | 2018    | Object Spread                         |
+| ES2019       | 2019    | flat(), flatMap()                     |
+| ES2020       | 2020    | Optional Chaining, Nullish Coalescing |
+| ES2021       | 2021    | replaceAll()                          |
+| ES2022       | 2022    | Top-Level Await                       |
+| ES2023+      | Ongoing | Incremental Features                  |
+
+### ECMAScript vs Prototype
+
+| Concept    | Purpose                          |
+| ---------- | -------------------------------- |
+| ECMAScript | Language Specification           |
+| Prototype  | JavaScript Inheritance Mechanism |
+
+```txt
+ECMAScript > Defines Rules
+Prototype > Part Of Those Rules
+```
+
+- ECMAScript specifies:
+  - Objects, Functions, Classes, Prototypes, Inheritance
+  - JavaScript implements them.
+
+### Prototype Chain
+
+```txt
+user
+ ↓
+User.prototype
+ ↓
+Object.prototype
+ ↓
+null
+```
+
+```js
+const arr = [1, 2, 3];
+arr.toString();
+// arr
+// ↓
+// Array.prototype
+// ↓
+// Object.prototype
+
+"John".includes("J");
+// "John"
+// ↓
+// String.prototype
+// ↓
+// includes()
+```
+
+- JavaScript Does NOT Use Classical Inheritance, JavaScript Uses Prototypal Inheritance
+- Property Lookup Process: JavaScript searches until it finds the property.
+
+### Common Built-in Prototypes
+
+| Prototype          | Memory Trick                | Methods Used Daily                                 |
+| ------------------ | --------------------------- | -------------------------------------------------- |
+| Array.prototype    | `[]`                        | `map`, `filter`, `find`, `reduce`, `some`, `every` |
+| String.prototype   | `""`                        | `includes`, `split`, `trim`, `replace`             |
+| Object.prototype   | `{}`                        | `hasOwnProperty`, `toString`                       |
+| Promise.prototype  | `new Promise()`             | `then`, `catch`, `finally`                         |
+| Function.prototype | `function(){}` / `() => {}` | `call`, `apply`, `bind`                            |
+| Date.prototype     | `new Date()`                | `getTime`, `toISOString`                           |
+
+- When a property or method is accessed, JavaScript first checks the object itself, then walks up the prototype chain until it finds the property or reaches null.
+
+---
+
+## 📌 Reflow vs Repaint vs Compositing
+
+| Process         | What Happens                                   | Performance Cost |
+| --------------- | ---------------------------------------------- | ---------------- |
+| Reflow (Layout) | Browser recalculates element size & position   | 🔴 High          |
+| Repaint         | Browser redraws pixels without changing layout | 🟡 Medium        |
+| Compositing     | Browser moves already painted layers           | 🟢 Low           |
+
+| Reflow 🔴    | Repaint 🟡       | Composite 🟢 |
+| ------------ | ---------------- | ------------ |
+| width        | background-color | transform    |
+| height       | color            | opacity      |
+| margin       | border-color     | filter       |
+| padding      | box-shadow       |              |
+| border-width | visibility       |              |
+| font-size    | outline          |              |
+| display      |                  |              |
+| position     |                  |              |
+| top          |                  |              |
+| left         |                  |              |
+| right        |                  |              |
+| bottom       |                  |              |
+
+```txt
+DOM
+↓
+Style
+↓
+Layout Calculation
+↓
+Paint
+↓
+Composite
+```
+
+---
