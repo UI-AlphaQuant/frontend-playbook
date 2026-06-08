@@ -803,6 +803,56 @@ console.log(Math.floor(Math.random() * 10));
 // Random number: 0-9
 ```
 
+### parseInt()
+
+- parseInt converts a string into a number, and radix tells which number system (base) to use.
+
+| Purpose    | Convert Value To Integer           |
+| ---------- | ---------------------------------- |
+| Returns    | Integer Number                     |
+| Removes    | Decimal Part                       |
+| Common Use | User Input, Query Params, API Data |
+
+```js
+// Syntax
+parseInt(value, radix);
+```
+
+| Code                | Result |
+| ------------------- | ------ |
+| `parseInt("10")`    | `10`   |
+| `parseInt("100")`   | `100`  |
+| `parseInt("-5")`    | `-5`   |
+| `parseInt("10px")`  | `10`   |
+| `parseInt("12.99")` | `12`   |
+| `parseInt("abc")`   | `NaN`  |
+
+```js
+// /users?page=5
+const page = parseInt(params.get("page"));
+```
+
+| Radix | Number System         | Allowed Digits | Example              | Result |
+| ----- | --------------------- | -------------- | -------------------- | ------ |
+| 10    | Decimal (Base 10)     | 0-9            | `parseInt("10", 10)` | `10`   |
+| 2     | Binary (Base 2)       | 0,1            | `parseInt("10", 2)`  | `2`    |
+| 8     | Octal (Base 8)        | 0-7            | `parseInt("10", 8)`  | `8`    |
+| 16    | Hexadecimal (Base 16) | 0-9, A-F       | `parseInt("10", 16)` | `16`   |
+
+| Code                 | Calculation     | Result |
+| -------------------- | --------------- | ------ |
+| `parseInt("101", 2)` | 1×4 + 0×2 + 1×1 | 5      |
+| `parseInt("77", 8)`  | 7×8 + 7         | 63     |
+| `parseInt("FF", 16)` | 15×16 + 15      | 255    |
+| `parseInt("A", 16)`  | 10              | 10     |
+
+| Number System | Base | Digits   | Common Usage                   | Real Example          |
+| ------------- | ---- | -------- | ------------------------------ | --------------------- |
+| Decimal       | 10   | 0-9      | Everyday Programming           | Age = 25, Price = 999 |
+| Binary        | 2    | 0,1      | Computer Logic, Bit Operations | `101 = 5`             |
+| Octal         | 8    | 0-7      | Linux Permissions              | `755`, `644`          |
+| Hexadecimal   | 16   | 0-9, A-F | CSS Colors, Memory, Debugging  | `#FF0000`, `0xFF`     |
+
 ---
 
 ## 📌 Element Methods & Properties

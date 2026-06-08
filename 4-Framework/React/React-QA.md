@@ -1035,40 +1035,100 @@ await api.addToCart(product);
   - **Steps:** HTML already visible > Faster first content display
   - **Examples:** PHP (Laravel, WordPress), Java (Spring MVC), Python (Django, Flask templates), Ruby on Rails, Node.js (Express + template engines like EJS, Pug)
 
+---
+
+### ❓ difference between Shallow Copy and Deep Copy?
+
+- A shallow copy duplicates only the top-level properties and shares nested references, while a deep copy recursively duplicates all nested data, creating a completely independent copy.
+  - Shallow Copy → Updating simple React state
+  - Deep Copy → Editing complex forms, nested API data, Redux state updates
+
 ```jsx
-// Code
+// Shallow Copy (Original object also changed.)
+const user1 = {
+  name: "Nick",
+  address: {
+    city: "Delhi",
+  },
+};
+const user2 = { ...user1 };
+user2.address.city = "Ahmedabad";
+console.log(user1.address.city); // Ahmedabad
+
+// Deep Copy (Original object remains unchanged.)
+const user1 = {
+  name: "Nick",
+  address: {
+    city: "Delhi",
+  },
+};
+const user2 = structuredClone(user1);
+user2.address.city = "Ahmedabad";
+console.log(user1.address.city); // Delhi
 ```
 
 ---
 
-### ❓
+### ❓ What causes memory leaks in React applications?
+
+- Memory leaks in React are commonly caused by uncleaned timers, event listeners, subscriptions, WebSockets, or asynchronous operations that continue running after a component has unmounted.
 
 ```jsx
-// Code
+// >>>>> Uncleaned Timers
+useEffect(() => {
+  const id = setInterval(() => {
+    console.log("Running...");
+  }, 1000);
+
+  return () => clearInterval(id); // Without clearInterval(), the timer continues running.
+}, []);
+
+// >>>>> Unremoved Event Listeners
+useEffect(() => {
+  window.addEventListener("resize", handleResize);
+  return () => {
+    window.removeEventListener("resize", handleResize);
+  };
+}, []);
+
+// >>>>> WebSocket / Subscription Not Closed
+useEffect(() => {
+  const socket = new WebSocket(url);
+  return () => socket.close();
+}, []);
+
+// >>>>> Async Requests Updating Unmounted Components
+useEffect(() => {
+  let mounted = true;
+  fetchData().then((data) => {
+    if (mounted) setData(data);
+  });
+  return () => {
+    mounted = false;
+  };
+}, []);
 ```
 
 ---
 
-### ❓
+### ❓ How does React batching improve rendering?
+
+- React batching improves performance by grouping multiple state updates into a single re-render, reducing unnecessary rendering work and making the UI more efficient.
+- Real-life Usage
+  - Form Submission: setLoading(true); setError(null); setData(response);
+  - Dashboard Updates: setUsers(users); setOrders(orders); setRevenue(revenue);
 
 ```jsx
-// Code
-```
+// Batching
+function App() {
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState("");
 
----
-
-### ❓
-
-```jsx
-// Code
-```
-
----
-
-### ❓
-
-```jsx
-// Code
+  const handleClick = () => {
+    setCount(1);
+    setName("Rao");
+  };
+}
 ```
 
 ---

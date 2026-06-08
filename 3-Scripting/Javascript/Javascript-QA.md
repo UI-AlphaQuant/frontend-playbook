@@ -1095,7 +1095,7 @@ let sym = Symbol("id");
 let big = 123n;
 
 // Non-Primitive
-let obj = { name: "Rao" };
+let obj = { name: "Nick" };
 let arr = [1, 2, 3];
 function fn() {}
 ```
@@ -1146,17 +1146,27 @@ fetch("/api/data")
 
 ### ❓ What is a constructor?
 
-- A constructor is a special function used to create and initialize objects.
+- A constructor is a special method inside a class that automatically runs when an object is created using new, and it is used to initialize object properties.
+- A constructor is used to create multiple objects with the same structure while initializing them with different values.
+- Usage:
+  - Creating multiple users
+  - Product objects in e-commerce
+  - Form models in apps
+  - API response modeling
 
 ```js
-class User {
-  constructor(name) {
+class Employee {
+  constructor(name, role) {
     this.name = name;
+    this.role = role;
   }
 }
 
-const u1 = new User("Smith");
-console.log(u1.name); // Smith
+const emp1 = new Employee("Nick", "Frontend Developer");
+const emp2 = new Employee("John", "QA Engineer");
+
+console.log(emp1); // { name: "Nick", role: "Frontend Developer" }
+console.log(emp2); // { name: "John", role: "QA Engineer" }
 ```
 
 ---
@@ -1290,6 +1300,7 @@ console.log(result); // [ 'NICK', 'JOHN' ]
 - Currying breaks a function into multiple functions, each taking one argument.
 
 ```js
+// S1
 function add(a) {
   return function (b) {
     return a + b;
@@ -1297,6 +1308,12 @@ function add(a) {
 }
 
 console.log(add(5)(3)); // 8
+
+// S2
+const withAuth = (token) => (url) =>
+  fetch(url, {
+    headers: { Authorization: token },
+  });
 ```
 
 ---
@@ -1584,6 +1601,164 @@ for (let i = 0; i < 1e8; i++) {
 }
 // 1e8 = 1 × 10⁸ (100,000,000).
 // UI freezes during execution
+```
+
+---
+
+### ❓ What is ECMAScript?
+
+- ECMAScript is the standard specification that defines how JavaScript should work. JavaScript is an implementation of ECMAScript.
+  - ECMAScript = Rules book
+  - JavaScript = Language built using those rules
+
+```js
+// ES5 → old JavaScript (var, functions)
+// ES6 (ES2015) → modern JS (let, const, arrow functions, classes)
+// ES7+ → async/await, optional chaining, etc.
+```
+
+---
+
+### ❓ structuredClone() a function or a method?
+
+- structuredClone() is a built-in global function in JavaScript used to create a deep copy of an object.
+
+```js
+const user = {
+  name: "Rao",
+  address: {
+    city: "Nadiad",
+  },
+};
+const copy = structuredClone(user);
+console.log(copy);
+// Output:
+// {
+//   name: "Rao",
+//   address: {
+//     city: "Nadiad"
+//   }
+// }
+```
+
+---
+
+### ❓ How do you identify a built-in function vs a built-in method in JavaScript?
+
+- Built-in functions are called directly from the global scope, such as parseInt() and structuredClone(), while built-in methods belong to built-in objects like Array, String, Math, or JSON and are called using dot notation, such as array.map() or Math.max().
+  - Built-in Functions are Called directly without an object.
+  - Built-in Methods are Called through an object using (.)
+
+```js
+// Built-in Functions
+parseInt("10");
+parseFloat("10.5");
+isNaN("abc");
+structuredClone(obj);
+
+// Built-in Methods
+Math.max(10, 20);
+arr.map((x) => x * 2);
+str.toUpperCase();
+date.getFullYear();
+```
+
+---
+
+### ❓ Explain Reflow vs Repaint vs Compositing.
+
+- Reflow (Layout): Browser recalculates element sizes and positions.
+  - Recalculate positions, Repaint pixels, Composite layers
+- Repaint: Browser redraws element appearance without changing layout.
+  - Repaint pixels, Composite layers
+- Compositing: Browser combines layers and displays them on screen, often using the GPU. (GPU-Friendly)
+  - Reuses existing layer, Moves/fades/scales it
+
+```jsx
+// Reflow (Most Expensive)
+element.style.width = "200px";
+element.style.height = "100px";
+element.style.display = "none";
+
+// Repaint (Medium Cost)
+element.style.backgroundColor = "red";
+element.style.color = "white";
+
+// Compositing (Cheapest)
+element.style.transform = "translateX(100px)";
+element.style.opacity = "0.5";
+```
+
+- Compositing is smoother because the browser can move or blend existing layers directly (often using the GPU) without recalculating layout or repainting pixels.
+
+---
+
+### ❓ Explain Debounce and Throttle with examples.
+
+- Debounce: Executes a function only after the user stops triggering an event for a specified time.
+  - Search boxes, Auto-save forms, Username availability checks
+  - Only the final value triggers the API call.
+  - User stops typing > API call
+- Throttle: Executes a function at most once within a specified time interval, no matter how many times the event fires.
+  - Scroll events, Window resize, Mouse movement tracking
+  - Runs at most once per second.
+  - Continuous events > Limited execution rate
+
+```js
+// >>>>> Debounce
+function debounce(fn, delay) {
+  let timer;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn(...args);
+    }, delay);
+  };
+}
+const search = debounce((value) => {
+  console.log("API Call:", value);
+}, 500);
+
+// >>>>> Throttle
+function throttle(fn, delay) {
+  let waiting = false;
+  return function (...args) {
+    if (waiting) return;
+    fn(...args);
+    waiting = true;
+    setTimeout(() => {
+      waiting = false;
+    }, delay);
+  };
+}
+const handleScroll = throttle(() => {
+  console.log("Scroll Event");
+}, 1000);
+```
+
+```text
+// Debounce
+T
+Te
+Tes
+Test
+(API waits)
+API Call: Test
+
+// Throttle
+Scroll Event
+(wait 1 second)
+Scroll Event
+(wait 1 second)
+Scroll Event
+```
+
+---
+
+### ❓
+
+```js
+// Comment
 ```
 
 ---
