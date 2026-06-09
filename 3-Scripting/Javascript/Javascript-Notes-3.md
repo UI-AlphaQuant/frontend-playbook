@@ -842,12 +842,30 @@ const user = JSON.parse(localStorage.getItem("user"));
 | Persistence         | Temporary               | Permanent                       |
 | Shared Between Tabs | ❌ No                   | ✅ Yes                          |
 
-```js
-// sessionStorage
-sessionStorage.setItem("theme", "dark");
+| Method         | Syntax                               | Purpose            |
+| -------------- | ------------------------------------ | ------------------ |
+| `setItem()`    | `localStorage.setItem("key", value)` | Save Data          |
+| `getItem()`    | `localStorage.getItem("key")`        | Read Data          |
+| `removeItem()` | `localStorage.removeItem("key")`     | Delete One Item    |
+| `clear()`      | `localStorage.clear()`               | Delete Everything  |
+| `key()`        | `localStorage.key(index)`            | Get Key By Index   |
+| `length`       | `localStorage.length`                | Total Stored Items |
 
+| Task          | Code                                    |
+| ------------- | --------------------------------------- |
+| Save String   | `setItem("theme", "dark")`              |
+| Read String   | `getItem("theme")`                      |
+| Save Object   | `setItem("user", JSON.stringify(user))` |
+| Read Object   | `JSON.parse(getItem("user"))`           |
+| Delete Key    | `removeItem("user")`                    |
+| Clear Storage | `clear()`                               |
+
+```js
 // localStorage
 localStorage.setItem("theme", "dark");
+
+// sessionStorage
+sessionStorage.setItem("username", "Nick");
 ```
 
 | `sessionStorage`     | `localStorage`    |
@@ -865,27 +883,51 @@ localStorage.setItem("theme", "dark");
 
 ## 📌 Cookies
 
-Cookies store small pieces of data in the browser.
+- Cookies store small pieces of data in the browser.
+  - Cookie: Can be accessed by both the browser and JavaScript.
+  - HttpOnly Cookie: Can be accessed only by the browser and server; JavaScript cannot read it.
 
-| Feature            | Details                   | Example           |
-| ------------------ | ------------------------- | ----------------- |
-| Small Storage      | Browser-stored data       | User/session info |
-| Sent to Server     | Included in HTTP requests | Authentication    |
-| Expiration Support | Auto expire data          | Login sessions    |
-| String-Based       | Stores text values        | `"theme=dark"`    |
+| Feature                        | Description                 |
+| ------------------------------ | --------------------------- |
+| Purpose                        | Store Small Data In Browser |
+| Size Limit                     | ~4 KB Per Cookie            |
+| Sent To Server                 | ✅ Automatically            |
+| Expiration                     | Configurable                |
+| Shared Across Tabs             | ✅                          |
+| Persists After Browser Restart | ✅ (if expiry set)          |
+
+| Operation | Syntax                                                              | Purpose         |
+| --------- | ------------------------------------------------------------------- | --------------- |
+| Create    | `document.cookie = "theme=dark"`                                    | Save Cookie     |
+| Read All  | `document.cookie`                                                   | Get All Cookies |
+| Update    | `document.cookie = "theme=light"`                                   | Update Cookie   |
+| Delete    | `document.cookie = "theme=; expires=Thu, 01 Jan 1970 00:00:00 UTC"` | Delete Cookie   |
+
+### Cookie Attributes
+
+| Attribute  | Purpose             |
+| ---------- | ------------------- |
+| `expires`  | Expiration Date     |
+| `max-age`  | Lifetime In Seconds |
+| `path`     | Available URL Path  |
+| `domain`   | Available Domain    |
+| `secure`   | HTTPS Only          |
+| `SameSite` | CSRF Protection     |
+| `HttpOnly` | JS Cannot Access    |
 
 ```js
-// Set Cookie
-document.cookie = "theme=dark";
+document.cookie = "theme=dark"; // Set Cookie
+document.cookie = "user=John; expires=Fri, 31 Dec 2027 12:00:00 UTC"; // Set Expiry
+console.log(document.cookie); // Read Cookies
+document.cookie = "theme=; expires=Thu, 01 Jan 1970 00:00:00 UTC"; // Delete Cookie
 
-// Set Expiry
-document.cookie = "user=John; expires=Fri, 31 Dec 2027 12:00:00 UTC";
+// Regular Cookie (JavaScript can read it.)
+// http: Set-Cookie: username=Rao
+Set-Cookie: username=Rao
 
-// Read Cookies
+// HttpOnly Cookie (refreshToken not visible)
+// http: Set-Cookie: refreshToken=xyz123; HttpOnly
 console.log(document.cookie);
-
-// Delete Cookie
-document.cookie = "theme=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 ```
 
 ### Common Cookie Options
@@ -898,12 +940,15 @@ document.cookie = "theme=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 | `secure`   | HTTPS only           | `secure`                                |
 | `SameSite` | CSRF protection      | `SameSite=Strict`                       |
 
-| Real-World Usage | Example                 |
-| ---------------- | ----------------------- |
-| Authentication   | Session/login data      |
-| Preferences      | Theme/language          |
-| Tracking         | Analytics/user tracking |
-| Remember User    | Remember login/settings |
+### Storage Use Cases
+
+| Use Case             | Recommended     |
+| -------------------- | --------------- |
+| Authentication Token | HttpOnly Cookie |
+| Session ID           | Cookie          |
+| Theme Preference     | localStorage    |
+| Language Preference  | localStorage    |
+| Temporary Form Data  | sessionStorage  |
 
 ### Cookies vs LocalStorage
 

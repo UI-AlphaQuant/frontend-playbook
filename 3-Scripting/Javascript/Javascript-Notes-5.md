@@ -4,6 +4,18 @@
 
 Canvas API is used for graphics, games, animations, charts, image editing, and visual rendering.
 
+```txt
+JavaScript
+ ↓
+Canvas Draw Commands
+ ↓
+Rasterization (Paint Pixels)
+ ↓
+Composite
+ ↓
+Screen
+```
+
 ### Canvas Setup
 
 | Method / Property | Purpose             | Example                   | Real-World Usage   |

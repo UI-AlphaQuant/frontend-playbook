@@ -1625,7 +1625,7 @@ for (let i = 0; i < 1e8; i++) {
 
 ```js
 const user = {
-  name: "Rao",
+  name: "Nick",
   address: {
     city: "Nadiad",
   },
@@ -1634,7 +1634,7 @@ const copy = structuredClone(user);
 console.log(copy);
 // Output:
 // {
-//   name: "Rao",
+//   name: "Nick",
 //   address: {
 //     city: "Nadiad"
 //   }
@@ -1751,6 +1751,313 @@ Scroll Event
 Scroll Event
 (wait 1 second)
 Scroll Event
+```
+
+---
+
+### ❓ How does browser rendering work internally?
+
+- The browser renders a webpage by parsing HTML into a DOM tree and CSS into a CSSOM tree, combining them into a render tree, calculating layout, painting pixels, and finally compositing layers onto the screen. This pipeline ensures efficient rendering and updates of web pages.
+  - DOM (Document Object Model)
+  - CSSOM (CSS Object Model)
+
+```text
+HTML
+ ↓
+DOM Tree
+ ↓
+CSSOM Tree
+ ↓
+Render Tree
+ ↓
+Layout (Reflow)
+ ↓
+Paint (Repaint)
+ ↓
+Composite
+ ↓
+Screen
+```
+
+1. Parse HTML → DOM Tree
+   - Browser creates: structure
+2. Parse CSS → CSSOM Tree
+   - Browser creates CSS rules tree.
+3. Build Render Tree
+   - Browser combines: (DOM + CSSOM) to create: Render Tree
+   - Only visible elements are included. (display: none;) Not added to Render Tree.
+4. Layout (Reflow)
+   - Browser calculates: Width, Height, Position, Spacing
+5. Paint (Repaint)
+   - Browser draws: Text, Colors, Borders, Shadows, Images
+6. Composite
+   - Browser combines layers and sends them to the GPU. (transform, opacity)
+   - Often handled without repainting.
+
+---
+
+### ❓ difference between localStorage and sessionStorage?
+
+- Both localStorage and sessionStorage store data in the browser as key-value pairs, but they differ in how long the data persists.
+  - **localStorage** persists data until it is explicitly removed and is shared across tabs of the same origin.
+    - Until manually removed
+    - All tabs of same origin
+    - Survives Browser Restart
+  - **sessionStorage** stores data only for the current browser tab and is cleared when that tab is closed.
+    - Until tab/browser is closed
+    - Current tab only
+    - No Browser Restart
+
+```js
+// localStorage
+localStorage.setItem("datkTheme", true);
+console.log(localStorage.getItem("Dark"));
+
+// sessionStorage
+sessionStorage.setItem("username", "Nick");
+console.log(sessionStorage.getItem("username"));
+```
+
+---
+
+### ❓ Explain authentication vs authorization.
+
+- Authentication verifies a user's identity, such as logging in with a username and password, while authorization determines what resources or actions that authenticated user is allowed to access based on roles or permissions.
+
+- Authentication verifies who you are.
+  - Enter Username + Password
+- Authorization determines what you can access.
+  - Access permissions checked
+    - Can Rao view account details?
+    - Can Rao transfer money?
+    - Can Rao access admin panel?
+
+---
+
+### ❓ Access Token vs Refresh Token?
+
+- Access Token is used to access protected APIs.
+  - Access APIs
+  - Short-lived (minutes/hours)
+- Refresh Token is used to obtain a new access token when the current one expires.
+  - Generate new Access Token
+  - Long-lived (days/weeks/months)
+
+---
+
+### ❓ How do Refresh Tokens work internally?
+
+- A refresh token is a long-lived token used to obtain a new access token when the current access token expires, allowing users to stay logged in without entering credentials again.
+- After login, the server issues a short-lived access token and a long-lived refresh token. When the access token expires, the client sends the refresh token to the server, which validates it and issues a new access token, allowing the user to continue using the application without logging in again.
+
+```text
+Login (Email + Password)
+↓
+Server issues:
+- Access Token (short expiry)
+- Refresh Token (long expiry)
+↓
+User accesses APIs
+↓
+Access Token expires
+↓
+Client sends Refresh Token
+↓
+Server validates Refresh Token
+↓
+New Access Token issued
+↓
+User continues without re-login
+```
+
+```text
+- Login > Server returns: JSON
+{
+  "accessToken": "abc123",
+  "refreshToken": "xyz789"
+}
+
+- API Call
+GET /profile
+Authorization: Bearer abc123 (Works until access token expires.)
+
+- After Expiry
+GET /profile
+Authorization: Bearer abc123 (Response: 401 Unauthorized)
+
+- Refresh Flow
+POST /refresh-token
+{
+  "refreshToken": "xyz789"
+}
+
+- Server validates refresh token and returns:
+{
+  "accessToken": "newAccess123"
+}
+
+- Retry Original Request
+GET /profile
+Authorization: Bearer newAccess123
+```
+
+- If an access token is stolen: Attacker can use it until expiry
+- So we use: Short-lived Access Token + Long-lived Refresh Token
+- This reduces risk while keeping users logged in.
+
+```js
+try {
+  await api.get("/profile");
+} catch (error) {
+  if (error.status === 401) {
+    const { accessToken } = await api.post("/refresh-token");
+    localStorage.setItem("accessToken", accessToken);
+    return api.get("/profile");
+  }
+}
+```
+
+---
+
+### ❓ How do you securely store tokens in frontend applications?
+
+- Access and refresh tokens should be stored in a way that minimizes the risk of theft through XSS (Cross-Site Scripting) and other attacks.
+- Refresh Token
+  - Store in: HttpOnly + Secure + SameSite Cookie ✅ Best
+  - Cannot be accessed by JavaScript
+  - Better protection against XSS
+- Access Token
+  - Common approaches: Memory (React state, Context, Redux, Zustand) ✅ Good
+  - HttpOnly Cookie
+- Less Secure
+  - localStorage ❌ Least Secure
+- sessionStorage ⚠️ Moderate
+
+---
+
+### ❓ What is the delete operator in JavaScript?
+
+- The delete operator removes a property from an object or an element from an array.
+- delete does not reindex arrays. The empty slot is skipped.
+
+```js
+// Comment
+const user = {
+  name: "Rao",
+  age: 30,
+};
+
+delete user.age;
+
+console.log(user);
+```
+
+---
+
+### ❓ What are Browser APIs?
+
+- Browser APIs are built-in features provided by the browser that allow JavaScript to interact with the browser, web page, user device, and external resources.
+  - JavaScript provides the language, while the browser provides APIs.
+  - API's
+    - DOM API -> Manipulate HTML elements
+    - BOM API -> Interact with browser window
+    - Fetch API -> Make HTTP requests
+    - Local Storage API -> Store data in browser
+    - Session Storage API -> Store session data
+    - Geolocation API -> Get user location
+    - History API -> Navigate browser history
+    - WebSocket API -> Real-time communication
+    - Notification API -> Show browser notifications
+    - Clipboard API -> Read/write clipboard
+
+```js
+// DOM API
+document.querySelector(".card");
+
+// Fetch API
+fetch("/users")
+  .then((res) => res.json())
+  .then((data) => console.log(data));
+
+// Local Storage API
+localStorage.setItem("theme", "dark");
+
+// Geolocation API
+navigator.geolocation.getCurrentPosition((position) => {
+  console.log(position.coords.latitude);
+});
+
+// Timer API
+setTimeout(() => {}, 1000);
+setInterval(() => {}, 1000);
+
+// Clipboard API
+navigator.clipboard.writeText("SAVE20");
+
+// WebSocket API
+WebSocket("wss://example.com/socket");
+
+// History API
+history.pushState({}, "", "/profile");
+```
+
+---
+
+### ❓ difference between setTimeout() and setInterval()?
+
+- setTimeout() executes a function once after a specified delay. (API delay, notifications)
+- setInterval() executes a function repeatedly at a specified interval. (Clock, polling, timers, scroll)
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
 ```
 
 ---

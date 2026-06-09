@@ -514,23 +514,45 @@ console.log(arr.map(Number));
 
 ---
 
-### ❓ Problem
+### ❓ Problem 26
 
 ```js
 // Problem
+const x = [];
+x[4] = 1;
+x.forEach((i) => {
+  console.log("Hi");
+});
 
-// Solution
+// Output: Hi
+```
+
+```text
+> x[4] = 1;
+> The array becomes: [ <4 empty items>, 1 ]
+> console.log(x.length); // 5
+> But indices 0, 1, 2, and 3 are empty slots (holes), not actual values.
+> forEach skips empty slots and only runs for existing elements.
 ```
 
 ---
 
-### ❓ Problem
+### ❓ Problem 27
 
 ```js
 // Problem
+const name = "Nick";
+age = 22; // window.age = 22; (Browser)
 
-// Solution
+console.log(delete name); // false
+console.log(delete age); // true
 ```
+
+- delete can remove object properties but cannot remove variables declared with var, let, or const. Therefore delete name returns false, while delete age returns true because age becomes a property of the global object when assigned without a declaration in non-strict mode.
+- Why?
+  - name is a variable declaration, not an object property.
+  - delete cannot remove variables declared with const, let, or var.
+  - Without var, let, or const (in non-strict mode), JavaScript creates a property on the global object.
 
 ---
 

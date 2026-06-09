@@ -1133,6 +1133,123 @@ function App() {
 
 ---
 
+### ❓ How do you optimize bundle size in React?
+
+- Bundle size is optimized by reducing the amount of JavaScript sent to the browser, which improves load time and application performance.
+- Common Techniques:
+  - Code Splitting
+    - User downloads Dashboard code only when visiting that page.
+  - Lazy Loading
+    - Defers loading of heavy components.
+  - Tree Shaking
+    - Imports only required code. Do not Imports entire library.
+  - Remove Unused Dependencies
+    - npm uninstall unused-package
+  - Optimize Images
+    - WebP, AVIF, Lazy-loaded images
+  - Use Production Build
+    - Minifies and optimizes JavaScript automatically.
+
+---
+
+### ❓ How do you avoid unnecessary re-renders in React?
+
+- Avoid unnecessary re-renders by ensuring components re-render only when their props or state actually change.
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
 ### ❓
 
 ```jsx
