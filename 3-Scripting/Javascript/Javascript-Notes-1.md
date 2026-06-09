@@ -248,6 +248,21 @@ Symbols used to perform operations on values and variables.
 - Use `??` for null/undefined fallback
 - Use `?.` to avoid undefined errors
 
+### Special Operators
+
+| Operator     | Purpose                | Example                |
+| ------------ | ---------------------- | ---------------------- |
+| `delete`     | Remove Object Property | `delete user.name`     |
+| `typeof`     | Get Data Type          | `typeof "John"`        |
+| `instanceof` | Check Instance Type    | `user instanceof User` |
+| `in`         | Check Property Exists  | `"name" in user`       |
+| `new`        | Create Object Instance | `new Date()`           |
+| `void`       | Return Undefined       | `void 0`               |
+| `?.`         | Optional Chaining      | `user?.address?.city`  |
+| `??`         | Nullish Coalescing     | `name ?? "Guest"`      |
+| `...`        | Spread / Rest          | `[...arr]`             |
+| `!`          | Logical NOT            | `!isLoggedIn`          |
+
 ---
 
 ## 📌 Type Conversion

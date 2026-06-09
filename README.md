@@ -4,6 +4,14 @@ A structured collection of comprehensive notes for core frontend technologies an
 
 ---
 
+# 👉 Basics
+
+Foundational concepts for frontend development.
+
+- [Frontend Notes](./0-Basics/Frontend-Notes.md) — Essential frontend concepts and fundamentals
+
+---
+
 # 👉 📄 Markup
 
 Learn the foundation of web structure and content.
@@ -45,6 +53,11 @@ Master CSS and styling frameworks for beautiful designs.
 - [Tailwind Notes](./2-Styling/Tailwind/TailwindCSS-Notes.md) — Utility-first CSS framework
 - [Tailwind QA](./2-Styling/Tailwind/Tailwind-QA.md) — Tailwind questions
 
+### Styled Components
+
+- [Styled Components Notes](./2-Styling/Styled-Component/Styled-Component-Notes.md) — CSS-in-JS styling solutions
+- [Styled Components QA](./2-Styling/Styled-Component/Styled-Component-QA.md) — Styled Components questions
+
 ---
 
 # 👉 Scripting
@@ -57,17 +70,33 @@ Core programming languages for interactivity and logic.
 - [JavaScript Notes 2](./3-Scripting/Javascript/Javascript-Notes-2.md) — DOM manipulation and events
 - [JavaScript Notes 3](./3-Scripting/Javascript/Javascript-Notes-3.md) — Asynchronous programming
 - [JavaScript Notes 4](./3-Scripting/Javascript/Javascript-Notes-4.md) — Professional development
+- [JavaScript Notes 5](./3-Scripting/Javascript/Javascript-Notes-5.md) — Advanced techniques and patterns
 - [JavaScript QA](./3-Scripting/Javascript/Javascript-QA.md) — Questions and answers
+- [JavaScript Problems](./3-Scripting/Javascript/Javascript-Problems.md) — Practice problems and solutions
 - [JavaScript Analysis Report](./3-Scripting/Javascript/JAVASCRIPT-NOTES-ANALYSIS-REPORT.md) — Code review and recommendations
+- [API Snippets](./3-Scripting/Javascript/Snippets/API-Snippets.md) — Reusable API patterns and examples
 
 ### TypeScript
 
 - [TypeScript Notes](./3-Scripting/Typescript/Typescript-Notes.md) — Type-safe JavaScript
 - [TypeScript QA](./3-Scripting/Typescript/Typescript-QA.md) — TypeScript questions
 
-### Plugins & Libraries
+### Animation & Plugins
+
+#### General Plugins
 
 - [Plugins Notes](./3-Scripting/Plugins/Plugins-Notes.md) — Popular JavaScript libraries and tools
+- [Animation Notes](./3-Scripting/Plugins/Animation.md) — Animation libraries and techniques
+- [Animation QA](./3-Scripting/Plugins/Animation-QA.md) — Animation questions
+
+#### Framer Motion
+
+- [Framer Motion Notes](./3-Scripting/Plugins/Framer-Motion/FramerMotion-Notes.md) — React animation library guide
+
+#### GSAP
+
+- [GSAP Notes](./3-Scripting/Plugins/GSAP/GSAP-Notes.md) — GreenSock Animation Platform essentials
+- [GSAP React Snippets](./3-Scripting/Plugins/GSAP/GSAP-Snippets-React.md) — GSAP integration with React
 
 ---
 
@@ -79,7 +108,18 @@ Modern frameworks for building scalable applications.
 
 - [React Notes 1](./4-Framework/React/React-Notes-1.md) — React fundamentals
 - [React Notes 2](./4-Framework/React/React-Notes-2.md) — Advanced React concepts
+- [React Notes 3](./4-Framework/React/React-Notes-3.md) — React deep dive
 - [React QA](./4-Framework/React/React-QA.md) — React questions
+- [React Tools Notes](./4-Framework/React/React-Tools-Notes.md) — React development tools and utilities
+- [React API Snippets](./4-Framework/React/Snippets/React-API-Snippets.md) — Common React API patterns
+- [React TypeScript Snippets](./4-Framework/React/Snippets/React-Snippets-TS.md) — TypeScript code examples
+- [React State Management](./4-Framework/React/Snippets/React-States-TS.md) — State management patterns
+
+### Next.js
+
+- [NextJS Notes 1](./4-Framework/NextJS/NextJS-Notes-1.md) — Next.js fundamentals
+- [NextJS Notes 2](./4-Framework/NextJS/NextJS-Notes-2.md) — Advanced Next.js concepts
+- [NextJS QA](./4-Framework/NextJS/NextJS-QA.md) — Next.js questions
 
 ### Vue
 
@@ -90,6 +130,11 @@ Modern frameworks for building scalable applications.
 
 - [Angular Notes](./4-Framework/Angular/Angular-Notes.md) — Angular framework guide
 - [Angular QA](./4-Framework/Angular/Angular-QA.md) — Angular questions
+
+### Express.js
+
+- [ExpressJS Notes](./4-Framework/ExpressJS/ExpressJS-Notes.md) — Express backend server guide
+- [ExpressJS QA](./4-Framework/ExpressJS/ExpressJS-QA.md) — Express questions
 
 ---
 
@@ -111,8 +156,59 @@ Development tools and build systems.
 
 Design principles and component standards.
 
-- [Design System Notes](./DesignSystem.md) — Design system guidelines and standards
+- [Design System Guidelines](./DesignSystem.md) — Design system principles and standards
+- [Design System Notes](./6-DesignSystem/DesignSystem-Notes.md) — Detailed design system documentation
 
 ---
 
-**Last Updated:** May 2026
+# 👉 UI Design & Animations
+
+Visual design, animations, and interactive elements.
+
+### Animations & Lottie
+
+- [Lottie Files](./7-UIDesign/Animations/lottiefiles.md) — Lottie animation resources and integration
+
+---
+
+# 👉 Interview Preparation
+
+Interview resources and practice materials.
+
+- [Interview QA](./Interview/Interview-QA.md) — Common interview questions and answers
+
+---
+
+## **Last Updated:** June 2026
+
+---
+
+## AI Prompt:
+
+Act as a Frontend/React interview coach.
+For every topic I ask:
+
+1. Start with:
+
+   # ❓ Interview Question
+
+2. Give a single concise definition & short interview-ready answer:
+
+   ## ✅ Definition & Interview Answer
+
+3. Provide a small practical code example & Show expected output:
+
+   ## 📌 Example & Output
+
+4. Give a simple real-life usage:
+   ## 🌍 Real-life Usage
+
+Additional rules:
+
+- Keep answers compact and easy to remember.
+- Prefer React, JavaScript, TypeScript, HTML, and CSS examples.
+- Use real-world examples instead of dummy examples.
+- Combine duplicate points into a single definition.
+- Avoid long theory unless specifically requested.
+- Use tables for comparisons.
+- Focus on interview preparation and practical understanding.

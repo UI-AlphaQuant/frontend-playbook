@@ -1195,3 +1195,225 @@ React App > Installable (Offline Ready, PWA Enabled)
 | Cons         | More Architecture Complexity                       |
 
 ---
+
+## 📌 Data Visualization
+
+- Data Visualization is the graphical representation of data using charts, graphs, maps, and dashboards to help users understand trends, patterns, and insights quickly.
+
+| Item      | Description                                    |
+| --------- | ---------------------------------------------- |
+| Purpose   | Present Data Visually                          |
+| Goal      | Identify Trends, Patterns, Insights            |
+| Used In   | Dashboards, Reports, Analytics                 |
+| Libraries | Chart.js, D3.js, Recharts, Highcharts, ECharts |
+
+### Common Visualization Types
+
+| Visualization | Best For                       | Example               |
+| ------------- | ------------------------------ | --------------------- |
+| Bar Chart     | Compare Categories             | Sales By Product      |
+| Line Chart    | Trends Over Time               | Revenue Growth        |
+| Pie Chart     | Percentage Distribution        | Market Share          |
+| Donut Chart   | Part Of Whole                  | Expense Breakdown     |
+| Area Chart    | Trends + Volume                | Monthly Users         |
+| Scatter Plot  | Relationship Between Variables | Price vs Rating       |
+| Histogram     | Data Distribution              | User Age Distribution |
+| Heatmap       | Density / Intensity            | Calendar Activity     |
+| Tree Map      | Hierarchical Data              | Disk Usage            |
+| Gauge Chart   | KPI Progress                   | Server Usage          |
+| Table         | Detailed Data                  | User List             |
+| Map           | Geographic Data                | Sales By Country      |
+
+| Frontend Libraries | Best For                       |
+| ------------------ | ------------------------------ |
+| Chart.js           | Simple Charts                  |
+| Recharts           | React Applications             |
+| D3.js              | Advanced Custom Visualizations |
+| Highcharts         | Enterprise Dashboards          |
+| Apache ECharts     | Large Datasets                 |
+| Nivo               | Modern React Charts            |
+| Victory            | React Data Visualization       |
+
+| Dashboard Widget    | Visualization     |
+| ------------------- | ----------------- |
+| Revenue Trend       | Line Chart        |
+| Sales By Category   | Bar Chart         |
+| Market Share        | Pie Chart         |
+| User Growth         | Area Chart        |
+| Product Performance | Table + Bar Chart |
+| Geographic Sales    | Map               |
+| KPI Metrics         | Gauge / Cards     |
+
+---
+
+## 📌 Frontend Rendering Flow
+
+- HTML - Structure of the webpage
+- CSS - Styling rules
+
+| Term            | One-Liner                                        | Processing Cost |
+| --------------- | ------------------------------------------------ | --------------- |
+| DOM             | Tree representation of HTML elements             | 🟡 Medium       |
+| CSSOM           | Tree representation of CSS rules                 | 🟡 Medium       |
+| Render Tree     | Combination of DOM and CSSOM used for rendering  | 🟡 Medium       |
+| Layout (Reflow) | Calculates size and position of elements         | 🔴 Heavy        |
+| Paint (Repaint) | Draws pixels on the screen                       | 🟠 Moderate     |
+| Composite       | Combines layers for final rendering (GPU)        | 🟢 Light        |
+| Virtual DOM     | Lightweight JavaScript representation of the DOM | 🟢 Light        |
+| Hydration       | Attaches JavaScript behavior to SSR HTML         | 🟠 Moderate     |
+
+```txt
+Parse HTML
+ ↓
+DOM Creation
+ ↓
+CSS Parsing
+ ↓
+CSSOM Creation
+ ↓
+Render Tree
+ ↓
+Layout (Reflow)
+ ↓
+Paint (Repaint)
+ ↓
+Composite
+ ↓
+Screen
+```
+
+### Example
+
+- DOM Tree:
+
+```txt
+Document
+ └─ div
+     ├─ h1
+     └─ button
+```
+
+- CSSOM:
+
+```txt
+h1
+ └─ color: red
+```
+
+- Render Tree:
+  - Only visible elements included. (display:none - Not Added)
+
+```txt
+DOM + CSSOM
+
+h1
+ ├─ text: Hello
+ └─ color: red
+```
+
+- Layout (Reflow) Calculates:
+
+```txt
+Width + Height
+Position
+Margin + Padding
+-----
+Button
+Width = 120px
+X = 100
+Y = 50
+```
+
+- Paint (Repaint)
+  - Browser paints blue text.
+
+```txt
+Text
+Color
+Border
+Background
+Shadow
+```
+
+- Composite
+  - Combines layers using GPU.
+
+```text
+Move Existing Layer
+↓
+No Layout
+↓
+No Paint
+-----
+transform: translateX(100px);
+opacity: 0.5;
+```
+
+- Virtual DOM (React)
+
+```txt
+JavaScript Object Tree
+Not Real DOM
+```
+
+```jsx
+<h1>Hello</h1>
+
+// React creates:
+{
+  type: "h1",
+  props: {
+    children: "Hello"
+  }
+}
+```
+
+- Diffing (Only changed nodes updated.)
+
+```txt
+Old Virtual DOM
+↓
+Compare
+↓
+New Virtual DOM
+```
+
+- Hydration
+
+```txt
+Server Sends HTML
+↓
+Page Visible
+↓
+React Attaches Events
+-----
+HTML Visible
+↓
+Button Click Starts Working
+```
+
+### Rendering Stages
+
+| Stage           | Purpose                      | Output       |
+| --------------- | ---------------------------- | ------------ |
+| DOM             | Parse HTML                   | DOM Tree     |
+| CSSOM           | Parse CSS                    | CSS Tree     |
+| Render Tree     | Combine DOM + CSSOM          | Render Tree  |
+| Layout (Reflow) | Calculate Size & Position    | Layout Data  |
+| Paint (Repaint) | Draw Pixels                  | Layers       |
+| Composite       | Merge Layers & GPU Rendering | Final Screen |
+
+### Quick Memory Table
+
+| Input       | Output      |
+| ----------- | ----------- |
+| HTML        | DOM         |
+| CSS         | CSSOM       |
+| DOM + CSSOM | Render Tree |
+| Render Tree | Layout      |
+| Layout      | Paint       |
+| Paint       | Composite   |
+| JSX         | Virtual DOM |
+| SSR HTML    | Hydration   |
+
+---
