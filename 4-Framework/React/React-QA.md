@@ -1155,17 +1155,522 @@ function App() {
 ### ❓ How do you avoid unnecessary re-renders in React?
 
 - Avoid unnecessary re-renders by ensuring components re-render only when their props or state actually change.
+- To avoid unnecessary re-renders, use React.memo, useMemo, useCallback, proper state management, stable props, and component splitting.
+  - React.memo - Initial Render: component Rendered > Click on Button: component does NOT re-render
+  - useCallback - Child component avoids unnecessary re-render
+  - useMemo - Filtering runs only when users change
+
+```jsx
+// React.memo
+const UserCard = React.memo(({ name }) => {
+  console.log("UserCard Rendered");
+  return <h2>{name}</h2>;
+});
+
+function App() {
+  const [count, setCount] = React.useState(0);
+  return (
+    <>
+      <UserCard name="Ratan" />
+      <button onClick={() => setCount(count + 1)}>Count: {count}</button>
+    </>
+  );
+}
+
+// useCallback
+<UserCard onSave={() => saveUser()} />; // Bad
+const handleSave = useCallback(() => {
+  saveUser();
+}, []);
+<UserCard onSave={handleSave} />;
+
+// useMemo
+const filteredUsers = useMemo(() => {
+  return users.filter((user) => user.active);
+}, [users]);
+```
+
+---
+
+### ❓ Explain race conditions in frontend applications.
+
+- A race condition occurs when multiple async tasks compete to update the same state, causing unpredictable results. In React, this often happens when users trigger multiple API calls quickly and older responses overwrite newer data.
+
+```jsx
+import { useState } from "react";
+function Search() {
+  const [result, setResult] = useState("");
+  const searchUser = async (query: string) => {
+    const response = await fetch(`/api/users?q=${query}`);
+    const data = await response.json();
+    setResult(data.name);
+  };
+  return (
+    <input
+      onChange={(e) => searchUser(e.target.value)}
+      placeholder="Search user"
+    />
+  );
+}
+```
+
+- Common Solutions: AbortController, Request ID Tracking, React Query / TanStack Query, Debouncing
+
+---
+
+### ❓ How do you cancel ongoing API requests in React?
+
+- In React, I typically use AbortController with fetch inside useEffect. During cleanup, I abort the pending request to prevent unnecessary network activity and stale state updates.
+
+```jsx
+// Cancel Request on Component Unmount
+import { useEffect, useState } from "react";
+
+function UserProfile() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/user", {
+      signal: controller.signal,
+    })
+      .then((res) => res.json())
+      .then((data) => setUser(data))
+      .catch((error) => {
+        if (error.name !== "AbortError") {
+          console.error(error);
+        }
+      });
+    return () => {
+      controller.abort();
+    };
+  }, []);
+
+  return <div>{user?.name}</div>;
+}
+```
+
+---
+
+### ❓ Explain hydration mismatch and why it happens.
+
+- A hydration mismatch happens when server-rendered HTML and client-rendered HTML are different. Common causes include using browser-only APIs, random values, dates, or data that changes between server and client rendering.
+- React expects both outputs to be identical. If they differ, React shows a hydration warning/error and may re-render parts of the UI.
+- Common causes in React/Next.js applications:
+  - Random values: Math.random()
+  - Current date/time: new Date()
+  - Browser APIs: window, document, localStorage
+  - Different API data: Server and client fetch different data
+  - Locale differences: Date/number formatting
+  - Conditional rendering: Different conditions on server/client
+
+```jsx
+// Using Random Values
+export default function Page() {
+  return <h1>ID: {Math.random()}</h1>;
+}
+
+// Server Render: ID: 0.1234
+// Client Render: ID: 0.5678
+// Output: Warning: Hydration failed because the initial UI does not match.
+```
+
+---
+
+### ❓ How does React reconciliation work internally?
+
+- Reconciliation is React's process of comparing the previous Virtual DOM with the new Virtual DOM to determine the minimum number of changes needed in the real DOM.
+- React reconciliation is the diffing process where React compares the old and new Virtual DOM trees. It identifies differences and updates only the affected DOM nodes, improving performance by minimizing direct DOM manipulations.
+- Why Keys Are Important?
+  - Without Keys, React struggles to identify moved items.
+
+```jsx
+// Old Virtual DOM
+<h1>Hello</h1>
+
+// New Virtual DOM
+<h1>Hello Nick</h1>
+
+// Only text node updated
+// NOT: Remove <h1>
+// NOT: Create new <h1>
+```
+
+---
+
+### ❓ difference between useState and useReducer? When would you use each?
+
+- Both hooks manage component state, but they are suited for different levels of complexity.
+  - useState is ideal for simple, independent state values.
+    - Few states → useState
+  - useReducer is better for complex state logic, multiple related state updates, or when state transitions need to be centralized and predictable.
+    - Many related states → useReducer
+
+```jsx
+// useState
+import { useState } from "react";
+function Counter() {
+  const [count, setCount] = useState(0);
+  return <button onClick={() => setCount(count + 1)}>{count}</button>;
+}
+
+// useReducer
+import { useReducer } from "react";
+function reducer(state, action) {
+  switch (action.type) {
+    case "increment":
+      return { count: state.count + 1 };
+    case "decrement":
+      return { count: state.count - 1 };
+    default:
+      return state;
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, {
+    count: 0,
+  });
+  return (
+    <>
+      <button onClick={() => dispatch({ type: "decrement" })}>-</button>
+      <span>{state.count}</span>
+      <button onClick={() => dispatch({ type: "increment" })}>+</button>
+    </>
+  );
+}
+```
+
+```jsx
+// Complex Form State (Update each field separately)
+import { useState } from "react";
+
+function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const login = async () => {
+    setLoading(true);
+    setError("");
+
+    try {
+      // API Call
+    } catch {
+      setError("Login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <input value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input value={password} onChange={(e) => setPassword(e.target.value)} />
+      <button onClick={login}>Login</button>
+    </>
+  );
+}
+
+// useReducer
+import { useReducer } from "react";
+
+const initialState = {
+  email: "",
+  password: "",
+  loading: false,
+  error: "",
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "SET_EMAIL":
+      return { ...state, email: action.payload };
+
+    case "SET_PASSWORD":
+      return {
+        ...state,
+        password: action.payload,
+      };
+
+    case "LOGIN_START":
+      return {
+        ...state,
+        loading: true,
+        error: "",
+      };
+
+    case "LOGIN_ERROR":
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case "LOGIN_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+      };
+
+    default:
+      return state;
+  }
+}
+
+const [state, dispatch] = useReducer(reducer, initialState);
+<input
+  value={state.email}
+  onChange={(e) =>
+    dispatch({
+      type: "SET_EMAIL",
+      payload: e.target.value,
+    })
+  }
+/>;
+```
+
+---
+
+### ❓ What is a Payload in React/Redux or JavaScript?
+
+- A payload is the data sent along with an action, event, request, or message.
+- A payload is the actual data being passed from one place to another. In Redux/useReducer, the payload contains the information needed to update the state.
+
+```jsx
+// Code
+dispatch({
+  type: "LOGIN_SUCCESS", // What happened
+  // Data associated with it
+  payload: {
+    id: 101,
+    name: "Rao",
+    token: "abc123",
+  },
+});
+// Action = Event (ADD_TO_CART)
+// Payload = Data (Laptop Details)
+```
+
+- The payload contains the user data returned from the API.
+
+---
+
+### ❓ What are Slices in Redux Toolkit?
+
+- A slice is a feature-specific piece of Redux state created using createSlice(). It groups state, reducers, and generated actions together, reducing boilerplate and making Redux easier to maintain.
+- Each top-level section is typically managed by a slice.
+  - authSlice, cartSlice, productSlice, orderSlice, themeSlice
+
+```jsx
+// userSlice.ts
+import { createSlice } from "@reduxjs/toolkit";
+
+const userSlice = createSlice({
+  name: "user",
+  initialState: {
+    name: "",
+  },
+  reducers: {
+    setName(state, action) {
+      state.name = action.payload;
+    },
+  },
+});
+
+export const { setName } = userSlice.actions;
+export default userSlice.reducer;
+
+// Dispatch
+dispatch(setName("Rao"));
+```
+
+```text
+// Redux Store Structure
+store
+├── user
+├── cart
+├── products
+└── orders
+
+{
+  user: {...},
+  cart: {...},
+  products: {...},
+  orders: {...}
+}
+```
+
+---
+
+### ❓ How do you debug frontend performance bottlenecks?
+
+- Frontend performance debugging involves identifying what's causing slow rendering, excessive re-renders, large network requests, or heavy JavaScript execution.
+- I use Chrome DevTools Performance tab, React DevTools Profiler, Network tab, and Lighthouse to identify bottlenecks. I look for unnecessary re-renders, large bundles, slow API calls, memory leaks, and expensive computations.
+
+```jsx
+// ProductList
+function ProductList() {
+  console.log("Rendered");
+  return products.map((product) => <ProductCard key={product.id} />);
+}
+
+// Output
+// Button Click
+// ↓
+// 100 ProductCards Re-render
+// ↓
+// Performance Issue Found
+
+// Unnecessary Re-render
+<UserCard config={{ theme: "dark" }} />;
+// Fix
+const config = useMemo(() => ({ theme: "dark" }), []);
+```
+
+---
+
+### ❓ How would you optimize a slow-loading React app?
+
+- How would you optimize a slow-loading React app?
+- I first identify the bottleneck using Lighthouse, Network tab, and React Profiler. Then I optimize bundle size, lazy-load components, compress assets, cache static files, and reduce unnecessary re-renders.
+
+```jsx
+// Code Splitting
+import { lazy, Suspense } from "react";
+const Dashboard = lazy(() => import("./Dashboard"));
+function App() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Dashboard />
+    </Suspense>
+  );
+}
+
+// Optimize Re-renders
+const ProductCard = React.memo(({ product }) => {
+  return <div>{product.name}</div>;
+});
+
+// Image Lazy Loading
+<img src="product.jpg" loading="lazy" alt="Product" />;
+```
+
+```text
+1. Measure
+   → Lighthouse
+   → Network Tab
+   → React Profiler
+
+2. Reduce Initial Load
+   → Code Splitting
+   → Lazy Loading
+   → Image Optimization
+
+3. Reduce Runtime Cost
+   → React.memo
+   → useMemo
+   → useCallback
+
+4. Improve Delivery
+   → CDN
+   → Gzip/Brotli
+   → Browser Caching
+```
+
+---
+
+### ❓ How would you design state management for large applications?
+
+- State should be stored as close as possible to where it's used and only moved to global state when multiple parts of the application need it.
+- For large applications, Separate state into local UI state, shared application state, and server state. I use useState/useReducer for component state, Redux Toolkit for global state, and React Query/TanStack Query for API data.
+
+```jsx
+// Local UI State
+const [isModalOpen, setIsModalOpen] = useState(false);
+
+// Global State (Redux)
+{
+  auth: {},
+  cart: {},
+  theme: {}
+}
+```
+
+---
+
+### ❓ Difference between SSR, CSR, SSG, ISR, and Hydration?
+
+- These are different rendering strategies used in React frameworks like Next.js.
+  - CSR renders pages in the browser
+  - SSR renders pages on the server for every request
+  - SSG generates pages at build time
+  - ISR updates static pages after deployment
+  - Hydration is the process where React attaches event handlers to server-rendered HTML on the client.
 
 ```jsx
 // Code
 ```
 
+| Type      | Rendered Where? | When?            | Best For                   |
+| --------- | --------------- | ---------------- | -------------------------- |
+| CSR       | Browser         | Runtime          | Dashboards, SPAs           |
+| SSR       | Server          | Every Request    | Personalized Pages         |
+| SSG       | Server          | Build Time       | Blogs, Docs                |
+| ISR       | Server          | After Deployment | Frequently Updated Content |
+| Hydration | Browser         | After SSR/SSG    | Make HTML Interactive      |
+
 ---
 
-### ❓
+### ❓ How do you implement infinite scrolling efficiently?
+
+- Infinite scrolling loads more data automatically when the user reaches the end of the current list.
+- I use the Intersection Observer API to detect when the user reaches the bottom of the list, fetch the next page of data, and combine it with virtualization for very large datasets to avoid rendering thousands of DOM elements.
 
 ```jsx
-// Code
+// Using Intersection Observer
+const loaderRef = useRef(null);
+useEffect(() => {
+  const observer = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      fetchNextPage();
+    }
+  });
+  observer.observe(loaderRef.current);
+  return () => observer.disconnect();
+}, []);
+
+<div ref={loaderRef}>Loading...</div>;
+
+// Append New Data
+setProducts((prev) => [...prev, ...newProducts]);
+```
+
+---
+
+### ❓ How would you architect a scalable frontend application?
+
+- A scalable frontend architecture should be maintainable, reusable, testable, and easy to extend as the application grows.
+- I prefer a feature-based architecture with clear separation of concerns.
+  - UI components reusable
+  - Business logic isolated
+  - API calls centralized
+  - State management organized
+  - Use code splitting to keep performance optimal as the application grows.
+
+```jsx
+// Centralized API Layer (services/productApi.ts)
+export const getProducts = () => api.get("/products");
+
+// Reusable Components
+<Button />
+<Input />
+<Modal />
+<DataTable />
+
+// Route-Based Code Splitting
+const OrdersPage = lazy(() => import("./OrdersPage"));
 ```
 
 ---

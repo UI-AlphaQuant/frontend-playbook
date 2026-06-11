@@ -2014,95 +2014,349 @@ history.pushState({}, "", "/profile");
 
 ---
 
-### ❓
+### ❓ Explain browser caching strategies with examples.
+
+- Browser caching stores resources (JS, CSS, images, API responses) locally so the browser can reuse them instead of downloading them again.
+- Browser caching improves performance by storing previously fetched resources. Common strategies include Cache-Control, ETag, Last-Modified, and cache busting. These reduce network requests and speed up page loads.
+- Caching rules are usually defined by the server through HTTP response headers. The browser reads these headers and decides how long to store files.
+
+```http
+Static Assets: Cache-Control: public, max-age=31536000, immutable (JS/CSS served from cache)
+HTML: Cache-Control: no-cache (HTML always checked for updates)
+```
+
+- Normal HTML/CSS/JS Project
+  - Apache (.htaccess)
+  - Nginx
+- React Application (React itself does not control caching.)
+  - Your web server (Nginx, Apache, CDN, Vercel, Netlify, AWS CloudFront) sends cache headers.
+  - Vercel (vercel.json)
+  - Netlify (\_headers)
+  - AWS CloudFront (Cache policies)
+
+---
+
+### ❓ difference between a Node and an Element in the DOM?
+
+- Every Element is a Node, but not every Node is an Element. The DOM contains different node types such as Element nodes, Text nodes, Comment nodes, and Document nodes.
+  - A Node is any object in the DOM tree.
+  - An Element is a specific type of node that represents an HTML tag.
 
 ```js
-// Comment
+<div>Hello</div>;
+// <div>  → Element + Node
+// Hello  → Text Node only
+
+const div = document.querySelector("div");
+console.log(div.nodeType); // 1 (1 means Element Node.)
+console.log(div instanceof Element); // true
+
+const textNode = document.querySelector("div").firstChild;
+console.log(textNode.nodeType); // 3 (3 means Text Node.)
+console.log(textNode instanceof Element); // false
+```
+
+```js
+// >>>>> Access Only HTML Elements
+document.querySelectorAll("button");
+// Button Elements
+
+// >>>>> Access All Nodes
+document.body.childNodes;
+// Element Nodes / Text Nodes (spaces/new lines) / Comment Nodes
+```
+
+- Node = Generic DOM object
+- Element = HTML tag in the DOM
+
+| Node Type | nodeType | Example            |
+| --------- | -------- | ------------------ |
+| Element   | 1        | `<div>`            |
+| Text      | 3        | `Hello`            |
+| Comment   | 8        | `<!-- comment -->` |
+| Document  | 9        | `document`         |
+
+---
+
+### ❓ What is Infinite Currying in JavaScript?
+
+- Infinite currying is a technique where a function can be called repeatedly with one argument at a time and keeps returning another function until a final value is requested.
+- Currying transforms a function with multiple arguments into a sequence of functions. Infinite currying extends this idea by allowing unlimited chained calls until a final terminating call returns the result.
+
+```js
+function sum(a) {
+  return function (b) {
+    if (b === undefined) {
+      return a;
+    }
+    return sum(a + b);
+  };
+}
+console.log(sum(1)(2)(3)(4)()); // 10
+```
+
+```jsx
+// Each button gets its own configured handler.
+products.map((product) => (
+  <button key={product.id} onClick={handleDelete(product.id)}>
+    Delete
+  </button>
+));
 ```
 
 ---
 
-### ❓
+### ❓ Explain the JavaScript Event Loop step by step.
+
+- JavaScript is single-threaded, so it can execute only one task at a time. The Event Loop manages asynchronous operations by moving completed tasks from queues to the Call Stack when it's empty.
+- The Event Loop continuously checks whether the Call Stack is empty. If it is, it executes pending tasks from the Microtask Queue first (Promises), then from the Callback/Macrotask Queue (setTimeout, setInterval, events).
 
 ```js
-// Comment
+console.log("1");
+setTimeout(() => {
+  console.log("2");
+}, 0);
+Promise.resolve().then(() => {
+  console.log("3");
+});
+console.log("4");
+
+// Output: 1 4 3 2
+```
+
+- Queues Priority
+
+| Priority | Queue                    | Examples                            |
+| -------- | ------------------------ | ----------------------------------- |
+| 1        | Call Stack               | Normal JS                           |
+| 2        | Microtask Queue          | Promise, queueMicrotask             |
+| 3        | Callback/Macrotask Queue | setTimeout, setInterval, DOM Events |
+
+---
+
+### ❓ Difference between Synchronous and Asynchronous JavaScript?
+
+- Synchronous code executes one task at a time, in order. The next task waits until the current task finishes.
+- Asynchronous code allows long-running tasks (API calls, timers, file operations) to run in the background without blocking execution.
+
+```js
+// Synchronous
+console.log("Start");
+console.log("Processing");
+console.log("End");
+
+// Asynchronous
+console.log("Start");
+setTimeout(() => {
+  console.log("Processing");
+}, 1000);
+console.log("End");
+
+// API Request
+console.log("Loading Users");
+fetch("/api/users").then(() => console.log("Users Loaded"));
+console.log("UI Ready");
+```
+
+- Asynchronous API's
+  - setTimeout()
+  - fetch()
+  - Promise
+  - async/await
+  - WebSocket
+
+---
+
+### ❓ How do you handle API retries and failures gracefully?
+
+- I handle API failures using try/catch, display user-friendly error messages, implement retry logic for temporary failures, add loading states, and use fallback UI. For React apps, libraries like React Query can manage retries automatically.
+
+```js
+// Basic Error Handling
+try {
+  const response = await fetch("/api/users");
+  if (!response.ok) {
+    throw new Error("Failed");
+  }
+  const data = await response.json();
+} catch (error) {
+  setError("Unable to load users");
+}
+
+// Retry 3 Times
+async function fetchWithRetry(url, retries = 3) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error();
+    }
+    return response.json();
+  } catch (error) {
+    if (retries > 0) {
+      return fetchWithRetry(url, retries - 1);
+    }
+    throw error;
+  }
+}
+
+// React Loading + Error State
+const [loading, setLoading] = useState(false);
+const [error, setError] = useState("");
+setLoading(true);
+try {
+  await fetchData();
+} catch {
+  setError("Something went wrong");
+} finally {
+  setLoading(false);
+}
+```
+
+- Common Failure Handling
+
+| Scenario           | Solution        |
+| ------------------ | --------------- |
+| Network Error      | Retry           |
+| 500 Server Error   | Retry           |
+| 404 Not Found      | Show Error      |
+| Unauthorized (401) | Redirect Login  |
+| Slow API           | Loading Spinner |
+| Permanent Failure  | Fallback UI     |
+
+---
+
+### ❓ Explain JWT authentication end-to-end with refresh token flow.
+
+- JWT (JSON Web Token) is a token-based authentication mechanism where the server issues an Access Token and a Refresh Token after login.
+  - Access Token → Short-lived, used for API requests. (Short (15m-1h))
+  - Refresh Token → Long-lived, used to obtain a new Access Token. (Long (Days/Weeks))
+- After successful login, the server issues an access token and refresh token. The frontend sends the access token with API requests. When it expires, the frontend uses the refresh token to get a new access token without forcing the user to log in again.
+
+```json
+{
+  "accessToken": "jwt-access-token",
+  "refreshToken": "refresh-token"
+}
+```
+
+```js
+// Add Access Token
+axios.get("/profile", {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
+
+// Refresh Interceptor
+axios.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response.status === 401) {
+      const newToken = await refreshToken();
+      error.config.headers.Authorization = `Bearer ${newToken}`;
+      return axios(error.config);
+    }
+    return Promise.reject(error);
+  },
+);
 ```
 
 ---
 
-### ❓
+### ❓ How do Service Workers improve frontend applications?
+
+- A Service Worker is a JavaScript file that runs in the background, separate from the web page, and can intercept network requests.
+- Service Workers improve performance, reliability, and user experience by enabling caching, offline support, background synchronization, and push notifications.
 
 ```js
-// Comment
+// Register Service Worker
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/sw.js");
+}
+
+// Cache Static Assets
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches
+      .open("v1")
+      .then((cache) => cache.addAll(["/", "/app.js", "/styles.css"])),
+  );
+});
 ```
 
 ---
 
-### ❓
+### ❓ What happens internally when a user types a URL in the browser?
+
+- When a URL is entered, the browser performs several steps: finding the server, requesting the page, downloading resources, and rendering the UI.
+- The browser resolves the domain via DNS, establishes a connection, sends an HTTP request, receives the response, parses HTML/CSS/JS, builds the DOM and CSSOM, creates the render tree, paints the page, and executes JavaScript.
+
+1. URL Parsing > https://example.com/products
+   - Protocol → HTTPS
+   - Domain → example.com
+   - Path → /products
+2. DNS Lookup
+   - example.com > 93.184.216.34
+3. TCP Connection
+   - Browser > Server
+4. TLS Handshake (HTTPS)
+   - Browser > Verify SSL Certificate > Secure Connection
+5. HTTP Request
+   - GET /products HTTP/1.1
+   - Host: example.com
+6. Server Response
+   - 200 OK
+   - Content-Type: text/html
+7. HTML Parsing
+   - Create DOM Tree
+8. CSS Parsing
+   - Create CSSOM
+9. Render Tree Creation
+   - DOM + CSSOM
+10. Layout (Reflow)
+    - Position, Width, Height
+11. Paint
+    - Pixels Drawn On Screen
+12. JavaScript Execution
+    - document.querySelector("button");
+
+---
+
+### ❓ Explain frontend security vulnerabilities developers should know.
+
+- Frontend security focuses on protecting users, data, and applications from common attacks.
+- The most important frontend security vulnerabilities are XSS, CSRF, insecure token storage, clickjacking, sensitive data exposure, and dependency vulnerabilities. Developers should validate input, escape output, use HTTPS, and follow secure authentication practices.
+
+---
+
+### ❓ How do you monitor frontend applications in production?
+
+- Frontend monitoring helps track errors, performance issues, crashes, and user experience in real-world usage.
+- monitor frontend applications using error tracking, performance monitoring, logging, analytics, and Real User Monitoring (RUM). Tools like Sentry, Datadog, and Google Analytics help identify issues before they affect many users.
 
 ```js
-// Comment
+// Error Tracking
+try {
+  await fetchData();
+} catch (error) {
+  Sentry.captureException(error);
+}
+
+// Global Error Handler
+window.addEventListener("error", (event) => {
+  console.error(event.error);
+});
 ```
 
 ---
 
-### ❓
+### ❓ How would you optimize an eCommerce product listing page?
 
-```js
-// Comment
-```
-
----
-
-### ❓
-
-```js
-// Comment
-```
-
----
-
-### ❓
-
-```js
-// Comment
-```
-
----
-
-### ❓
-
-```js
-// Comment
-```
-
----
-
-### ❓
-
-```js
-// Comment
-```
-
----
-
-### ❓
-
-```js
-// Comment
-```
-
----
-
-### ❓
-
-```js
-// Comment
-```
-
----
-
-### ❓
+- Optimizing a product listing page focuses on improving load time, rendering performance, API efficiency, and user experience.
+  - Lazy Load Images
+  - Memoize Product Card
+  - Search Debouncing
+  - Infinite Scrolling
 
 ```js
 // Comment
