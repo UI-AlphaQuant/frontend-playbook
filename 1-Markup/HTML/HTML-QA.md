@@ -333,11 +333,95 @@
 
 ---
 
+### ❓ What is the difference between <figure> and <img> tags?
+
+- <img> displays an image.
+  - <img> → The image itself
+- <figure> groups media content with an optional caption, providing better semantic meaning and accessibility. 
+  - media (image, chart, diagram, code snippet, etc.), often used with <figcaption>.
+  - <figure> → Image + Context/Caption
+
+```html
+<img src="team.jpg" alt="Development Team" />
+
+<figure>
+  <img src="team.jpg" alt="Development Team" />
+  <figcaption>Frontend Team Meeting</figcaption>
+</figure>
+```
+
+---
+
+### ❓ What is the required attribute in HTML?
+
+- The required attribute makes a form field mandatory before the form can be submitted.
+
+```html
+<form>
+  <input type="email" placeholder="Enter Email" required />
+  <input type="password" placeholder="Enter password" required />
+  <button type="submit">Submit</button>
+</form>
+```
+
+---
+
+### ❓ Explain accessibility (a11y) best practices in frontend development.
+
+- Accessibility (a11y) means building applications that can be used by everyone, including people using screen readers, keyboards, or assistive technologies.
+
+```html
+<!-- Use Semantic HTML -->
+<button>Save</button>
+
+<!-- Form Labels -->
+<label for="email"> Email </label>
+<input id="email" type="email" />
+
+<!-- Image Alt Text -->
+<img src="product.jpg" alt="MacBook Pro 16-inch" />
+
+<!-- ARIA Attribute -->
+<button aria-label="Close dialog">✕</button>
+```
+
+| Practice            | Why                      |
+| ------------------- | ------------------------ |
+| Semantic HTML       | Better accessibility     |
+| Labels for Inputs   | Screen reader support    |
+| Alt Text            | Describe images          |
+| Keyboard Navigation | No mouse required        |
+| Color Contrast      | Better readability       |
+| ARIA Attributes     | Extra accessibility info |
+| Focus Management    | Better navigation        |
+
+---
+
 ### ❓
 
 ```html
 
 ```
+
+---
+
+### ❓
+
+```html
+
+```
+
+---
+
+### ❓
+
+```html
+
+```
+
+---
+
+### ❓
 
 ```html
 

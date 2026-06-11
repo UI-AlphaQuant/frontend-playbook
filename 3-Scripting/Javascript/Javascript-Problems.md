@@ -556,33 +556,60 @@ console.log(delete age); // true
 
 ---
 
-### ❓ Problem
+### ❓ Problem 28
 
 ```js
 // Problem
-
-// Solution
+var name = "Ratan";
+function test() {
+  console.log(name);
+  var name = "Developer";
+}
+test(); // undefined
 ```
+
+- Inside test(), the local var name is hoisted. Therefore, console.log(name) accesses the local variable before assignment, resulting in undefined instead of the global value.
 
 ---
 
-### ❓ Problem
+### ❓ Problem 29
 
 ```js
 // Problem
+const arr = ["a", "b", "c"];
+arr.length = 0;
+console.log(arr[0]); // Clear existing array
+console.log(arr.length); // Because both variables reference the same array object.
 
-// Solution
+// Output: undefined 0
 ```
+
+- arr.length = 0 is a fast way to clear an array while preserving its reference. It's commonly used in plain JavaScript, but in React state management, creating a new array is preferred.
 
 ---
 
-### ❓ Problem
+### ❓ Problem 30
+
+- output of the following code and why?
 
 ```js
-// Problem
+console.log([] + []); // ""
+// // [] -> "" // "" + "" -> ""
 
-// Solution
+console.log(0.1 + 0.2); // 0.30000000000000004
+// Small precision error
+
+console.log(NaN === NaN); // false
+// NaN is the only value in JavaScript that is not equal to itself. (Number.isNaN(NaN); // true)
+
+console.log([] == false); // true
+// [] -> "" // false -> 0 // "" -> 0 // 0 == 0
+
+console.log(typeof null); // object
+// This is a historical JavaScript bug kept for backward compatibility.
 ```
+
+- JavaScript automatically converts values during comparisons and operations. Some well-known quirks include floating-point precision issues (0.1 + 0.2), NaN not being equal to itself, loose equality coercion (==), and typeof null returning "object" due to a legacy bug.
 
 ---
 

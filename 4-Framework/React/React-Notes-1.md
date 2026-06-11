@@ -1638,6 +1638,59 @@ const sort = params.get("sort");
 | Lazy load routes          | Better performance        |
 | Use nested layouts        | Cleaner routing structure |
 
+### lazy loading routes
+
+```jsx
+// Route Configuration
+import { lazy, Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
+
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Products = lazy(() => import("./pages/Products"));
+const Orders = lazy(() => import("./pages/Orders"));
+
+function AppRoutes() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/orders" element={<Orders />} />
+      </Routes>
+    </Suspense>
+  );
+}
+```
+
+### Multiple Suspense boundaries
+
+```jsx
+// Single Global Suspense
+<Suspense fallback={<FullPageLoader />}>
+  <AppRoutes />
+</Suspense>
+
+// Better Approach
+<Layout>
+  <Sidebar />
+  <Header />
+  <Suspense fallback={<PageLoader />}>
+    <Outlet />
+  </Suspense>
+</Layout>
+```
+
+```text
+App
+├── Header
+├── Sidebar
+├── Route Suspense
+│   ├── Dashboard
+│   ├── Users
+│   ├── Reports
+│   └── Settings
+```
+
 ---
 
 ## 📌 API Handling
@@ -1985,5 +2038,32 @@ Modal State + Multiple Components
 | Avoid Prop Drilling  | ✅          | ❌               |
 | Small Global State   | ✅          | ⚠️               |
 | Simple State Sharing | ⚠️          | ✅               |
+
+### State Placement Strategy
+
+| State Type    | Tool            |
+| ------------- | --------------- |
+| Input Field   | useState        |
+| Complex Form  | useReducer      |
+| User/Auth     | Redux Toolkit   |
+| Shopping Cart | Redux Toolkit   |
+| API Data      | TanStack Query  |
+| Theme         | Context / Redux |
+
+```text
+src/
+├── store/
+│   ├── authSlice.ts
+│   ├── cartSlice.ts
+│   └── themeSlice.ts
+│
+├── services/
+│   └── api.ts
+│
+└── features/
+    ├── auth/
+    ├── cart/
+    └── products/
+```
 
 ---

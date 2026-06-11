@@ -410,6 +410,25 @@ Group related form controls.
 
 ---
 
+## 📌 Common Validation Attributes
+
+| Attribute   | Purpose                 |
+| ----------- | ----------------------- |
+| `required`  | Field must not be empty |
+| `minLength` | Minimum characters      |
+| `maxLength` | Maximum characters      |
+| `pattern`   | Regex validation        |
+| `min`       | Minimum numeric value   |
+| `max`       | Maximum numeric value   |
+
+```html
+<input type="text" required />
+<input type="email" required />
+<input type="password" minlength="8" required />
+```
+
+---
+
 ## 📌 Semantic Elements
 
 | Tag                       | Purpose      |
@@ -583,6 +602,4 @@ Group related form controls.
 | `height`  | layout elements | CSS (`height`)           |
 | `valign`  | table cells     | CSS (`vertical-align`)   |
 
-```
-
-```
+---

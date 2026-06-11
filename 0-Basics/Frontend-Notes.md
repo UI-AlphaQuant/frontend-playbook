@@ -1416,4 +1416,113 @@ Button Click Starts Working
 | JSX         | Virtual DOM |
 | SSR HTML    | Hydration   |
 
+### URL to Output Process
+
+| Step | Action               |
+| ---- | -------------------- |
+| 1    | URL Parsing          |
+| 2    | DNS Lookup           |
+| 3    | TCP Connection       |
+| 4    | TLS Handshake        |
+| 5    | HTTP Request         |
+| 6    | HTTP Response        |
+| 7    | DOM Creation         |
+| 8    | CSSOM Creation       |
+| 9    | Render Tree          |
+| 10   | Layout               |
+| 11   | Paint                |
+| 12   | JavaScript Execution |
+
+---
+
+## 📌 Cache-Control
+
+- Cache-Control is an HTTP header that defines how, where, and for how long a response can be cached by browsers, CDNs, and intermediary servers.
+
+| Purpose  | Control Browser & CDN Caching           |
+| -------- | --------------------------------------- |
+| Used In  | HTTP Response Headers                   |
+| Benefits | Faster Loading, Reduced Server Requests |
+
+```http
+// Syntax
+Cache-Control: <directive>
+
+// Examples
+Cache-Control: max-age=3600
+```
+
+## Common Directives
+
+| Common Directives | Meaning                         |
+| ----------------- | ------------------------------- |
+| `max-age=3600`    | Cache For 1 Hour                |
+| `no-cache`        | Check Server Before Using Cache |
+| `no-store`        | Never Cache                     |
+| `public`          | Browser & CDN Can Cache         |
+| `private`         | Only Browser Can Cache          |
+| `must-revalidate` | Must Verify After Expiry        |
+| `immutable`       | File Never Changes              |
+
+| Directive  | Behavior                   |
+| ---------- | -------------------------- |
+| `no-cache` | Can Store, Must Revalidate |
+| `no-store` | Never Store                |
+
+| Header                                    | Meaning               |
+| ----------------------------------------- | --------------------- |
+| `Cache-Control: no-store`                 | Never Store Response  |
+| `Cache-Control: no-cache`                 | Revalidate Before Use |
+| `Cache-Control: max-age=86400`            | Cache For 24 Hours    |
+| `Cache-Control: public, max-age=31536000` | Cache For 1 Year      |
+| `Cache-Control: private, max-age=3600`    | User-Specific Cache   |
+
+| Resource       | Cache-Control                       |
+| -------------- | ----------------------------------- |
+| HTML Pages     | `no-cache`                          |
+| API Data       | `private,max-age=300`               |
+| User Profile   | `private,max-age=300`               |
+| Images         | `public,max-age=31536000`           |
+| CSS Files      | `public,max-age=31536000,immutable` |
+| JS Bundles     | `public,max-age=31536000,immutable` |
+| Login Response | `no-store`                          |
+
+---
+
+## 📌 Common Vulnerabilities
+
+| Vulnerability           | Risk                     | Prevention                                      |
+| ----------------------- | ------------------------ | ----------------------------------------------- |
+| XSS                     | Run malicious JavaScript | Sanitize input, avoid `dangerouslySetInnerHTML` |
+| CSRF                    | Unauthorized requests    | CSRF tokens, SameSite cookies                   |
+| Token Theft             | Account compromise       | Store refresh token in HttpOnly cookie          |
+| Clickjacking            | Trick user clicks        | `X-Frame-Options`, CSP                          |
+| Sensitive Data Exposure | Data leaks               | Never expose secrets in frontend                |
+| Vulnerable Dependencies | Security exploits        | Keep packages updated                           |
+
+```jsx
+// XSS (Cross-Site Scripting)
+element.innerHTML = userComment;
+<script>stealCookies();</script>;
+
+// Insecure Token Storage
+localStorage.setItem("token", accessToken);
+
+// Exposing Secrets
+const API_KEY = "secret-key";
+
+// Dependency Vulnerability
+npm audit
+```
+
+- Security Checklist
+  - ✅ Escape User Input
+  - ✅ Avoid dangerouslySetInnerHTML
+  - ✅ Use HTTPS
+  - ✅ HttpOnly Cookies
+  - ✅ Keep Dependencies Updated
+  - ✅ Never Expose Secrets
+  - ✅ Implement CSP
+  - ✅ Validate Data on Backend
+
 ---

@@ -621,6 +621,45 @@ box.addEventListener("contextmenu", (e) => {
 
 ---
 
+## 📌 JavaScript Event Loop
+
+| Item           | Description                                      |
+| -------------- | ------------------------------------------------ |
+| Purpose        | Handles Async Operations                         |
+| Language Type  | Single Threaded                                  |
+| Executes       | One Task At A Time                               |
+| Key Components | Call Stack, Web APIs, Callback Queue, Event Loop |
+
+| Component       | Purpose                      |
+| --------------- | ---------------------------- |
+| Call Stack      | Executes Functions           |
+| Web APIs        | Browser Async Features       |
+| Callback Queue  | Stores Completed Async Tasks |
+| Microtask Queue | Stores Promises              |
+| Event Loop      | Moves Tasks To Call Stack    |
+
+```txt
+Call Stack
+     ↑
+     │
+Event Loop
+     │
+     ↓
+Microtask Queue
+     ↓
+Callback Queue
+```
+
+### Queue Priority
+
+| Priority | Queue                      | Common APIs                  | Example          |
+| -------- | -------------------------- | ---------------------------- | ---------------- |
+| 1        | Call Stack                 | Normal JS Code               | `console.log()`  |
+| 2        | Microtask Queue            | Promises, `queueMicrotask()` | `Promise.then()` |
+| 3        | Callback Queue (Macrotask) | Timers, Events               | `setTimeout()`   |
+
+---
+
 # 👉 DOM & JavaScript Utility Methods
 
 ## 📌 Selecting Elements
@@ -1073,5 +1112,36 @@ console.log(formatter.format(new Date()));
 | API Format      | `YYYY-MM-DD`                | `"2026-05-22"`               | APIs/database       |
 | 24h Time        | `HH:mm`                     | `"10:30"`                    | Admin dashboards    |
 | 12h Time        | `hh:mm AM/PM`               | `"10:30 AM"`                 | Chat/apps           |
+
+---
+
+## 📌 nodeType
+
+- Node = Generic DOM object
+- Element = HTML tag in the DOM
+
+| Purpose  | Identifies The Type Of DOM Node |
+| -------- | ------------------------------- |
+| Property | `node.nodeType`                 |
+| Returns  | Numeric Value                   |
+
+### Common nodeType Values
+
+| Value | Node Type        | Example                             |
+| ----- | ---------------- | ----------------------------------- |
+| `1`   | Element Node     | `<div>`                             |
+| `3`   | Text Node        | `"Hello"`                           |
+| `8`   | Comment Node     | `<!-- comment -->`                  |
+| `9`   | Document Node    | `document`                          |
+| `11`  | DocumentFragment | `document.createDocumentFragment()` |
+
+```js
+const div = document.querySelector("div");
+console.log(div.childNodes);
+console.log(div.children);
+
+childNodes:[Text, span, Text] (all node types)
+children:[span] (element nodes only)
+```
 
 ---
