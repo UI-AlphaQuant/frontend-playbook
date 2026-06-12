@@ -1675,7 +1675,45 @@ const OrdersPage = lazy(() => import("./OrdersPage"));
 
 ---
 
-### ❓
+### ❓ What are Services in a React application?
+
+- Services are files/modules that contain API calls, external integrations, and business-related data operations, keeping them separate from UI components.
+- Services act as a data layer between the UI and backend. Instead of calling APIs directly inside components, I place them in service files to improve reusability, maintainability, and testing.
+
+```jsx
+// Product Service (services/productService.ts)
+import api from "./api";
+export const getProducts = () =>
+  api.get("/products");
+export const getProduct = (id: string) =>
+  api.get(`/products/${id}`);
+
+// Component
+const products = await getProducts();
+
+// Shared Axios Instance (services/api.ts)
+import axios from "axios";
+export const api = axios.create({
+  baseURL: "/api",
+});
+```
+
+```text
+src/
+├── services/
+│   ├── api.ts
+│   ├── authService.ts
+│   ├── productService.ts
+│   ├── orderService.ts
+│   └── userService.ts
+```
+
+---
+
+### ❓ What is a CMS in React?
+
+- A CMS (Content Management System) allows non-developers to create and manage content without changing code.
+- In React applications, a CMS is typically used as a backend content source. React fetches content (pages, blogs, banners, products, FAQs, etc.) from the CMS via APIs and renders it dynamically.
 
 ```jsx
 // Code
@@ -1683,42 +1721,169 @@ const OrdersPage = lazy(() => import("./OrdersPage"));
 
 ---
 
-### ❓
+### ❓ dangerouslySetInnerHTML in React?
+
+- dangerouslySetInnerHTML allows React to render raw HTML inside a component.
+- dangerouslySetInnerHTML is React's equivalent of innerHTML. It bypasses React's automatic escaping and directly injects HTML into the DOM. It should be used carefully because it can introduce XSS (Cross-Site Scripting) vulnerabilities.
 
 ```jsx
-// Code
+// Rendered as an actual <h1> element.
+const content = "<h1>Welcome</h1>";
+
+return (
+  <div
+    dangerouslySetInnerHTML={{
+      __html: content,
+    }}
+  />
+);
+
+// XSS Risk
+const content = '<script>alert("Hacked")</script>';
+// Usage: Sanitized HTML + dangerouslySetInnerHTML
+
+// Safe CMS Rendering (Remove Malicious Scripts > Render Safe HTML)
+import DOMPurify from "dompurify";
+const safeHtml = DOMPurify.sanitize(content);
+<div
+  dangerouslySetInnerHTML={{
+    __html: safeHtml,
+  }}
+/>;
 ```
 
 ---
 
-### ❓
+### ❓ What are React Reconciliation and React Fiber?
+
+- Reconciliation is React's process of comparing the old Virtual DOM with the new Virtual DOM to determine what has changed and update only the necessary parts of the real DOM.
+- Fiber is React's internal rendering engine (introduced in React 16) that makes reconciliation faster, interruptible, and more efficient.
+  - Schedule and prioritize updates
+  - React Fiber uses a scheduling system where urgent updates (typing, clicks) get higher priority than non-urgent updates (large list rendering). It can pause, resume, and reorder rendering work to keep the UI responsive.
 
 ```jsx
-// Code
+// High Priority
+setInput(value)
+
+// Low Priority
+setFilteredProducts(...)
 ```
 
 ---
 
-### ❓
+### ❓ What is a Bundler and how does it work?
 
-```jsx
-// Code
+- A Bundler is a tool that combines multiple files (JavaScript, TypeScript, CSS, images, etc.) into optimized bundles that browsers can load efficiently.
+- A bundler analyzes project dependencies, combines related files into bundles, optimizes them using techniques like minification and code splitting, and generates production-ready assets for the browser.
+- Popular Bundlers:
+  - Webpack
+  - Vite
+  - Rollup
+  - Parcel
+  - esbuild
+- Bundler Output
+  - bundle.js
+  - bundle.css
+
+```text
+dist/
+ ├── main.js
+ ├── vendor.js
+ └── styles.css
 ```
 
 ---
 
-### ❓
+### ❓ How do you call APIs in React?
+
+- In React, APIs are commonly called using fetch or axios inside useEffect. The response is stored in component state using useState, which triggers a re-render when data is received.
 
 ```jsx
-// Code
+// Using Fetch API
+import { useEffect, useState } from "react";
+function UsersList() {
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((data) => setUsers(data));
+  }, []);
+
+  return (
+    <ul>
+      {users.map((user) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+// Using Async/Await
+import { useEffect, useState } from "react";
+function UserProfile() {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const response = await fetch("/api/user");
+      const data = await response.json();
+      setUser(data);
+    };
+    fetchUser();
+  }, []);
+
+  return <div>{user?.name}</div>;
+}
+
+// Using Axios
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+function Products() {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    axios.get("/api/products").then((response) => setProducts(response.data));
+  }, []);
+
+  return <div>{products.length} Products</div>;
+}
 ```
 
----
-
-### ❓
+| Step           | Purpose          |
+| -------------- | ---------------- |
+| useEffect      | Trigger API call |
+| fetch/axios    | Send request     |
+| useState       | Store response   |
+| Re-render      | Update UI        |
+| Error Handling | Handle failures  |
+| Loading State  | Show loader      |
 
 ```jsx
-// Code
+function Orders() {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await fetch("/api/orders");
+        const data = await response.json();
+        setOrders(data);
+      } catch {
+        setError("Failed to load orders");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
+  return <div>{orders.length} Orders</div>;
+}
 ```
 
 ---

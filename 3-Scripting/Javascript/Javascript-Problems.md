@@ -613,42 +613,142 @@ console.log(typeof null); // object
 
 ---
 
-### ❓ Problem
+### ❓ Problem 31
 
 ```js
 // Problem
+for (var i = 1; i <= 3; i++) {
+  setTimeout(() => {
+    console.log(i);
+  }, 1000);
+}
+// Output: 4 4 4
+
+// Fix
+for (let i = 1; i <= 3; i++) {
+  setTimeout(() => {
+    console.log(i);
+  }, 1000);
+}
+// Output: 1 2 3
+// let > Block Scoped >  New i Created For Each Iteration
+```
+
+- This is a classic closure + var + event loop interview question.
+- let creates a new binding for each iteration
+- var is function-scoped, so all callbacks share the same i variable.
+  - After 1 Second > All Callbacks Access Same i > 4 4 4
+
+---
+
+### ❓ Problem 32
+
+- How do you group users by role using reduce()?
+
+```js
+// Problem
+const users = [
+  { id: 1, name: "Ratan", role: "Admin" },
+  { id: 2, name: "Rahul", role: "User" },
+  { id: 3, name: "Priya", role: "User" },
+  { id: 4, name: "Amit", role: "Manager" },
+];
 
 // Solution
+const groupedUsers = users.reduce(
+  (acc, user) => {
+    if (user.role === "Admin") {
+      acc.admins.push(user);
+    } else if (user.role === "User") {
+      acc.users.push(user);
+    } else if (user.role === "Manager") {
+      acc.managers.push(user);
+    }
+
+    return acc;
+  },
+  {
+    // Initial Value (acc)
+    admins: [],
+    users: [],
+    managers: [],
+  },
+);
+
+console.log(groupedUsers);
 ```
 
 ---
 
-### ❓ Problem
+### ❓ Problem 33
+
+- convert an array into an object.
 
 ```js
 // Problem
+const array = [1, 2, 3, 4, 5];
 
 // Solution
+const result = { ...array };
+console.log(result);
+// Output:
+// {
+//   0: 1,
+//   1: 2,
+//   2: 3,
+//   3: 4,
+//   4: 5
+// }
 ```
 
 ---
 
-### ❓ Problem
+### ❓ Problem 34
 
 ```js
 // Problem
-
-// Solution
+console.log([] + []); // ""
+console.log([] + {}); // "[object Object]"
+console.log({} + []); // "[object Object]"
+console.log({} + {}); // "[object Object][object Object]"
+console.log({} == "[object Object]"); // true
 ```
 
----
+- The + operator performs string concatenation if one of the operands becomes a string. Arrays and objects are first converted to primitive values using JavaScript's type coercion rules.
+  - Empty Array + Empty Array ("" + "")
+  - Empty Array + Empty Object ("" + "[object Object]")
+  - Empty Object + Empty Array ("[object Object]" + "")
+  - Empty Object + Empty Object ("[object Object]" + "[object Object]")
 
-### ❓ Problem
+| Value       | `toString()` Result |
+| ----------- | ------------------- |
+| `[]`        | `""`                |
+| `[1,2,3]`   | `"1,2,3"`           |
+| `{}`        | `"[object Object]"` |
+| `null`      | `"null"`            |
+| `undefined` | `"undefined"`       |
+
+- If I don't explicitly call toString(), why does JavaScript still convert arrays and objects to strings?
+- You don't call toString(), JavaScript calls it for you when it needs a primitive value.
 
 ```js
-// Problem
+// Explicit Conversion
+console.log([1, 2, 3].toString());
 
-// Solution
+// Implicit Conversion
+console.log([1, 2, 3] + "");
+```
+
+```text
+Object
+ ↓
+ToPrimitive()
+ ↓
+valueOf()
+ ↓ (if not primitive)
+toString()
+ ↓
+Primitive Value
 ```
 
 ---

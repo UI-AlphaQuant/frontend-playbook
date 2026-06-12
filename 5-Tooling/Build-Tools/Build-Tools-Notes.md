@@ -670,3 +670,55 @@ libs
 ```
 
 ---
+
+## 📌 Bundler
+
+| Purpose  | Combine, Optimize & Prepare Source Code For Production |
+| -------- | ------------------------------------------------------ |
+| Input    | Multiple Files                                         |
+| Output   | Optimized Bundle(s)                                    |
+| Examples | Vite, Webpack, Parcel, Rollup, Turbopack               |
+
+- Why Bundlers Exist
+  - Without Bundler: index.html / 50 JS Files / 20 CSS Files / Many Requests
+  - With Bundler: index.html / app.js / styles.css
+
+### Main Responsibilities
+
+| Task            | Example                                       |
+| --------------- | --------------------------------------------- |
+| Bundle Files    | JS + CSS                                      |
+| Resolve Imports | `import` statements                           |
+| Minification    | Remove Unnecessary Code (Smaller Files)       |
+| Tree Shaking    | Remove Dead Code (Reduce Size)                |
+| Code Splitting  | Create Smaller Chunks (Load Only Needed Code) |
+| Asset Handling  | Images, Fonts (Cache Busting)                 |
+| Transpilation   | TypeScript, JSX → JS                          |
+| Dev Server      | Local Development                             |
+
+| Tool      | Notes                         |
+| --------- | ----------------------------- |
+| Webpack   | Traditional Industry Standard |
+| Vite      | Modern, Fast Dev Experience   |
+| Rollup    | Library Bundling              |
+| Parcel    | Zero Config                   |
+| Turbopack | Next.js Future Bundler        |
+
+```txt
+src
+├─ App.jsx
+├─ Header.jsx
+├─ Footer.jsx
+├─ styles.css
+└─ logo.png
+
+Bundler
+ ↓
+
+dist
+├─ main.js
+├─ main.css
+└─ assets
+```
+
+---

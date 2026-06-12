@@ -4,7 +4,7 @@ A structured collection of comprehensive notes for core frontend technologies an
 
 ---
 
-# 👉 Basics
+## 👉 Basics
 
 Foundational concepts for frontend development.
 
@@ -12,7 +12,7 @@ Foundational concepts for frontend development.
 
 ---
 
-# 👉 📄 Markup
+## 👉 📄 Markup
 
 Learn the foundation of web structure and content.
 
@@ -34,7 +34,7 @@ Learn the foundation of web structure and content.
 
 ---
 
-# 👉 Styling
+## 👉 Styling
 
 Master CSS and styling frameworks for beautiful designs.
 
@@ -60,7 +60,7 @@ Master CSS and styling frameworks for beautiful designs.
 
 ---
 
-# 👉 Scripting
+## 👉 Scripting
 
 Core programming languages for interactivity and logic.
 
@@ -100,7 +100,7 @@ Core programming languages for interactivity and logic.
 
 ---
 
-# 👉 Frameworks
+## 👉 Frameworks
 
 Modern frameworks for building scalable applications.
 
@@ -138,7 +138,7 @@ Modern frameworks for building scalable applications.
 
 ---
 
-# 👉 Tooling
+## 👉 Tooling
 
 Development tools and build systems.
 
@@ -152,7 +152,7 @@ Development tools and build systems.
 
 ---
 
-# 👉 Design System
+## 👉 Design System
 
 Design principles and component standards.
 
@@ -161,7 +161,7 @@ Design principles and component standards.
 
 ---
 
-# 👉 UI Design & Animations
+## 👉 UI Design & Animations
 
 Visual design, animations, and interactive elements.
 
@@ -171,7 +171,7 @@ Visual design, animations, and interactive elements.
 
 ---
 
-# 👉 Interview Preparation
+## 👉 Interview Preparation
 
 Interview resources and practice materials.
 
@@ -183,7 +183,9 @@ Interview resources and practice materials.
 
 ---
 
-## AI Prompt:
+## 📌 AI Prompt:
+
+### Q/A Prompt:
 
 Act as a Frontend/React interview coach.
 For every topic I ask:
@@ -212,3 +214,26 @@ Additional rules:
 - Avoid long theory unless specifically requested.
 - Use tables for comparisons.
 - Focus on interview preparation and practical understanding.
+
+---
+
+### Learning Example and Syntax Prompt:
+
+Create concise handbook-style examples in a single `js` code block.
+
+- Define common sample data once at top.
+- Format: `// method → syntax`
+- One blank line between examples.
+- Example + output on same line.
+- No explanations.
+- Use realistic data (`users`, `user`, `nums`, `skills`, `str`).
+- Keep examples practical and compact.
+
+Example:
+
+```js
+// map → arr.map(callback)
+users.map((user) => user.name); // ["John", "Jane"]
+```
+
+---

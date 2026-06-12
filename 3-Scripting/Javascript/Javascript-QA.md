@@ -2358,6 +2358,326 @@ window.addEventListener("error", (event) => {
   - Search Debouncing
   - Infinite Scrolling
 
+---
+
+### ❓ difference between fetch() and async/await?
+
+- fetch() performs the network request, while async/await is a way to consume the Promise returned by fetch(). They are often used together.
+  - fetch() is an API used to make HTTP requests.
+  - async/await is JavaScript syntax used to handle Promises more cleanly.
+
+```js
+// JavaScript - fetch async/await
+async function getUsers() {
+  const response = await fetch("/api/users");
+  const data = await response.json();
+  console.log(data);
+}
+
+// React - fetch async/await
+useEffect(() => {
+  async function loadUsers() {
+    const response = await fetch("/api/users");
+    const data = await response.json();
+    setUsers(data);
+  }
+  loadUsers();
+}, []);
+```
+
+---
+
+### ❓ difference between default Promises and custom Promises in JavaScript?
+
+- Default Promise: Returned automatically by APIs like fetch(), axios, or async functions.
+- Custom Promise: Created manually using new Promise() when you need to wrap async logic yourself.
+
+```js
+// Default Promise
+fetch("/api/users")
+  .then((res) => res.json())
+  .then((data) => console.log(data));
+
+// Custom Promise
+const getData = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("Data Loaded");
+    }, 2000);
+  });
+};
+
+getData().then(console.log);
+```
+
+| Feature             | Default Promise      | Custom Promise     |
+| ------------------- | -------------------- | ------------------ |
+| Created By          | Browser/Library      | Developer          |
+| Syntax              | `fetch()`, `axios()` | `new Promise()`    |
+| Common Usage        | API Calls            | Custom Async Logic |
+| Need resolve/reject | ❌                   | ✅                 |
+
+| State     | Meaning       |
+| --------- | ------------- |
+| Pending   | Still Running |
+| Fulfilled | Success       |
+| Rejected  | Failed        |
+
+```jsx
+// Complete Default Promise Example
+function Users() {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    fetch("/api/users")
+      .then((res) => res.json())
+      .then((data) => {
+        setUsers(data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError("Failed");
+        setLoading(false);
+      });
+  }, []);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
+  return <div>{users.length} Users</div>;
+}
+
+// Pending > Loading Spinner
+// Fulfilled > Show Data
+// Rejected > Show Error
+```
+
+- A Promise starts in the Pending state, becomes Fulfilled when the async operation succeeds, or Rejected when it fails. In React, these states typically map to loading, success, and error UI states.
+
+---
+
+### ❓ What is an Instance in JavaScript?
+
+- An instance is a specific object created from a class or constructor function.
+- An instance is a real object created using a class or constructor. Each instance has its own data (properties) but can share methods defined on the class/prototype.
+
+```js
+class User {
+  constructor(name) {
+    this.name = name;
+  }
+}
+const user1 = new User("Ratan");
+const user2 = new User("Rahul");
+
+console.log(user1 instanceof User); // true
+```
+
+- user1 and user2 are instances of User.
+
+---
+
+### ❓ What is Hoisting and what is its purpose in JavaScript?
+
+- Hoisting is JavaScript's behavior of moving declarations (variables and functions) to the top of their scope during the compilation phase before code execution.
+- Hoisting allows JavaScript to know about variable and function declarations before they appear in the code. Function declarations are fully hoisted, while var variables are initialized with undefined and let/const remain in the Temporal Dead Zone until declared.
+- Purpose:
+  - Creates memory for declarations before execution.
+  - Allows function declarations to be called before they are defined.
+  - Helps JavaScript set up the execution context.
+
+```js
+Hoisting ≠ Moving Code
+
+Hoisting = JavaScript reserves memory first,
+then executes code line by line.
+```
+
+---
+
+### ❓ difference between an Array and an Object in JavaScript?
+
+- An Array is an ordered collection of values accessed using numeric indexes.
+- An Object is a collection of key-value pairs accessed using property names (keys).
+
+```js
+// Array
+const users = ["Naimesh", "Rahul", "Amit"];
+console.log(users[1]);
+
+// Object
+const user = {
+  name: "Naimesh",
+  city: "Nadiad",
+};
+console.log(user.name);
+
+// typeof []  → "object"
+// typeof {}  → "object"
+```
+
+- typeof returns "object" for both arrays and objects. To distinguish arrays from objects, use Array.isArray().
+
+| Feature         | Array                      | Object                                           |
+| --------------- | -------------------------- | ------------------------------------------------ |
+| Structure       | Ordered List               | Key-Value Pairs                                  |
+| Access          | `arr[0]`                   | `obj.name`                                       |
+| Keys            | Numeric Indexes            | Custom Keys                                      |
+| Order Important | ✅ Yes                     | Usually No                                       |
+| Best For        | Lists, Collections         | Entity Details, Configs                          |
+| Length          | `arr.length`               | `Object.keys(obj).length`                        |
+| Iteration       | `map`, `filter`, `forEach` | `Object.keys`, `Object.values`, `Object.entries` |
+
+---
+
+### ❓ difference between Callback, Promise, and Async/Await in JavaScript?
+
+- All three are used to handle asynchronous operations (API calls, timers, file uploads, etc.).
+- Callbacks were the original way to handle asynchronous code. Promises improved readability and error handling. Async/Await is built on top of Promises and provides synchronous-looking code that's easier to read and maintain.
+
+```js
+// Callback
+function fetchUser(callback) {
+  setTimeout(() => {
+    callback("Naimesh");
+  }, 1000);
+}
+
+fetchUser((user) => {
+  console.log(user);
+});
+
+// Promise
+function fetchUser() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("Naimesh");
+    }, 1000);
+  });
+}
+
+fetchUser().then((user) => {
+  console.log(user);
+});
+
+// Async/Await
+function fetchUser() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("Naimesh");
+    }, 1000);
+  });
+}
+
+async function loadUser() {
+  const user = await fetchUser();
+  console.log(user);
+}
+
+loadUser();
+```
+
+| Feature        | Callback  | Promise    | Async/Await |
+| -------------- | --------- | ---------- | ----------- |
+| Introduced     | ES5       | ES6        | ES8         |
+| Readability    | Low       | Better     | Best        |
+| Chaining       | Difficult | Easy       | Very Easy   |
+| Error Handling | Complex   | `.catch()` | `try/catch` |
+| Callback Hell  | ❌ Common | ✅ Avoided | ✅ Avoided  |
+
+```js
+// Callback / Error Handling Hell
+getUser(() => {
+  getCart(() => {
+    createOrder(() => {
+      makePayment();
+    });
+  });
+});
+getUser((err, user) => {
+  if (err) {
+    console.error(err);
+  }
+});
+
+// Promise / Error Handling (Better)
+getUser().then(getCart).then(createOrder).then(makePayment);
+getUser()
+  .then((user) => console.log(user))
+  .catch((err) => console.error(err));
+
+// Async/Await / Error Handling (Cleanest and easiest to read)
+const user = await getUser();
+const cart = await getCart();
+const order = await createOrder();
+await makePayment(order);
+try {
+  const user = await getUser();
+  console.log(user);
+} catch (err) {
+  console.error(err);
+}
+```
+
+- Callback > "Call me when done"
+- Promise > "I promise to give result later"
+- Async/Await > "Wait for result, then continue"
+
+---
+
+### ❓ What are Streams and why are they useful?
+
+- A Stream is a way to process data piece by piece (chunks) instead of loading the entire data into memory at once.
+
+```js
+// >>>>> Without Stream
+const file = readEntireFile("large-video.mp4");
+// Wait until complete file loads
+console.log(file);
+
+// >>>>> With Stream
+const response = await fetch("/report.csv");
+const reader = response.body.getReader();
+const { value, done } = await reader.read();
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
 ```js
 // Comment
 ```
