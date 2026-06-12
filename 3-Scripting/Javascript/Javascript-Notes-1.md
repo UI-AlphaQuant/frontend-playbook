@@ -741,7 +741,7 @@ const activeUsers = users.filter((user) => user.active);
 | Mutable   | Changes original array  | `push()` `pop()` `splice()` `sort()` `reverse()`            |
 | Immutable | Returns new array/value | `map()` `filter()` `find()` `reduce()` `slice()` `concat()` |
 
-#### splice
+- splice
 
 ```js
 array.splice(startIndex, deleteCount, item1, item2, ...)
@@ -751,7 +751,7 @@ array.splice(startIndex, deleteCount, item1, item2, ...)
 
 ## 📌 Closures
 
-A closure allows a function to access variables from its outer scope even after the outer function finishes execution.
+- A closure allows a function to access variables from its outer scope even after the outer function has finished executing.
 
 | Feature            | Details                   | Example         |
 | ------------------ | ------------------------- | --------------- |
@@ -1307,11 +1307,25 @@ const users = [
 ];
 ```
 
+### Object Features
+
+| Feature            | Syntax           | Example                |
+| ------------------ | ---------------- | ---------------------- |
+| Dot Notation       | `obj.prop`       | `user.name`            |
+| Bracket Notation   | `obj[key]`       | `user["name"]`         |
+| Destructuring      | `const {x}=obj`  | `const {name}=user`    |
+| Spread             | `{...obj}`       | `{...user}`            |
+| Optional Chaining  | `obj?.prop`      | `user?.address?.city`  |
+| Nullish Coalescing | `a ?? b`         | `user.name ?? "Guest"` |
+| Computed Keys      | `{[key]:val}`    | `{[field]:value}`      |
+| delete             | `delete obj.key` | `delete user.age`      |
+
 ---
 
 ## 📌 Arrays
 
-Arrays store multiple values in ordered collections.
+- Arrays store multiple values in ordered collections.
+- Arrays are objects in JavaScript, and their indexes are actually keys.
 
 | Feature        | Details                                           | Examples                                              |
 | -------------- | ------------------------------------------------- | ----------------------------------------------------- |
@@ -2656,6 +2670,229 @@ console.log(/\.(jpg|png|webp)$/.test(file));
 
 ---
 
+## Array Operations
+
+```js
+const users = [
+  { id: 1, name: "John", active: true, skills: ["React", "JS"], age: 30 },
+  { id: 2, name: "Jane", active: false, skills: ["CSS"], age: 25 },
+];
+
+const nums = [30, 10, 20];
+const skills = ["HTML", "CSS", "React"];
+
+// map → arr.map(callback)
+users.map((user) => user.name); // ["John", "Jane"]
+
+// filter → arr.filter(callback)
+users.filter((user) => user.active); // [{ id: 1, name: "John", ... }]
+
+// find → arr.find(callback)
+users.find((user) => user.id === 1); // { id: 1, name: "John", ... }
+
+// findIndex → arr.findIndex(callback)
+users.findIndex((user) => user.id === 2); // 1
+
+// some → arr.some(callback)
+users.some((user) => user.active); // true
+
+// every → arr.every(callback)
+users.every((user) => user.active); // false
+
+// reduce → arr.reduce(callback, initialValue)
+nums.reduce((sum, num) => sum + num, 0); // 60
+
+// sort → arr.sort(compareFn)
+nums.sort((a, b) => a - b); // [10, 20, 30]
+
+// includes → arr.includes(value)
+skills.includes("React"); // true
+
+// forEach → arr.forEach(callback)
+users.forEach((user) => console.log(user.name)); // John, Jane
+
+// flat → arr.flat(depth)
+[
+  [1, 2],
+  [3, 4],
+].flat(); // [1, 2, 3, 4]
+
+// flatMap → arr.flatMap(callback)
+users.flatMap((user) => user.skills); // ["React", "JS", "CSS"]
+
+// push → arr.push(value)
+skills.push("Vue"); // 4
+
+// pop → arr.pop()
+skills.pop(); // "React"
+
+// shift → arr.shift()
+skills.shift(); // "HTML"
+
+// unshift → arr.unshift(value)
+skills.unshift("Bootstrap"); // 4
+
+// splice → arr.splice(start, deleteCount, items)
+skills.splice(1, 1); // ["CSS"]
+
+// reverse → arr.reverse()
+skills.reverse(); // ["React", "CSS", "HTML"]
 ```
 
+## Object Operations
+
+```js
+const user = {
+  id: 1,
+  name: "John",
+  age: 30,
+  city: "New York",
+};
+
+const key = "name";
+
+// Dot Notation → obj.property
+user.name; // "John"
+
+// Bracket Notation → obj[key]
+user["name"]; // "John"
+
+// Destructuring → const { prop } = obj
+const { name } = user; // name = "John"
+
+// Spread → { ...obj }
+const copy = { ...user }; // { id: 1, name: "John", age: 30, city: "New York" }
+
+// Optional Chaining → obj?.prop?.nestedProp
+user?.address?.city; // undefined
+
+// Nullish Coalescing → value ?? defaultValue
+user.country ?? "USA"; // "USA"
+
+// Computed Property → { [key]: value }
+const obj = { [key]: "Jane" }; // { name: "Jane" }
+
+// delete → delete obj.property
+delete user.age; // true
+
+// Object.keys → Object.keys(obj)
+Object.keys(user); // ["id", "name", "age", "city"]
+
+// Object.values → Object.values(obj)
+Object.values(user); // [1, "John", 30, "New York"]
+
+// Object.entries → Object.entries(obj)
+Object.entries(user); // [["id",1],["name","John"],["age",30],["city","New York"]]
+
+// Object.fromEntries → Object.fromEntries(entries)
+Object.fromEntries([
+  ["name", "John"],
+  ["age", 30],
+]); // { name: "John", age: 30 }
+
+// Object.assign → Object.assign(target, ...sources)
+Object.assign({}, user, { age: 31 }); // { id: 1, name: "John", age: 31, city: "New York" }
+
+// Object.hasOwn → Object.hasOwn(obj, key)
+Object.hasOwn(user, "name"); // true
+
+// Object.freeze → Object.freeze(obj)
+Object.freeze(user); // object becomes immutable
+
+// Object.seal → Object.seal(obj)
+Object.seal(user); // cannot add/remove properties
+
+// Object.preventExtensions → Object.preventExtensions(obj)
+Object.preventExtensions(user); // cannot add new properties
 ```
+
+## String Operations
+
+```js
+const str = "  Hello JavaScript World  ";
+const email = "john@example.com";
+const text = "React,Vue,Angular";
+
+// length → str.length
+str.length; // 26
+
+// trim → str.trim()
+str.trim(); // "Hello JavaScript World"
+
+// trimStart → str.trimStart()
+str.trimStart(); // "Hello JavaScript World  "
+
+// trimEnd → str.trimEnd()
+str.trimEnd(); // "  Hello JavaScript World"
+
+// toUpperCase → str.toUpperCase()
+str.toUpperCase(); // "  HELLO JAVASCRIPT WORLD  "
+
+// toLowerCase → str.toLowerCase()
+str.toLowerCase(); // "  hello javascript world  "
+
+// includes → str.includes(search)
+str.includes("JavaScript"); // true
+
+// startsWith → str.startsWith(search)
+email.startsWith("john"); // true
+
+// endsWith → str.endsWith(search)
+email.endsWith(".com"); // true
+
+// indexOf → str.indexOf(search)
+str.indexOf("JavaScript"); // 8
+
+// lastIndexOf → str.lastIndexOf(search)
+"hello hello".lastIndexOf("hello"); // 6
+
+// slice → str.slice(start, end)
+str.slice(2, 7); // "Hello"
+
+// substring → str.substring(start, end)
+str.substring(2, 7); // "Hello"
+
+// replace → str.replace(search, replace)
+str.replace("JavaScript", "JS"); // "  Hello JS World  "
+
+// replaceAll → str.replaceAll(search, replace)
+"a-b-c".replaceAll("-", "_"); // "a_b_c"
+
+// split → str.split(separator)
+text.split(","); // ["React", "Vue", "Angular"]
+
+// concat → str.concat(value)
+"Hello".concat(" World"); // "Hello World"
+
+// repeat → str.repeat(count)
+"Hi ".repeat(3); // "Hi Hi Hi "
+
+// charAt → str.charAt(index)
+str.charAt(2); // "H"
+
+// at → str.at(index)
+str.at(-1); // " "
+
+// padStart → str.padStart(length, pad)
+"5".padStart(3, "0"); // "005"
+
+// padEnd → str.padEnd(length, pad)
+"5".padEnd(3, "0"); // "500"
+
+// match → str.match(regex)
+email.match(/@/); // ["@"]
+
+// search → str.search(regex)
+email.search("@"); // 4
+
+// localeCompare → str.localeCompare(other)
+"apple".localeCompare("banana"); // -1
+
+// valueOf → str.valueOf()
+str.valueOf(); // "  Hello JavaScript World  "
+
+// String → String(value)
+String(123); // "123"
+```
+
+---

@@ -1593,3 +1593,44 @@ const parsed = JSON.parse(json);
   }
 }
 ```
+
+---
+
+## 📌 Streamed API
+
+- A streamed API sends data in chunks as it becomes available, allowing the frontend to display partial results immediately instead of waiting for the complete response.
+
+- Normal API: Frontend > Request > Backend > Generate Full Response > Send Response > Display
+  - User Waits 5 Seconds and Gets Complete Response
+- Streamed API: Frontend > Request > Backend > Chunk 1 > Chunk 2 > Chunk 3 > Display Continuously
+  - Youtube Video, ChatGPT Typing Effect,
+
+| Item        | Description                                                    |
+| ----------- | -------------------------------------------------------------- |
+| Purpose     | Receive Data Continuously Instead Of Waiting For Full Response |
+| Benefit     | Faster UI Updates                                              |
+| Common Uses | AI Chat, Live Notifications, Logs, Stock Prices                |
+| Protocols   | HTTP Streaming, SSE, WebSocket                                 |
+
+### Common Streaming Technologies
+
+| Technology               | Direction       |
+| ------------------------ | --------------- |
+| HTTP Streaming           | Server → Client |
+| SSE (Server Sent Events) | Server → Client |
+| WebSocket                | Two Way         |
+| WebRTC                   | Real-Time Media |
+
+### Real World Product
+
+| Product             | Technology        |
+| ------------------- | ----------------- |
+| ChatGPT             | HTTP Stream / SSE |
+| Claude              | HTTP Stream / SSE |
+| Live Logs           | SSE               |
+| Stock Market Ticker | WebSocket         |
+| Chat App            | WebSocket         |
+| Multiplayer Game    | WebSocket         |
+| Live Notifications  | SSE               |
+
+---

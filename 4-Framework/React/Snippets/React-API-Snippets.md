@@ -2701,3 +2701,145 @@ export default function ChatPage() {
 ```
 
 ---
+
+## 📌 Axios
+
+- Axios is a Promise-based HTTP client that simplifies API communication by providing automatic JSON parsing, interceptors, request configuration, and better error handling than fetch().
+
+| Item        | Description                   |
+| ----------- | ----------------------------- |
+| Purpose     | HTTP Client For APIs          |
+| Works In    | Browser + Node.js             |
+| Supports    | GET, POST, PUT, PATCH, DELETE |
+| Returns     | Promise                       |
+| Alternative | Native `fetch()`              |
+
+```bash
+npm install axios
+```
+
+```js
+// Import
+import axios from "axios";
+```
+
+| Common Methods   | Purpose                |
+| ---------------- | ---------------------- |
+| `axios.get()`    | Read Data              |
+| `axios.post()`   | Create Data            |
+| `axios.put()`    | Update Entire Resource |
+| `axios.patch()`  | Partial Update         |
+| `axios.delete()` | Delete Resource        |
+
+### Examples
+
+```js
+// GET Request
+const res = await axios.get("/users");
+console.log(res.data);
+
+// POST Request
+await axios.post("/users", {
+  name: "John",
+});
+
+// PUT Request
+await axios.put("/users/1", {
+  name: "John",
+});
+
+// PATCH Request
+await axios.patch("/users/1", {
+  name: "John",
+});
+
+// DELETE Request
+await axios.delete("/users/1");
+```
+
+- Query Params
+
+```js
+axios.get("/users", {
+  params: {
+    page: 1,
+    limit: 10,
+  },
+});
+
+// Generated URL: /users?page=1&limit=10
+```
+
+- Headers
+
+```js
+axios.get("/users", {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
+```
+
+- Create API Instance
+
+```js
+const api = axios.create({
+  baseURL: "https://api.com",
+});
+
+// Usage:
+api.get("/users");
+api.post("/users");
+```
+
+- Interceptors (JWT Tokens, Logging, Error Handling)
+
+```js
+api.interceptors.request.use((config) => {
+  config.headers.Authorization = `Bearer ${token}`;
+
+  return config;
+});
+```
+
+- Typical Project Structure
+
+```txt
+src
+├─ api
+│  └─ axios.js
+├─ services
+│  └─ userService.js
+├─ pages
+└─ components
+```
+
+### Response Object
+
+| Property  | Purpose                 | Example                       |
+| --------- | ----------------------- | ----------------------------- |
+| `data`    | API Data                | `res.data.users`              |
+| `status`  | HTTP Status Code        | `200`, `404`, `500`           |
+| `headers` | Response Headers        | `res.headers["content-type"]` |
+| `config`  | Original Request Config | `res.config.url`              |
+
+```js
+const res = await axios.get("/users");
+console.log(res.data); // API data
+console.log(res.status); // 200
+console.log(res.headers["content-type"]); // application/json
+console.log(res.config.url); // /users
+```
+
+### Axios vs Fetch
+
+| Feature            | Axios        | Fetch           |
+| ------------------ | ------------ | --------------- |
+| Built Into Browser | ❌           | ✅              |
+| JSON Parsing       | ✅ Automatic | ❌ `res.json()` |
+| Request Timeout    | ✅           | ❌              |
+| Interceptors       | ✅           | ❌              |
+| Error Handling     | Better       | Basic           |
+| File Uploads       | ✅           | ✅              |
+
+---

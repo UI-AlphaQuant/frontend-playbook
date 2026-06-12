@@ -1009,7 +1009,3 @@ Live Website
 | Netlify CI/CD      | Static site deployment   |
 
 ---
-
----
-
----

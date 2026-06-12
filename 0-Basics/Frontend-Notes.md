@@ -1526,3 +1526,94 @@ npm audit
   - ✅ Validate Data on Backend
 
 ---
+
+## 📌 URL (Uniform Resource Locator)
+
+- A URL is the complete address used to locate and access a resource on the internet, including protocol, domain, path, query parameters, and fragments.
+
+| Item      | Description                           |
+| --------- | ------------------------------------- |
+| Full Form | Uniform Resource Locator              |
+| Purpose   | Address Of A Resource On The Internet |
+| Examples  | Web Page, API, Image, PDF             |
+
+### URL Structure
+
+```txt
+https://api.example.com/users/123?page=1#profile
+```
+
+| Part         | Example           | Purpose                |
+| ------------ | ----------------- | ---------------------- |
+| Protocol     | `https://`        | Communication Method   |
+| Domain       | `api.example.com` | Website/Server Address |
+| Path         | `/users/123`      | Specific Resource      |
+| Query String | `?page=1`         | Additional Parameters  |
+| Fragment     | `#profile`        | Page Section           |
+
+### API URL Example
+
+```txt
+https://api.example.com/users?page=1&limit=10
+```
+
+| Part         | Value             |
+| ------------ | ----------------- |
+| Protocol     | `https`           |
+| Domain       | `api.example.com` |
+| Resource     | `/users`          |
+| Query Params | `page=1&limit=10` |
+
+### Query Parameters
+
+| URL            | Meaning          |
+| -------------- | ---------------- |
+| `?page=1`      | Page Number      |
+| `?limit=10`    | Records Per Page |
+| `?sort=name`   | Sort By Name     |
+| `?search=john` | Search Filter    |
+
+### URL Components In JavaScript
+
+```js
+const url = new URL("https://api.com/users?page=1");
+```
+
+| Property       | Purpose         | Example                                |
+| -------------- | --------------- | -------------------------------------- |
+| `url.href`     | Complete URL    | `https://api.com/users?page=1#profile` |
+| `url.protocol` | Protocol/Scheme | `https:`                               |
+| `url.hostname` | Domain Name     | `api.com`                              |
+| `url.pathname` | Resource Path   | `/users`                               |
+| `url.search`   | Query String    | `?page=1`                              |
+| `url.hash`     | Fragment/Anchor | `#profile`                             |
+
+### URL vs URI vs URN
+
+| Term | Meaning             | Example                                                |
+| ---- | ------------------- | ------------------------------------------------------ |
+| URL  | Resource Location   | `https://api.com/users/1`                              |
+| URI  | Resource Identifier | `https://api.com/users/1` or `mailto:john@example.com` |
+| URN  | Resource Name       | `urn:isbn:9780131103627`                               |
+
+| Type                  | Example                                         |
+| --------------------- | ----------------------------------------------- |
+| URL                   | `https://google.com/search?q=react`             |
+| URL                   | `https://api.github.com/users`                  |
+| URI (URL is also URI) | `https://site.com/page`                         |
+| URI (Non-URL)         | `mailto:support@example.com`                    |
+| URI (Non-URL)         | `tel:+911234567890`                             |
+| URN                   | `urn:isbn:9780131103627`                        |
+| URN                   | `urn:uuid:123e4567-e89b-12d3-a456-426614174000` |
+
+```txt
+URI
+├── URL
+└── URN
+
+Every URL is a URI
+Every URN is a URI
+Not every URI is a URL
+```
+
+---
