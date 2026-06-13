@@ -694,14 +694,12 @@ fetch("/users")
   });
 ```
 
-### Async/Await Example
+### Async/Await
 
 ```js
 async function getUsers() {
   const res = await fetch("/users");
-
   const data = await res.json();
-
   console.log(data);
 }
 ```
@@ -710,13 +708,10 @@ async function getUsers() {
 
 ```js
 const xhr = new XMLHttpRequest();
-
 xhr.open("GET", "/users");
-
 xhr.onload = () => {
   console.log(xhr.responseText);
 };
-
 xhr.send();
 ```
 

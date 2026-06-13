@@ -1888,10 +1888,37 @@ function Orders() {
 
 ---
 
-### ❓
+### ❓ difference between interface and type in TypeScript?
+
+- Both interface and type are used to define the shape of data in TypeScript.
+  - interface: Object Models / Props (Objects & Contracts)
+  - type: Unions / Utility Types / Advanced Types (Objects, Unions, Tuples, Primitives)
 
 ```jsx
-// Code
+interface User {
+  id: number;
+  name: string;
+}
+
+type Theme = "light" | "dark";
+
+// interface
+interface User {
+  name: string;
+}
+
+interface Admin extends User {
+  role: string;
+}
+
+// Type
+type User = {
+  name: string;
+};
+
+type Admin = User & {
+  role: string;
+};
 ```
 
 ---

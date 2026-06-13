@@ -2895,4 +2895,50 @@ str.valueOf(); // "  Hello JavaScript World  "
 String(123); // "123"
 ```
 
+### JSON Operations
+
+```js
+const user = {
+  id: 1,
+  name: "John",
+  active: true,
+};
+const json = '{"id":1,"name":"John","active":true}';
+
+// JSON.stringify → JSON.stringify(value)
+JSON.stringify(user); // '{"id":1,"name":"John","active":true}'
+
+// JSON.parse → JSON.parse(json)
+JSON.parse(json); // { id: 1, name: "John", active: true }
+
+// JSON.stringify (Pretty Print) → JSON.stringify(value, replacer, space)
+JSON.stringify(user, null, 2); // formatted JSON string
+
+// JSON.stringify (Array) → JSON.stringify(array)
+JSON.stringify(["React", "Vue"]); // '["React","Vue"]'
+
+// JSON.parse (Array) → JSON.parse(json)
+JSON.parse('["React","Vue"]'); // ["React", "Vue"]
+
+// JSON.stringify (Selective Keys) → JSON.stringify(value, keys)
+JSON.stringify(user, ["id", "name"]); // '{"id":1,"name":"John"}'
+
+// JSON.stringify (Custom Transform) → JSON.stringify(value, fn)
+JSON.stringify(user, (key, value) => (key === "active" ? undefined : value)); // '{"id":1,"name":"John"}'
+```
+
+- Most Common Usage
+
+```js
+// Object → JSON
+JSON.stringify(user); // '{"id":1,"name":"John","active":true}'
+
+// JSON → Object
+JSON.parse(json); // { id: 1, name: "John", active: true }
+
+// localStorage
+localStorage.setItem("user", JSON.stringify(user)); // localStorage Save (string)
+JSON.parse(localStorage.getItem("user")); // localStorage Read (converts back to object)
+```
+
 ---

@@ -399,6 +399,64 @@ React UI
 
 ---
 
+## 📌 HTML vs React JSX
+
+| Concept                  | HTML                    | React JSX                              |
+| ------------------------ | ----------------------- | -------------------------------------- |
+| CSS Class                | `class="card"`          | `className="card"`                     |
+| Label Association        | `for="name"`            | `htmlFor="name"`                       |
+| Click Event              | `onclick="save()"`      | `onClick={save}`                       |
+| Change Event             | `onchange="handle()"`   | `onChange={handle}`                    |
+| Tab Index                | `tabindex="1"`          | `tabIndex={1}`                         |
+| Read Only                | `readonly`              | `readOnly`                             |
+| Max Length               | `maxlength="10"`        | `maxLength={10}`                       |
+| Variables                | Not Supported           | `{userName}`                           |
+| Conditions               | Not Supported           | `{isLoggedIn && <Profile />}`          |
+| Loops                    | Manual HTML             | `{users.map(...)}`                     |
+| Inline Styles            | `style="color:red"`     | `style={{ color: "red" }}`             |
+| JavaScript Inside Markup | ❌                      | `{}` Expressions                       |
+| Event Values             | String Based            | Function References                    |
+| Self Closing Tags        | `<img>`                 | `<img />`                              |
+| Structure                | Static HTML             | Dynamic UI                             |
+| Organization             | Multiple Separate Files | Component Based                        |
+| Fragment                 | N/A                     | `<>...</>`                             |
+| Comments                 | `<!-- Comment -->`      | `{/* Comment */}`                      |
+| Link                     | `<a href="/about">`     | `<Link to="/about">`                   |
+| Image                    | `<img src="logo.png">`  | `<img src={logo} />`                   |
+| Form Submit              | `onsubmit="save()"`     | `onSubmit={handleSubmit}`              |
+| Input Value              | `value="John"`          | `value={name}`                         |
+| Conditional Class        | Manual                  | `className={isActive ? "active" : ""}` |
+
+### Examples JSX
+
+```jsx
+// Conditions
+{
+  isLoggedIn && <Profile />;
+}
+{
+  isLoggedIn ? <Profile /> : <Login />;
+}
+
+// Loops
+{
+  users.map((user) => <li key={user.id}>{user.name}</li>);
+}
+
+// Events
+<button onClick={save}>Save</button>;
+
+// Inline Styles
+<div
+  style={{
+    color: "red",
+    fontSize: "20px",
+  }}
+></div>;
+```
+
+---
+
 ## 📌 Components
 
 Components are reusable UI building blocks used to create React interfaces.
@@ -935,18 +993,115 @@ export default function App() {
 
 ## 📌 React Hooks
 
-Hooks are special React functions that add state, lifecycle, and other React features to functional components.
+- Hooks are special React functions that add state, lifecycle, and other React features to functional components.
 
-| Hook          | Purpose                          | Example                     | Real-World Usage    |
-| ------------- | -------------------------------- | --------------------------- | ------------------- |
-| `useState`    | Manage component state           | `useState(0)`               | Counters, forms     |
-| `useEffect`   | Handle side effects              | `useEffect(() => {})`       | API calls           |
-| `useRef`      | Access DOM / store mutable value | `useRef()`                  | Input focus         |
-| `useContext`  | Access global context            | `useContext(AuthContext)`   | Theme/auth          |
-| `useMemo`     | Memoize expensive values         | `useMemo(() => {}, [])`     | Large calculations  |
-| `useCallback` | Memoize functions                | `useCallback(() => {}, [])` | Optimized callbacks |
-| `useReducer`  | Complex state management         | `useReducer(reducer,{})`    | Large forms         |
-| Custom Hook   | Reusable hook logic              | `useAuth()`                 | Shared app logic    |
+| Category    | Hook                   | Usage                       | Example         | Real-Life Scenario                |
+| ----------- | ---------------------- | --------------------------- | --------------- | --------------------------------- |
+| State       | `useState`             | Simple Component State      | Counter         | Toggle Menu, Modal, Form Input    |
+|             | `useReducer`           | Complex State Logic         | Shopping Cart   | Multi-Step Forms, Dashboard State |
+| Effect      | `useEffect`            | Side Effects                | API Call        | Fetch Users, Event Listeners      |
+|             | `useLayoutEffect`      | Before Paint                | Measure Element | Tooltip Positioning               |
+|             | `useInsertionEffect`   | CSS Injection               | Styles          | Emotion, Styled Components        |
+| Context     | `useContext`           | Shared Global Data          | Theme Context   | Auth, Theme, Language             |
+| Ref         | `useRef`               | DOM Access / Mutable Values | Input Focus     | Focus Input, Timer ID             |
+|             | `useImperativeHandle`  | Custom Ref API              | Custom Input    | Parent Controls Child             |
+| Performance | `useMemo`              | Cache Values                | Filtered List   | Large Tables                      |
+|             | `useCallback`          | Cache Functions             | Event Handler   | Prevent Re-Renders                |
+|             | `useDeferredValue`     | Defer Updates               | Search Results  | Typeahead Search                  |
+|             | `useTransition`        | Non-Urgent Updates          | Filter Grid     | Smooth UI Updates                 |
+| Other       | `useId`                | Unique IDs                  | Form Labels     | Accessibility                     |
+|             | `useDebugValue`        | Debug Hooks                 | DevTools Label  | Custom Hooks                      |
+|             | `useSyncExternalStore` | External Store              | Redux Store     | Redux, Zustand                    |
+| Async       | `use`                  | Read Promise                | Async Data      | Server Components                 |
+|             | `useOptimistic`        | Optimistic UI               | Like Button     | Instant Feedback                  |
+|             | `useActionState`       | Form State                  | Submit Form     | React 19 Forms                    |
+| Custom Hook |                        | Shared reusable logic       |                 |                                   |
+
+### Hook Examples
+
+```js
+/* ------------------------------------------------------- */
+// useState → const [state, setState] = useState(initialValue)
+const [count, setCount] = useState(0); // count = 0
+
+// useReducer → const [state, dispatch] = useReducer(reducer, initialState)
+const [state, dispatch] = useReducer(reducer, { count: 0 }); // state.count = 0
+/* ------------------------------------------------------- */
+// useEffect → useEffect(callback, deps)
+useEffect(() => fetchUsers(), []); // runs on mount
+
+// useLayoutEffect → useLayoutEffect(callback, deps)
+useLayoutEffect(() => inputRef.current.focus(), []); // runs before paint
+
+// useInsertionEffect → useInsertionEffect(callback, deps)
+useInsertionEffect(() => injectStyles(), []); // inject styles before DOM updates
+/* ------------------------------------------------------- */
+// createContext → createContext(defaultValue)
+const ThemeContext = createContext("light"); // Context object
+<ThemeContext.Provider value="dark" />; // provides value
+const theme = useContext(ThemeContext); // useContext(Context) → "dark"
+
+// useRef → useRef(initialValue)
+const inputRef = useRef(null); // { current: null }
+const Input = forwardRef((props, ref) => <input ref={ref} />); // forwardRef → forwardRef(component)
+
+// useImperativeHandle → useImperativeHandle(ref, createHandle)
+useImperativeHandle(ref, () => ({ focus })); // exposes focus()
+/* ------------------------------------------------------- */
+// useMemo → useMemo(callback, deps)
+const activeUsers = useMemo(() => users.filter((u) => u.active), [users]); // memoized value
+
+// useCallback → useCallback(callback, deps)
+const handleClick = useCallback(() => saveUser(), []); // memoized function
+
+// memo → memo(Component)
+export default memo(UserCard); // memoized component
+
+// useDeferredValue → useDeferredValue(value)
+const deferredSearch = useDeferredValue(search); // delayed search value
+
+// useTransition → const [isPending, startTransition] = useTransition()
+const [isPending, startTransition] = useTransition(); // isPending = false
+/* ------------------------------------------------------- */
+// use → use(promise)
+const users = use(fetchUsers()); // resolved users
+
+// useOptimistic → useOptimistic(state)
+const [likes, addLike] = useOptimistic(10); // likes = 10
+
+// useActionState → useActionState(action, initialState)
+const [state, formAction] = useActionState(saveUser, null); // state = null
+/* ------------------------------------------------------- */
+// useId → useId()
+const id = useId(); // ":r0:"
+
+// useDebugValue → useDebugValue(value)
+useDebugValue(user); // shown in React DevTools
+
+// useSyncExternalStore → useSyncExternalStore(subscribe, getSnapshot)
+const todos = useSyncExternalStore(store.subscribe, store.getState); // external store state
+/* ------------------------------------------------------- */
+// Custom Hook → function useHookName()
+function useCounter() {} // reusable hook
+
+// useFetch → const data = useFetch(url)
+const users = useFetch("/api/users"); // fetched users
+
+// useLocalStorage → useLocalStorage(key, defaultValue)
+const [theme, setTheme] = useLocalStorage("theme", "dark"); // persisted state
+
+// useDebounce → useDebounce(value, delay)
+const debouncedSearch = useDebounce(search, 500); // delayed value
+
+// useWindowSize → useWindowSize()
+const { width, height } = useWindowSize(); // screen dimensions
+
+// useToggle → useToggle()
+const [isOpen, toggle] = useToggle(); // toggle state
+
+// usePrevious → usePrevious(value)
+const prevCount = usePrevious(count); // previous value
+```
 
 | Hook Rule                        | Notes                   |
 | -------------------------------- | ----------------------- |
@@ -957,24 +1112,11 @@ Hooks are special React functions that add state, lifecycle, and other React fea
 
 ```jsx
 import { useState } from "react";
-
 export default function Counter() {
   const [count, setCount] = useState(0);
-
   return <button onClick={() => setCount(count + 1)}>{count}</button>;
 }
 ```
-
-| Hook          | Real-World Usage             |
-| ------------- | ---------------------------- |
-| `useState`    | Forms, toggles, counters     |
-| `useEffect`   | API calls, timers, listeners |
-| `useRef`      | Input focus, DOM access      |
-| `useContext`  | Theme, auth, cart state      |
-| `useMemo`     | Expensive calculations       |
-| `useCallback` | Optimized event handlers     |
-| `useReducer`  | Complex forms/state logic    |
-| Custom Hook   | Shared reusable logic        |
 
 ---
 
@@ -1689,6 +1831,49 @@ App
 │   ├── Users
 │   ├── Reports
 │   └── Settings
+```
+
+### useParams
+
+| Concept         | Example                                     |
+| --------------- | ------------------------------------------- |
+| Route Parameter | `/users/:id`                                |
+| Multiple Params | `/users/:id/posts/:postId`                  |
+| Access Params   | `useParams()`                               |
+| Common Usage    | User Details, Product Details, Blog Details |
+
+```jsx
+// Route Definition
+<Route path="/users/:id" element={<UserDetail />} />;
+
+// Access Param
+import { useParams } from "react-router-dom";
+function UserDetail() {
+  const { id } = useParams();
+  return <h1>{id}</h1>;
+}
+
+// Multiple Params
+<Route path="/users/:id/posts/:postId" element={<PostDetail />} />;
+
+// Access Multiple Param
+const { id, postId } = useParams();
+
+// Navigation
+<Link to="/users/101">View User</Link>;
+```
+
+| Params Type | URL             | Access              |
+| ----------- | --------------- | ------------------- |
+| Route Param | `/users/101`    | `useParams()`       |
+| Query Param | `/users?page=1` | `useSearchParams()` |
+
+### Query Param
+
+```js
+// /users?page=1&sort=name
+const [searchParams] = useSearchParams();
+searchParams.get("page"); // "1"
 ```
 
 ---
