@@ -559,3 +559,69 @@ const [theme, setTheme] = useLocalStorage("theme", "light");
 
 console.log(theme);
 ```
+
+---
+
+## 📌 Local Font in React
+
+```txt
+src/
+├─ assets/
+│  └─ fonts/
+│      ├─ Inter-Regular.woff2
+│      └─ Inter-Bold.woff2
+├─ styles/
+│  └─ fonts.css
+```
+
+```css
+/* fonts.css */
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+}
+```
+
+```tsx
+// main.tsx
+import "./styles/fonts.css";
+```
+
+### Google Fonts (CDN)
+
+```html
+<!-- index.html -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+```
+
+### NPM Package
+
+```bash
+npm install @fontsource/inter
+```
+
+```tsx
+// main.tsx
+import "@fontsource/inter";
+import "@fontsource/inter/700.css";
+```
+
+---

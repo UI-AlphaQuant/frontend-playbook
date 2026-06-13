@@ -2632,8 +2632,7 @@ try {
 
 ```js
 // >>>>> Without Stream
-const file = readEntireFile("large-video.mp4");
-// Wait until complete file loads
+const file = readEntireFile("large-video.mp4"); // Wait until complete file loads
 console.log(file);
 
 // >>>>> With Stream
@@ -2644,10 +2643,32 @@ const { value, done } = await reader.read();
 
 ---
 
-### ❓
+### ❓ Difference between AJAX and Fetch?
+
+- AJAX (Asynchronous JavaScript and XML) is a technique used to communicate with a server without reloading the page. Traditionally it uses XMLHttpRequest (XHR).
+- Fetch is a modern JavaScript API for making HTTP requests and is Promise-based.
 
 ```js
-// Comment
+// AJAX (XMLHttpRequest)
+const xhr = new XMLHttpRequest();
+xhr.open("GET", "/api/users");
+xhr.onload = () => {
+  console.log(JSON.parse(xhr.responseText));
+};
+xhr.send();
+
+// Fetch API
+fetch("/api/users")
+  .then((res) => res.json())
+  .then((data) => console.log(data));
+
+// Fetch with Async/Await
+async function getUsers() {
+  const response = await fetch("/api/users");
+  const users = await response.json();
+
+  console.log(users);
+}
 ```
 
 ---
