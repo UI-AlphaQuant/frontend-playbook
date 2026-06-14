@@ -1113,7 +1113,7 @@ useEffect(() => {
 
 ### ❓ How does React batching improve rendering?
 
-- React batching improves performance by grouping multiple state updates into a single re-render, reducing unnecessary rendering work and making the UI more efficient.
+- React Batching is the process of grouping multiple state updates into a single re-render to improve performance.
 - Real-life Usage
   - Form Submission: setLoading(true); setError(null); setData(response);
   - Dashboard Updates: setUsers(users); setOrders(orders); setRevenue(revenue);
@@ -1129,6 +1129,19 @@ function App() {
     setName("Rao");
   };
 }
+```
+
+```text
+>>>>> Without Batching
+setState > Render
+setState > Render
+
+>>>>> With Batching
+setState
+setState
+setState
+↓
+One Render
 ```
 
 ---

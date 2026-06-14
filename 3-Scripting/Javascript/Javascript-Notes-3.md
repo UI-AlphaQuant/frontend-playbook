@@ -50,6 +50,126 @@ Output:
 | `fetch()`         | API requests       |
 | Events            | User interactions  |
 
+### async await keywords
+
+- async = Function Can Use await > Returns Promise (This function works with promises)
+- await = Pause Function > Wait For Promise Result (Wait here until promise finishes)
+
+```js
+const res = await fetch("/users");
+const data = await res.json();
+```
+
+### async
+
+- Used to declare a function that returns a Promise.
+
+```js
+// async → async function fn() {}
+async function getUsers() {
+  return users;
+}
+
+// equal to funtion
+function getUsers() {
+  return Promise.resolve(users);
+}
+```
+
+### await
+
+- Used to wait for a Promise to resolve.
+
+```js
+// await → await promise
+const response = await fetch("/users");
+
+// Without `await`:
+const response = fetch("/users"); // Promise { <pending> }
+```
+
+```js
+// async function + await promise
+async function getUsers() {
+  const response = await fetch("/users");
+  const users = await response.json();
+  return users;
+}
+```
+
+### Promise vs Async/Await
+
+```js
+fetch("/users")
+  .then((res) => res.json())
+  .then((users) => console.log(users));
+
+// Same:
+const response = await fetch("/users");
+const users = await response.json();
+console.log(users);
+```
+
+| Rule                               | Example                 |
+| ---------------------------------- | ----------------------- |
+| `await` only inside async function | `async function fn(){}` |
+| `async` always returns Promise     | `return data`           |
+| Multiple awaits allowed            | `await a(); await b();` |
+| Error handling via try/catch       | `try {} catch {}`       |
+
+```js
+await fetch(...); // API Calls
+await axios.get(...); // Axios
+await import(...); // Dynamic Imports
+await db.get(...); // IndexedDB
+```
+
+### Async/Await with Try Catch
+
+- Handle asynchronous operations in a synchronous-looking way and catch errors gracefully.
+  - Catches rejected Promises.
+  - Catches runtime errors inside the `try` block.
+  - Keeps application from crashing unexpectedly.
+- Use Cases
+  - Hide loaders
+  - Close connections
+  - Reset state
+  - Cleanup resources
+- Throw custom errors for clearer debugging.
+- Use `finally` for cleanup tasks.
+
+```js
+// Default Usage
+async function getData() {
+  try {
+    const responseUsers = await fetch("/api/users");
+    const responsePosts = await fetch("/api/posts");
+    const dataUser = await responseUsers.json();
+    const dataPosts = await responsePosts.json();
+    console.log(dataUser, dataPosts);
+  } catch (err) {
+    console.error(err);
+  } finally {
+    console.log("Cleanup completed");
+  }
+}
+
+// Throw Custom Errors
+async function fetchUsers() {
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/users");
+    if (!response.ok) {
+      throw new Error("Failed to fetch users");
+    }
+    const users = await response.json();
+    return users;
+  } catch (error) {
+    console.error(error.message);
+    return [];
+  }
+}
+```
+
 ### Real-World Usage
 
 | Sync                | Example              | Async             | Example            |

@@ -615,6 +615,8 @@ console.log(typeof null); // object
 
 ### ❓ Problem 31
 
+- Why do var and let produce different outputs inside a setTimeout loop?
+
 ```js
 // Problem
 for (var i = 1; i <= 3; i++) {
@@ -633,6 +635,10 @@ for (let i = 1; i <= 3; i++) {
 // Output: 1 2 3
 // let > Block Scoped >  New i Created For Each Iteration
 ```
+
+- In a loop, var creates a single shared variable for all iterations, so asynchronous callbacks see its final value. let creates a new binding for each iteration, allowing callbacks to access the correct value.
+  - var is function-scoped, so all callbacks share the same variable. (One Shared Box)
+  - let is block-scoped, so each loop iteration gets its own variable copy. (New Box Per Iteration)
 
 - This is a classic closure + var + event loop interview question.
 - let creates a new binding for each iteration
@@ -749,6 +755,198 @@ valueOf()
 toString()
  ↓
 Primitive Value
+```
+
+---
+
+### ❓ Problem 35
+
+- Guess the Output & Why?
+
+```js
+// S1
+async function getUser() {
+  console.log("1");
+  await fetch("/api/user");
+  console.log("2");
+}
+getUser();
+console.log("3");
+
+// Output:
+// 1
+// 3
+// 2
+
+// S2
+async function loadData() {
+  console.log("Loading...");
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+  console.log("Loaded");
+}
+loadData();
+console.log("App Started");
+// Output: (The app continues running while loadData() is paused.)
+// Loading...
+// App Started
+// (wait 3 seconds)
+// Loaded
+```
+
+- await only pauses the execution of the current async function. The JavaScript thread remains free to execute other code, events, and callbacks.
+  - await Pause THIS function, Not the whole application
+- **Steps:**
+  - getUser() > console.log("1")
+  - await fetch(...) > Pause getUser()
+  - Main Thread Free > console.log("3")
+  - API Response Received > Resume getUser()
+  - console.log("2")
+
+```js
+// S3 (Without await)
+function demo() {
+  console.log("1");
+  fetch("/api/users").then(() => {
+    console.log("2");
+  });
+  console.log("3");
+}
+demo();
+
+// Output: (Function NEVER pauses)
+// 1 3 2
+
+// S4 (With await)
+async function demo() {
+  console.log("1");
+  await fetch("/api/users");
+  console.log("2");
+  console.log("3");
+}
+demo();
+
+// Output:
+// 1 2 3
+```
+
+---
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+---
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+---
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+---
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+---
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+---
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+---
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+---
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+---
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+---
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+---
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
+```
+
+---
+
+### ❓ Problem
+
+```js
+// Problem
+
+// Solution
 ```
 
 ---
