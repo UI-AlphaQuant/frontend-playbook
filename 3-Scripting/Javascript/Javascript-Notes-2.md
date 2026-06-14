@@ -645,7 +645,7 @@ Call Stack
 Event Loop
      │
      ↓
-Microtask Queue
+Microtask Queue (Web APIs)
      ↓
 Callback Queue
 ```
@@ -657,6 +657,25 @@ Callback Queue
 | 1        | Call Stack                 | Normal JS Code               | `console.log()`  |
 | 2        | Microtask Queue            | Promises, `queueMicrotask()` | `Promise.then()` |
 | 3        | Callback Queue (Macrotask) | Timers, Events               | `setTimeout()`   |
+
+```js
+console.log("1");
+setTimeout(() => console.log("2"), 0);
+Promise.resolve().then(() => console.log("3"));
+console.log("4");
+
+// 1
+// 4
+// 3
+// 2
+```
+
+- **Event Loop Cycle:**
+  1. Execute synchronous code
+  2. Empty Microtask Queue completely
+  3. Execute ONE Macrotask
+  4. Empty Microtask Queue again
+  5. Execute next Macrotask
 
 ---
 

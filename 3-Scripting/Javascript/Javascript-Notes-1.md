@@ -428,27 +428,19 @@ Loops execute code repeatedly until a condition is met.
 for (let i = 0; i < 5; i++) {
   console.log(i);
 }
-```
 
-```js
 while (count < 5) {
   count++;
 }
-```
 
-```js
 do {
   count++;
 } while (count < 5);
-```
 
-```js
 for (const item of arr) {
   console.log(item);
 }
-```
 
-```js
 for (const key in user) {
   console.log(key);
 }
@@ -457,6 +449,216 @@ for (const key in user) {
 - Use `for...of` for arrays/iterables
 - Use `for...in` for object keys
 - Avoid infi
+
+### Examples of Loops
+
+```js
+const users = [
+  { id: 1, name: "John" },
+  { id: 2, name: "Jane" },
+];
+const user = { name: "John", age: 25, city: "NYC" };
+const nums = [1, 2, 3, 4, 5];
+const skills = ["HTML", "CSS", "JS"];
+
+// ==================== Traditional Loops
+// Execute code repeatedly using explicit start, condition, and update logic.
+
+// for → for(initialization; condition; increment)
+for (let i = 0; i < nums.length; i++) console.log(nums[i]); // 1 2 3 4 5
+
+// while → while(condition)
+let count = 0;
+while (count < 3) console.log(count++); // 0 1 2
+
+// do...while → do {} while(condition) [Rarely Used]
+let index = 0;
+do console.log(skills[index++]);
+while (index < skills.length); // HTML CSS JS
+
+// ==================== Iteration Loops
+// Loop through values or keys of collections like arrays, strings, and objects.
+
+// for...of → for(const value of iterable)
+for (const skill of skills) console.log(skill); // HTML CSS JS
+
+// for...in → for(const key in user) [Rarely Used]
+for (const key in user) console.log(key); // name age city
+
+// ==================== Array Methods Loops
+// Built-in array functions used to iterate, transform, filter, search, or aggregate data.
+
+// forEach → arr.forEach(callback)
+users.forEach((user) => console.log(user.name)); // John Jane
+
+// map → arr.map(callback)
+users.map((user) => user.name); // ["John", "Jane"]
+
+// filter → arr.filter(callback)
+nums.filter((num) => num > 3); // [4, 5]
+
+// find → arr.find(callback)
+users.find((user) => user.id === 2); // { id: 2, name: "Jane" }
+
+// findIndex → arr.findIndex(callback)
+users.findIndex((user) => user.id === 2); // 1
+
+// some → arr.some(callback)
+nums.some((num) => num > 4); // true
+
+// every → arr.every(callback)
+nums.every((num) => num > 0); // true
+
+// reduce → arr.reduce(callback, initialValue)
+nums.reduce((sum, num) => sum + num, 0); // 15
+
+// flatMap → arr.flatMap(callback)
+users.flatMap((user) => [user.name]); // ["John", "Jane"]
+
+// ==================== Async Loops
+// Handle asynchronous operations inside loops without blocking application execution.
+
+// for...of + await → sequential execution
+for (const user of users) await fetchUser(user.id);
+
+// Promise.all + map → parallel execution
+await Promise.all(users.map((user) => fetchUser(user.id)));
+
+// ==================== Control Statements Loops
+// Modify loop flow by exiting, skipping iterations, or leaving a function.
+
+// break → exit loop
+for (const num of nums) {
+  if (num === 3) break;
+  console.log(num);
+} // 1 2
+
+// continue → skip iteration
+for (const num of nums) {
+  if (num === 3) continue;
+  console.log(num);
+} // 1 2 4 5
+
+// return → exit function
+function getUser() {
+  return users[0];
+}
+
+// ==================== Object Iteration Loops
+// Access and loop through an object's keys, values, or key-value pairs.
+
+// Object.keys → Object.keys(object)
+Object.keys(user); // ["name", "age", "city"]
+
+// Object.values → Object.values(object)
+Object.values(user); // ["John", 25, "NYC"]
+
+// Object.entries → Object.entries(object)
+Object.entries(user); // [["name","John"],["age",25],["city","NYC"]]
+```
+
+### Control Statements
+
+```js
+break; // → Exit loop completely
+continue; // → Skip current iteration
+return; // → Exit function and return value
+```
+
+### Iterable Objects
+
+```text
+Array
+String
+Map
+Set
+NodeList
+Arguments
+Generator
+```
+
+```js
+// Array → ordered collection
+for (const num of [1, 2, 3]) console.log(num); // 1 2 3
+
+// String → sequence of characters
+for (const char of "JS") console.log(char); // J S
+
+// Map → key-value collection
+for (const [key, value] of new Map([["name", "John"]])) console.log(key, value); // name John
+
+// Set → unique values collection
+for (const value of new Set([1, 2, 2, 3])) console.log(value); // 1 2 3
+
+// NodeList → DOM element collection
+for (const el of document.querySelectorAll(".item")) console.log(el);
+
+// Arguments → function arguments collection
+function demo() {
+  for (const arg of arguments) console.log(arg);
+}
+demo(1, 2); // 1 2
+
+// Generator → custom iterable sequence
+function* ids() {
+  yield 1;
+  yield 2;
+}
+for (const id of ids()) console.log(id); // 1 2
+```
+
+### Time Complexity
+
+- Represents how execution time grows as input size (`n`) increases.
+
+```txt
+Single Loop → O(n)
+Nested Loop → O(n²)
+Triple Loop → O(n³)
+```
+
+```js
+// O(n) → single loop
+for (const num of nums) console.log(num);
+
+// O(n²) → nested loop
+for (const user of users) {
+  for (const skill of skills) {
+    console.log(user.name, skill);
+  }
+}
+
+// O(n³) → triple loop
+for (const user of users) {
+  for (const skill of skills) {
+    for (const num of nums) {
+      console.log(user.name, skill, num);
+    }
+  }
+}
+```
+
+- Extra
+
+```js
+// Infinite Loop
+for (;;) {
+  console.log("Infinite");
+}
+
+// Multiple Variables
+for (let i = 0, j = 5; i < j; i++, j--) {
+  console.log(i, j);
+}
+```
+
+- Best Practices
+  - Use meaningful variable names when possible.
+  - Avoid unnecessary nested loops.
+  - Cache array length for large datasets.
+  - Use `break` when further iterations are unnecessary.
+  - Prefer `for...of` when only values are needed.
+  - Avoid modifying loop counters inside the loop body.
 
 ---
 
@@ -654,7 +856,7 @@ nums.map((num) => num * 2);
 
 ## 📌 Higher Order Functions (HOF)
 
-A higher order function accepts or returns another function.
+- A higher order function accepts or returns another function.
 
 | Type             | Details                         | Example                    |
 | ---------------- | ------------------------------- | -------------------------- |

@@ -2108,8 +2108,11 @@ products.map((product) => (
 
 ### ❓ Explain the JavaScript Event Loop step by step.
 
-- JavaScript is single-threaded, so it can execute only one task at a time. The Event Loop manages asynchronous operations by moving completed tasks from queues to the Call Stack when it's empty.
-- The Event Loop continuously checks whether the Call Stack is empty. If it is, it executes pending tasks from the Microtask Queue first (Promises), then from the Callback/Macrotask Queue (setTimeout, setInterval, events).
+- JavaScript is single-threaded, meaning it executes only one task at a time using the Call Stack.
+- The Event Loop manages asynchronous operations by monitoring the Call Stack.
+- When the Call Stack becomes empty, the Event Loop moves pending tasks to the Call Stack for execution.
+- Microtasks (e.g., Promise.then, queueMicrotask) are executed before Macrotasks (e.g., setTimeout, setInterval, DOM events).
+- The Event Loop always drains the entire Microtask Queue before processing the next Macrotask.
 
 ```js
 console.log("1");
@@ -2669,6 +2672,160 @@ async function getUsers() {
 
   console.log(users);
 }
+```
+
+---
+
+### ❓ Difference between Web Workers and Async/Await?
+
+- Async/Await helps manage asynchronous tasks on the main thread, while Web Workers create a separate thread for CPU-intensive work. Async/Await doesn't make code multi-threaded; Web Workers do.
+  - **Async/Await:** async/await handles asynchronous operations on the main thread without blocking while waiting for I/O (API calls, timers, etc.).
+    - Single thread.
+    - API calls, Database requests, File uploads, Timers
+  - **Web Workers:** Web Workers run JavaScript code in a separate background thread.
+    - Multiple threads.
+    - Image processing, Video processing, Large CSV parsing, Data visualization, Heavy calculations
+
+```js
+// Problem -> ❌ UI Freezes | Buttons Stop Responding | Typing Lags
+function calculate() {
+  let total = 0;
+  for (let i = 0; i < 1000000000; i++) {
+    total += i;
+  }
+  return total;
+}
+
+// worker.js ✅ Calculation Runs in Background | UI Remains Responsive
+self.onmessage = () => {
+  let total = 0;
+  for (let i = 0; i < 1000000000; i++) {
+    total += i;
+  }
+  self.postMessage(total);
+};
+```
+
+---
+
+### ❓ difference between Single-Threaded and Multi-Threaded execution?
+
+- Single-Threaded: A program executes one task at a time using a single thread.
+  - JavaScript, Python
+- Multi-Threaded: A program can execute multiple tasks simultaneously using multiple threads.
+  - JS (Web Workers), Java, C#, C++, Go, Rust, Kotlin, Swift
+
+```js
+// Single Thread (JavaScript)
+console.log("Task 1");
+for (let i = 0; i < 1000000000; i++) {}
+console.log("Task 2");
+
+// Output:
+// Task 1
+// (wait...)
+// Task 2 (Task 2 must wait until Task 1 finishes.)
+```
+
+```java
+// Multi-Threaded (Java)
+Thread t1 = new Thread(() -> {
+    System.out.println("Task 1");
+});
+Thread t2 = new Thread(() -> {
+    System.out.println("Task 2");
+});
+t1.start();
+t2.start();
+
+// Possible Output: (Threads run independently.)
+// Task 2 tha 1
+// Task 1 tha 2
+```
+
+```text
+// Visualization
+Chrome (Process)
+│
+├── Thread 1 (UI)
+├── Thread 2 (Network)
+├── Thread 3 (Rendering)
+└── Thread 4 (JavaScript)
+```
+
+---
+
+### ❓ What is a Thread?
+
+- A Thread is the smallest unit of execution within a process. It is responsible for executing instructions (code).
+- A CPU executes threads.
+  - CPU = Worker
+  - Thread = Task assigned to worker
+
+---
+
+### ❓ difference between Global Hoisting and the Temporal Dead Zone (TDZ)?
+
+- Hoisting means declarations are registered before execution. var is initialized with undefined, whereas let and const are uninitialized and cannot be accessed until their declaration line, which is known as the Temporal Dead Zone.
+  - var is hoisted and initialized with undefined.
+    - Initial Value: undefined
+    - Added to window (global)
+  - let and const are hoisted but remain in the Temporal Dead Zone (TDZ) until their declaration is reached.
+    - Initial Value: Uninitialized (ReferenceError)
+    - Not added to window
+
+```js
+// var Hoisting
+console.log(name); // Output: undefined
+var name = "Nick";
+
+// let + TDZ
+console.log(name); // Output: ReferenceError: Cannot access 'name' before initialization
+let name = "Nick";
+```
+
+- Timeline
+
+```text
+// var Hoisting
+Creation Phase -> name → undefined
+Execution Phase -> name → "Naimesh"
+
+// let + TDZ
+Creation Phase -> name → <uninitialized>
+Execution Phase -> let name = "Naimesh" ->  name → "Naimesh"
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
 ```
 
 ---
