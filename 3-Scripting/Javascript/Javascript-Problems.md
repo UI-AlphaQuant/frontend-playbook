@@ -831,23 +831,395 @@ demo();
 
 ---
 
-### ❓ Problem
+### ❓ Problem 36
 
 ```js
 // Problem
+const arr = [1, 2, 3];
+const str = "1,2,3";
+console.log(arr == str); // true
+```
 
-// Solution
+- because == performs type coercion, and the array is converted to a string using toString().
+- Array + String comparison > Array → toString() > [1,2,3] > "1,2,3"
+
+---
+
+### ❓ Problem 37
+
+```js
+// Problems
+console.log(1 + 2 + "3"); // 33
+console.log("1" + 2 + 3); // 123
+console.log(1 + "2" + 3); // 123
+```
+
+- JavaScript evaluates (+) from left to right. Once a string is involved, subsequent (+) operations perform string concatenation instead of numeric addition.
+
+---
+
+### ❓ Problem 38
+
+```js
+// Problem
+const x = (0 ?? 2) || 3;
+console.log(x); // 3
+
+// Realworld
+const display = (stock ?? 0) || "Out of stock";
+```
+
+```js
+console.log(0 || "Hello"); // Hello
+console.log(0 ?? "Hello"); // 0
+
+// x Falsy
+// x Not null
+// x Not undefined
+// 0 is not null or undefined > return 0
+```
+
+- Whenever you mix ?? with || or &&, always add parentheses.
+
+---
+
+### ❓ Problem 39
+
+- Comparison operators (<, >, <=, >=) are evaluated from left to right.
+- The result of a comparison is a boolean (true or false), and when compared again with a number
+  - true -> 1
+  - false -> 0
+
+```js
+console.log(5 < 8 > 2); // False
+// 5 < 8 = true
+// true > 2
+// 1 > 2 = false
+
+console.log(1 > 19 < 2); // True
+// 1 > 19 = false
+// false < 2
+// 0 < 2 = true
+
+console.log(18 < false < 60); // True
 ```
 
 ---
 
-### ❓ Problem
+### ❓ Problem 40
 
 ```js
 // Problem
+const arr = [];
+let res = arr.every((x) => x > 0);
+console.log(res); // true
 
-// Solution
+// Internally
+// for (const item of arr) {
+//   if (!(item > 0)) {
+//     return false;
+//   }
+// }
+// return true;
+// (Since the loop never runs)
+
+[].every((x) => x > 0); // true (No element failed the condition)
+[].some((x) => x > 0); // false (No element passed the condition)
 ```
+
+- Array.prototype.every() returns true if every element satisfies the condition.
+- there are no elements that violate the condition.
+
+---
+
+### ❓ Problem 41
+
+```js
+// Problem
+const arr = [1, 21, 30, 4];
+arr.sort();
+console.log(arr); // [1, 21, 30, 4]
+
+// Internally, JavaScript does this:
+// [1, 21, 30, 4] > ["1", "21", "30", "4"]
+// Then compares character by character: "1" < "21" < "30" < "4"
+// Since "4" starts with '4', it comes after "30".
+
+// Correct Way to Sort Numbers
+const arr = [1, 21, 30, 4];
+arr.sort((a, b) => a - b);
+console.log(arr);
+```
+
+- By default, Array.prototype.sort() converts elements to strings and sorts them lexicographically (dictionary order), not numerically.
+- sort() without a comparator sorts elements as strings (lexicographically). For numeric sorting, always provide a compare function like (a, b) => a - b.
+
+---
+
+### ❓ Problem 42
+
+```js
+// Syntax
+const timerId = setTimeout((arg1, arg2) => {}, 1000, value1, value2);
+
+// E1
+setTimeout(
+  (a, b) => {
+    console.log(a + b);
+  },
+  0,
+  1,
+  2,
+  37,
+);
+// 3 (a = 1, b = 2)
+
+// E2
+setTimeout(
+  (a, b, c) => {
+    console.log(a + b + c);
+  },
+  0,
+  1,
+  2,
+  37,
+); // 40 (a = 1, b = 2, c = 37)
+```
+
+- setTimeout supports additional arguments after the delay. They are passed to the callback in order, and any extra arguments are ignored if the callback doesn't declare corresponding parameters.
+
+---
+
+### ❓ Problem 43
+
+```js
+// Integer-like keys
+const x = {
+  2: "a",
+  1: "b",
+  3: "c",
+};
+console.log(Object.keys(x)); // [ '1', '2', '3' ]
+console.log(Object.values(x)); // [ 'b', 'a', 'c' ]
+
+// String Keys
+const obj = {
+  b: 1,
+  a: 2,
+  c: 3,
+};
+console.log(Object.keys(obj)); // ["b", "a", "c"]
+
+// Mixed Example
+const obj = {
+  b: 1,
+  2: "x",
+  a: 2,
+  1: "y",
+};
+console.log(Object.keys(obj)); // ["1", "2", "b", "a"]
+// 1. Integer keys: "1", "2"
+// 2. String keys: "b", "a"
+```
+
+- Object keys are always strings internally. If a key is an integer-like string (e.g., "1", "2"), JavaScript automatically orders it numerically. Otherwise, it follows insertion order.
+- Object keys are actually strings.
+  - For objects, JavaScript follows this property order:
+    - Integer-like keys → ascending numeric order.
+    - String keys → insertion order.
+    - Symbol keys → insertion order.
+  - If an object key is an integer-like string, JavaScript automatically orders it numerically.
+    - These are considered the same: {2: "a"} | {"2": "a"}
+
+```text
+// Integer-like Key
+"0"
+"1"
+"25"
+"100"
+
+// Not Integer-like
+"01"
+"001"
+"1.5"
+"-1"
+"2a"
+```
+
+---
+
+### ❓ Problem 44
+
+```js
+// Regular Funtion
+const obj = {
+  a: 10,
+  f: function () {
+    return this.a;
+  },
+};
+console.log(obj.f()); // 10
+
+// Arrow Funtion
+const obj = {
+  a: 10,
+  f: () => this.a,
+};
+console.log(obj.f()); // undefined
+```
+
+- (this) inside a regular function depends on how the function is called.
+  - here (this) refers to (obj) means this === obj
+- This pattern is common in objects and classes.
+- The arrow functions don't have their own this. They inherit this from the outer scope.
+
+---
+
+### ❓ Problem 45
+
+```js
+console.log(5 && 1); // 1 (Since all values are truthy, && returns the last operand.)
+console.log(5 || 1); // 5 (|| immediately stops and returns the first truthy value.)
+
+// More examples
+console.log(0 && 5); // 0
+console.log(0 || 5); // 5
+console.log("Hi" && 10); // 10
+console.log("" || "JS"); // "JS"
+
+// Realworld
+const name = userName || "Guest"; // || for Default Values
+isLoggedIn && showDashboard(); // && for Conditional Execution
+```
+
+- && and || do not return true or false necessarily. They return one of the operands.
+  - && returns the first falsy value, or the last value if all are truthy.
+  - || returns the first truthy value, or the last value if all are falsy.
+
+---
+
+### ❓ Problem 46
+
+```js
+// Delete
+let nums = [1, 2, 3, 4];
+delete nums[2];
+console.log(nums); // [ 1, 2, <1 empty item>, 4 ]
+console.log(nums.length); // 4
+console.log(nums[2]); // undefined
+
+// Index 2 still exists conceptually, but its property was deleted.
+// Index: 0  1  2  3
+// Value: 1  2  _  4
+
+// Splice
+let nums = [1, 2, 3, 4];
+nums.splice(2, 1);
+console.log(nums); // [1, 2, 4]
+console.log(nums.length); // 3
+```
+
+- delete removes the property from the array, but it does not remove the index or change the array length.
+- It creates a hole (empty slot) in the array.
+- Difference: delete vs splice:
+  - delete is usually used with objects, not arrays.
+  - splice Removes element and shifts items
+
+---
+
+### ❓ Problem 47
+
+```js
+// >>>>> Reference Types
+var arrA = [0];
+var arrB = arrA;
+arrB[0] = 42;
+console.log(arrA); // [ 42 ]
+// arrA ─┐
+//       ├──► [42]
+// arrB ─┘
+
+// >>>>> Primitive Types
+let a = 10;
+let b = a;
+b = 20;
+console.log(a); // 10
+console.log(b); // 20
+
+// >>>>> Creating a Real Copy
+const arrA = [0];
+const arrB = [...arrA];
+arrB[0] = 42;
+console.log(arrA); // [0]
+console.log(arrB); // [42]
+
+// React
+const newUsers = [...users];
+newUsers.push(user);
+setUsers(newUsers);
+// React relies heavily on creating new arrays/objects instead of mutating existing ones.
+```
+
+- Arrays and objects in JavaScript are reference types.
+- you are not creating a copy of the array. Both variables point to the same array in memory.
+
+| Type     | Assignment Copies |
+| -------- | ----------------- |
+| Number   | Value             |
+| String   | Value             |
+| Boolean  | Value             |
+| Array    | Reference         |
+| Object   | Reference         |
+| Function | Reference         |
+
+---
+
+### ❓ Problem 48
+
+```js
+if ([]) {
+  console.log(true);
+} // true
+
+console.log(Boolean([])); // true
+console.log(Boolean({})); // true
+console.log(Boolean("")); // false
+console.log(Boolean(0)); // false
+```
+
+- An empty array ([]) is truthy in JavaScript. It may be empty, but it still exists.
+- Because arrays are objects, and all objects are truthy in JavaScript.
+
+---
+
+### ❓ Problem 49
+
+```js
+console.log("2" > "10"); // true
+console.log("2" > 10); // false
+
+// '2' > '1' = true
+// 2 > 10 = false
+```
+
+- If both operands are strings, JavaScript compares them lexicographically.
+  - String vs String → Lexicographical (dictionary) comparison.
+  - "2" starts with '2', "10" starts with '1'
+- If one operand is a number, JavaScript converts the other to a number and performs a numeric comparison.
+  - String vs Number → Converts the string to a number and performs numeric comparison.
+
+---
+
+### ❓ Problem 50
+
+```js
+let x = [20, 1, 3].sort();
+console.log(x); // [1, 20, 3]
+
+// [20, 1, 3] > ["20", "1", "3"] > "1" < "2" < "3"
+```
+
+- sort() without a compare function converts elements to strings and sorts them lexicographically (dictionary order).
 
 ---
 

@@ -215,12 +215,12 @@ console.log(second); // Green
 
 // Object
 const user = {
-  name: "Naimesh",
+  name: "Nick",
   role: "Frontend Developer",
 };
 const { name, role } = user;
 
-console.log(name); // Naimesh
+console.log(name); // Nick
 console.log(role); // Frontend Developer
 ```
 
@@ -258,7 +258,7 @@ console.log(result); // [1, 2, 3, 4]
 
 // Passing Props
 const props = {
-  name: "Naimesh",
+  name: "Nick",
   age: 30,
 };
 <UserCard {...props} />;
@@ -1627,7 +1627,7 @@ for (let i = 0; i < 1e8; i++) {
 const user = {
   name: "Nick",
   address: {
-    city: "Nadiad",
+    city: "India",
   },
 };
 const copy = structuredClone(user);
@@ -1636,7 +1636,7 @@ console.log(copy);
 // {
 //   name: "Nick",
 //   address: {
-//     city: "Nadiad"
+//     city: "India"
 //   }
 // }
 ```
@@ -1828,9 +1828,9 @@ console.log(sessionStorage.getItem("username"));
   - Enter Username + Password
 - Authorization determines what you can access.
   - Access permissions checked
-    - Can Rao view account details?
-    - Can Rao transfer money?
-    - Can Rao access admin panel?
+    - Can Smith view account details?
+    - Can Smith transfer money?
+    - Can Smith access admin panel?
 
 ---
 
@@ -1943,12 +1943,10 @@ try {
 ```js
 // Comment
 const user = {
-  name: "Rao",
+  name: "Smith",
   age: 30,
 };
-
 delete user.age;
-
 console.log(user);
 ```
 
@@ -2007,9 +2005,22 @@ history.pushState({}, "", "/profile");
 
 - setTimeout() executes a function once after a specified delay. (API delay, notifications)
 - setInterval() executes a function repeatedly at a specified interval. (Clock, polling, timers, scroll)
+  - clearInterval required to stop
 
 ```js
-// Comment
+// >>>>> setTimeout
+setTimeout(() => {
+  console.log("Order placed!");
+}, 2000);
+// (after 2s) Order placed!
+
+// >>>>> setInterval
+setInterval(() => {
+  console.log("Checking for notifications...");
+}, 2000);
+// (after 2s) Checking for notifications...
+// (after 4s) Checking for notifications...
+// (after 6s) Checking for notifications...
 ```
 
 ---
@@ -2102,6 +2113,14 @@ products.map((product) => (
     Delete
   </button>
 ));
+
+// Another Way
+function handleDelete(id) {
+  return () => {
+    console.log(`Deleting ${id}`);
+  };
+}
+<button onClick={handleDelete(101)}>Delete</button>;
 ```
 
 ---
@@ -2506,13 +2525,13 @@ then executes code line by line.
 
 ```js
 // Array
-const users = ["Naimesh", "Rahul", "Amit"];
+const users = ["Nick", "Rahul", "Amit"];
 console.log(users[1]);
 
 // Object
 const user = {
-  name: "Naimesh",
-  city: "Nadiad",
+  name: "Nick",
+  city: "India",
 };
 console.log(user.name);
 
@@ -2543,7 +2562,7 @@ console.log(user.name);
 // Callback
 function fetchUser(callback) {
   setTimeout(() => {
-    callback("Naimesh");
+    callback("Nick");
   }, 1000);
 }
 
@@ -2555,7 +2574,7 @@ fetchUser((user) => {
 function fetchUser() {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve("Naimesh");
+      resolve("Nick");
     }, 1000);
   });
 }
@@ -2568,7 +2587,7 @@ fetchUser().then((user) => {
 function fetchUser() {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve("Naimesh");
+      resolve("Nick");
     }, 1000);
   });
 }
@@ -2789,91 +2808,469 @@ let name = "Nick";
 ```text
 // var Hoisting
 Creation Phase -> name → undefined
-Execution Phase -> name → "Naimesh"
+Execution Phase -> name → "Nick"
 
 // let + TDZ
 Creation Phase -> name → <uninitialized>
-Execution Phase -> let name = "Naimesh" ->  name → "Naimesh"
+Execution Phase -> let name = "Nick" ->  name → "Nick"
 ```
 
 ---
 
-### ❓
+### ❓ What is Generator Function and how does yield work in JavaScript?
+
+- A generator can pause and resume its execution using the yield keyword.
+- **function\*** defines a Generator Function. Equivalent to for...of
+
+```text
+function > Run → Return → Done
+generator > Run → Pause > Resume → Pause > Resume → Done
+```
 
 ```js
-// Comment
+function* ids() {
+  yield 1;
+  yield 2;
+}
+for (const id of ids()) {
+  console.log(id);
+}
+
+// Output: 1 2
 ```
 
 ---
 
-### ❓
+### ❓ What is a Closure in JavaScript?
+
+- A Closure is created when a function remembers and can access variables from its outer (lexical) scope even after the outer function has finished executing.
+  - Closure = Function + Remembered Variables (Entire Lexical Scope Chain)
+    - No inner function > No closure
+    - Inner function returned > Closure created > Variables stay alive.
+  - Outer Function Ends > Variables Still Accessible > Because Inner Function Remembers Them
+  - A closure remembers variables from its lexical scope, regardless of how they were declared.
+  - A closure remembers the entire lexical scope chain, not just one variable or one scope.
+  - Closures are created by functions, but they can capture variables from any lexical scope
+  - If the returned function exists, data cannot be garbage collected. (Closures keep referenced variables alive)
+  - A closure cannot access inner scopes.
+  - Closures usually store references to bindings, not copies.
+
+- A closure is a function bundled together with its lexical environment. It allows an inner function to access variables from its outer scope even after the outer function has returned.
 
 ```js
-// Comment
+// E1
+function createCounter() {
+  let count = 0;
+  return function () {
+    count++;
+    return count;
+  };
+}
+const counter = createCounter();
+console.log(counter()); // 1
+console.log(counter()); // 2
+console.log(counter()); // 3
+// Normally, you'd expect count to be destroyed.
+// But because the returned function still uses count, JavaScript keeps it alive.
+
+// E2
+function outer() {
+  let name = "Nick";
+  function inner() {
+    console.log(name);
+  }
+  return inner;
+}
+const fn = outer();
+fn(); // Nick (Even though outer() has already finished)
+
+// E3
+const globalVar = "Global";
+function outer() {
+  const outerVar = "Outer";
+  function middle() {
+    const middleVar = "Middle";
+    return function inner() {
+      console.log(globalVar);
+      console.log(outerVar);
+      console.log(middleVar);
+    };
+  }
+  return middle();
+}
+const fn = outer();
+fn(); // Global Outer Middle
+
+// E4 -> largeObject stays in memory as long as handler exists.
+let handler;
+function init() {
+  const largeObject = {};
+  handler = () => {
+    console.log(largeObject);
+  };
+}
+
+// E5
+function sum(a, b) {
+  const mul = 2;
+  return function () {
+    return (a + b) * mul;
+  };
+}
+const fn = sum(5, 10);
+console.log(fn()); // 30
+
+// fn > Inner Function
+// Closure
+// ├── a = 5
+// ├── b = 10
+// └── mul = 2
+// These variables cannot be garbage collected because the inner function still needs them.
 ```
 
 ---
 
-### ❓
+### ❓ What is Garbage Collection in JavaScript?
+
+- Garbage Collection (GC) is JavaScript's automatic memory management process that removes objects and variables that are no longer reachable by the program.
+  - Local Variables
+  - Object Becomes Unreachable
+- JavaScript automatically allocates memory when values are created and frees that memory when those values become unreachable. This process is called Garbage Collection.
 
 ```js
-// Comment
+// 🚮 E1: Object Becomes Unreachable
+let user = {
+  name: "Nick",
+};
+user = null;
+// Initially: user ──► { name: "Nick" }
+// After: user = null
+// No references remain: Object becomes eligible for GC
+
+// 🚮 E2: Local Variables
+function greet() {
+  const name = "Nick";
+  console.log(name);
+}
+greet();
+// After greet() finishes: name is no longer reachable and becomes eligible for GC.
+
+// 🚮 E3: Arrays
+let users = ["John", "Jane"];
+users = [];
+// has no references anymore → eligible for GC.
+
+// 🚮 E4: Function Return Not Stored
+function sum(a, b) {
+  return a + b;
+}
+sum(5, 10);
+// No references → eligible for GC.
+
+// 🚮 E5: Reassignment
+let person = {
+  name: "John",
+};
+person = {
+  name: "Mike",
+};
+// Old object: becomes eligible for GC.
+
+// ✅ E6: Event Listeners / Timers
+const btn = document.getElementById("btn");
+function handleClick() {
+  console.log("Clicked");
+}
+btn.addEventListener("click", handleClick);
+const id = setInterval(() => {
+  console.log("Running");
+}, 1000);
+// handleClick cannot be garbage collected because: DOM > Event Listener > handleClick
+// The callback stays in memory until clear.
+// clearInterval(id); Now the callback can be collected.
+```
+
+- Think of memory as a storage room: The cleaning staff is the Garbage Collector.
+  - Variable > Points to a box in storage
+  - No labels point to the box anymore > Cleaning staff removes the box
+- Reachability: An object is kept in memory if it is reachable.
+  - Global variables
+  - Current function variables
+  - Variables in the Call Stack
+  - Closures
+- Roots > Mark Reachable Objects > Sweep Unreachable Objects
+
+---
+
+### ❓ How does Promise.all() work?
+
+- Promise.all() takes an iterable of Promises and returns one new Promise.
+  - Resolves when all promises resolve.
+  - Rejects immediately if any one promise rejects (fail-fast).
+
+```js
+// Order Is Preserved
+const p1 = new Promise((r) => setTimeout(() => r("A"), 3000));
+const p2 = new Promise((r) => setTimeout(() => r("B"), 1000));
+const p3 = new Promise((r) => setTimeout(() => r("C"), 2000));
+
+Promise.all([p1, p2, p3]).then(console.log);
+// ["A", "B", "C"]
+
+// React
+const [user, orders, notifications] = await Promise.all([
+  fetchUser(),
+  fetchOrders(),
+  fetchNotifications(),
+]);
+```
+
+- Even though: B finished first, C finished second, A finished last
+- The result order matches the input order.
+- Promise.all
+  - Starts async operations concurrently > Browser/Node handles them > Event Loop receives results
+
+```js
+// >>>>> Sequential Execution (Wait → Start → Wait → Start)
+const user = await fetchUser(); // 2s
+const orders = await fetchOrders(); // 3s
+const profile = await fetchProfile(); // 1s
+// 0s ── fetchUser ── 2s
+// 2s ── fetchOrders ── 5s
+// 5s ── fetchProfile ── 6s
+// Total: 6 seconds
+
+// >>>>> Promise.all() (Start → Start → Start > Wait once)
+const [user, orders, profile] = await Promise.all([
+  fetchUser(), // 2s
+  fetchOrders(), // 3s
+  fetchProfile(), // 1s
+]);
+// 0s ── fetchUser ─────── 2s
+// 0s ── fetchOrders ─────────── 3s
+// 0s ── fetchProfile ── 1s
+// Total: 3 seconds
 ```
 
 ---
 
-### ❓
+### ❓ Nullish Coalescing (??) operator and the OR (||) operator?
+
+- || (OR Operator) = Returns the right value when the left value is falsy.
+- ?? (Nullish Coalescing Operator) - Returns the right value only when the left value is **null or undefined**
+  - In React applications, ?? is usually safer for API data because 0, false, and empty strings are often valid values.
 
 ```js
-// Comment
+console.log(0 || 100); // 100
+console.log(0 ?? 100); // 0
+
+console.log("" || "Guest"); // Guest
+console.log("" ?? "Guest"); // ""
+
+console.log(false || true); // true
+console.log(false ?? true); // false
 ```
 
 ---
 
-### ❓
+### ❓ What are Truthy and Falsy values in JavaScript?
+
+- JavaScript automatically converts values to true or false in conditions (if, &&, ||, etc.).
+- There are only **8 falsy values; everything else is truthy.**
+  - Truthy: Any value that becomes true when converted to a boolean.
+  - Falsy: Any value that becomes false when converted to a boolean.
 
 ```js
-// Comment
+if ("React") {
+  console.log("Truthy");
+}
+if (0) {
+  console.log("Falsy");
+}
+// Output: Truthy (0 is falsy, so the second console.log doesn't run)
+```
+
+```js
+// >>>>> All Falsy Values (Total 8)
+false
+0
+-0
+0n  // BigInt zero
+''  // Empty string
+null
+undefined
+NaN
+
+console.log(Boolean(false));      // false
+console.log(Boolean(0));          // false
+console.log(Boolean(''));         // false
+console.log(Boolean(undefined));  // false
+
+// >>>>> Truthy Values Examples
+true
+1
+-1
+'0'
+'false'
+[]
+{}
+function () {}
+42n
+
+console.log(Boolean([]));   // true
+console.log(Boolean({}));   // true
+console.log(Boolean('0'));  // true
+```
+
+```js
+// Real-life Usage
+if (user.name) {
+  console.log(`Welcome ${user.name}`); // Show a welcome message only if the user has a name
+}
+
+// React
+{
+  products.length > 0 && <ProductList />; // Render the component only when products exist.
+}
 ```
 
 ---
 
-### ❓
+### ❓ What are Lexical Scope and Lexical Environment in JavaScript?
+
+- Lexical Scope: Lexical scope means a function can access variables based on where it is written in the code, not where it is called.
+  - Lexical Scope = Rules for accessing variables
+  - Variable lookup
+- Lexical Environment: A lexical environment is the internal structure that stores:
+  - The current scope's variables and functions.
+  - A reference to its outer (parent) lexical environment.
+  - Lexical Environment = Internal object storing variables and parent reference
+  - Internal to JavaScript engine
 
 ```js
-// Comment
+const appName = "ShopEasy"; // Global Lexical Environment
+function outer() {
+  const user = "Smith"; // Outer Lexical Environment
+  function inner() {
+    console.log(appName);
+    console.log(user);
+  }
+}
+```
+
+- When inner() runs: This chain is called the scope chain.
+  - Looks for appName in inner → ❌ not found
+  - Goes to outer → ❌ not found
+  - Goes to global → ✅ found
+
+---
+
+### ❓ What does lexicographically mean in JavaScript?
+
+- Lexicographical order means sorting values like words in a dictionary, comparing them character by character from left to right.
+- When sort() is called without a compare function, JavaScript converts elements to strings and sorts them based on their Unicode character values.
+
+```text
+// Words
+Apple
+Banana
+Cat
+Dog
+
+// Numbers
+[1, 21, 30, 4]
 ```
 
 ---
 
-### ❓
+### ❓ What is this keyword in JavaScript?
+
+- this is a special keyword that refers to the object that is currently executing the function.
+- this is determined by how a function is called, not where it is written (except for arrow functions).
+  - someObject.someFunction()
+  - this = the owner of the current function call
 
 ```js
-// Comment
+// Object Method
+const user = {
+  name: "Smith",
+  greet() {
+    console.log(this.name);
+  },
+};
+
+user.greet(); // Smith
 ```
 
 ---
 
-### ❓
+### ❓ JavaScript array methods?
 
-```js
-// Comment
-```
+1.  Add / Remove Items
 
----
+| Method      | Purpose             | Syntax                                         |
+| ----------- | ------------------- | ---------------------------------------------- |
+| `push()`    | Add at end          | `arr.push(item1, item2)`                       |
+| `pop()`     | Remove from end     | `arr.pop()`                                    |
+| `unshift()` | Add at start        | `arr.unshift(item1, item2)`                    |
+| `shift()`   | Remove from start   | `arr.shift()`                                  |
+| `splice()`  | Add/Remove anywhere | `arr.splice(start, deleteCount, item1, item2)` |
 
-### ❓
+2. Search Methods
 
-```js
-// Comment
-```
+| Method        | Purpose                     | Syntax                                           |
+| ------------- | --------------------------- | ------------------------------------------------ |
+| `includes()`  | Check if value exists       | `arr.includes(value, fromIndex?)`                |
+| `indexOf()`   | Find first index            | `arr.indexOf(value, fromIndex?)`                 |
+| `find()`      | Find first matching element | `arr.find((item, index, arr) => condition)`      |
+| `findIndex()` | Find first matching index   | `arr.findIndex((item, index, arr) => condition)` |
+| `some()`      | Check if any item matches   | `arr.some((item, index, arr) => condition)`      |
+| `every()`     | Check if all items match    | `arr.every((item, index, arr) => condition)`     |
 
----
+3. Transform Arrays
 
-### ❓
+| Method      | Purpose               | Syntax                                                        |
+| ----------- | --------------------- | ------------------------------------------------------------- |
+| `map()`     | Transform each item   | `arr.map((item, index, arr) => newValue)`                     |
+| `filter()`  | Keep matching items   | `arr.filter((item, index, arr) => condition)`                 |
+| `reduce()`  | Convert to one value  | `arr.reduce((acc, item, index, arr) => result, initialValue)` |
+| `flat()`    | Flatten nested arrays | `arr.flat(depth?)`                                            |
+| `flatMap()` | `map()` + `flat(1)`   | `arr.flatMap((item, index, arr) => newValue)`                 |
 
-```js
-// Comment
+4. Iteration Methods
+
+| Method      | Purpose                      | Syntax                                  |
+| ----------- | ---------------------------- | --------------------------------------- |
+| `forEach()` | Loop through items           | `arr.forEach((item, index, arr) => {})` |
+| `entries()` | Iterator of `[index, value]` | `arr.entries()`                         |
+| `keys()`    | Iterator of indexes          | `arr.keys()`                            |
+| `values()`  | Iterator of values           | `arr.values()`                          |
+
+5. Copy / Merge
+
+| Method         | Purpose                   | Syntax                          |
+| -------------- | ------------------------- | ------------------------------- |
+| `slice()`      | Copy a portion            | `arr.slice(start?, end?)`       |
+| `concat()`     | Merge arrays              | `arr.concat(arr2, arr3, value)` |
+| `Array.from()` | Convert iterable to array | `Array.from(iterable, mapFn?)`  |
+| `spread (...)` | Copy/Merge arrays         | `const newArr = [...arr]`       |
+
+6. Order Methods
+
+| Method         | Purpose                    | Syntax                          |
+| -------------- | -------------------------- | ------------------------------- |
+| `sort()`       | Sort array                 | `arr.sort((a, b) => a - b)`     |
+| `reverse()`    | Reverse array              | `arr.reverse()`                 |
+| `toSorted()`   | Immutable sort (ES2023)    | `arr.toSorted((a, b) => a - b)` |
+| `toReversed()` | Immutable reverse (ES2023) | `arr.toReversed()`              |
+
+```text
+Add/Remove: push pop shift unshift splice
+Search: includes indexOf find findIndex some every
+Transform: map filter reduce flat flatMap
+Loop: forEach
+Copy/Merge: slice concat spread
+Order: sort reverse
 ```
 
 ---

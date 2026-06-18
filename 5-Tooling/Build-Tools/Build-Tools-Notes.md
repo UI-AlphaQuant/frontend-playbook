@@ -602,6 +602,20 @@ Lazy Loading
 Production Build
 ```
 
+### Standard Vite Setup
+
+```txt
+Vite
++ shadcn
++ Tailwind
++ React Router
++ React Hook Form
++ Zod
++ Axios
++ React Query
++ Sonner
+```
+
 ---
 
 ## 📌 Nx (Monorepo)

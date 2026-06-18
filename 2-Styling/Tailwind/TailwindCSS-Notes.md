@@ -1233,6 +1233,27 @@ Modern Tailwind focuses on JIT, arbitrary values, variants, and utility-first wo
 
 ---
 
+## 📌 Tailwind CSS v4 vs v3
+
+| Area              | v3                                    | v4                             |
+| ----------------- | ------------------------------------- | ------------------------------ |
+| Setup             | Multiple config files                 | Much simpler                   |
+| Config            | `tailwind.config.js`                  | CSS-first with `@theme`        |
+| Content Scan      | Manual `content: []`                  | Automatic detection            |
+| CSS Import        | `@tailwind base/components/utilities` | `@import "tailwindcss"`        |
+| Vite Setup        | PostCSS based                         | `@tailwindcss/vite` plugin     |
+| Engine            | JavaScript                            | Rust (Oxide)                   |
+| Build Speed       | Fast                                  | Much faster                    |
+| Theme Variables   | Config file                           | Native CSS variables           |
+| Container Queries | Plugin required                       | Built-in                       |
+| Browser Support   | Older browsers supported              | Modern browsers only           |
+| CLI               | `tailwindcss`                         | `@tailwindcss/cli`             |
+| PostCSS Plugin    | Built-in                              | `@tailwindcss/postcss` package |
+| Custom Utilities  | Config/plugins                        | `@utility`                     |
+| Custom Variants   | Plugins                               | `@custom-variant`              |
+
+---
+
 ## 📌 Real-World Tailwind Systems
 
 Modern Tailwind projects use component-driven, scalable UI systems.
@@ -1281,5 +1302,100 @@ tailwind.config.js
 ```jsx
 <Card className="rounded-xl border bg-white p-6 shadow-sm">Dashboard</Card>
 ```
+
+---
+
+## 📌 Tailwind Reusable
+
+1. Component Classes (Most Common)
+
+```jsx
+<button className="btn-primary">Save</button>
+<button className="btn-primary">Update</button>
+```
+
+```css
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700;
+  }
+}
+```
+
+2. Reusable Class Variables
+
+```jsx
+const buttonClass =
+  "px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700";
+
+<button className={buttonClass}>Save</button>;
+```
+
+3. Class Composition Utility
+
+```jsx
+const btn = "px-4 py-2 rounded-md";
+const primary = "bg-blue-600 text-white";
+
+<button className={`${btn} ${primary}`}>Save</button>;
+```
+
+4. clsx
+
+```bash
+npm install clsx
+```
+
+```jsx
+import clsx from "clsx";
+
+<button
+  className={clsx("px-4 py-2 rounded", isActive && "bg-blue-600 text-white")}
+>
+  Save
+</button>;
+```
+
+5. CVA (Large Projects)
+
+```bash
+npm install class-variance-authority
+```
+
+```jsx
+const button = cva("rounded px-4 py-2", {
+  variants: {
+    variant: {
+      primary: "bg-blue-600 text-white",
+      secondary: "bg-gray-200",
+    },
+  },
+});
+
+<button className={button({ variant: "primary" })}>Save</button>;
+```
+
+6. Create Components
+
+```jsx
+<Button variant="primary">Save</Button>;
+
+export function Button({ children }) {
+  return (
+    <button className="px-4 py-2 rounded bg-blue-600 text-white">
+      {children}
+    </button>
+  );
+}
+```
+
+### Methods
+
+- Best
+  - Tailwind + clsx + CVA + Reusable Components
+  - Tailwind + clsx
+  - Tailwind Directly in JSX
+- Avoid
+  - Large custom CSS files with lots of `@apply`
 
 ---
