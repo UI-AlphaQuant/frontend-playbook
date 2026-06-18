@@ -625,3 +625,137 @@ import "@fontsource/inter/700.css";
 ```
 
 ---
+
+## 📌 Tab Title in React
+
+### React Router + React Helmet Async
+
+```bash
+npm install react-helmet-async
+```
+
+```tsx
+// main.tsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { HelmetProvider } from "react-helmet-async";
+import App from "./App";
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <HelmetProvider>
+    <App />
+  </HelmetProvider>,
+);
+
+// Home.tsx
+import { Helmet } from "react-helmet-async";
+
+const Home = () => {
+  return (
+    <>
+      <Helmet>
+        <title>Home | My App</title>
+      </Helmet>
+
+      <h1>Home Page</h1>
+    </>
+  );
+};
+
+export default Home;
+
+// About.tsx
+import { Helmet } from "react-helmet-async";
+
+const About = () => {
+  return (
+    <>
+      <Helmet>
+        <title>About | My App</title>
+      </Helmet>
+
+      <h1>About Page</h1>
+    </>
+  );
+};
+
+export default About;
+```
+
+### Custom Hook
+
+```tsx
+// usePageTitle.ts
+import { useEffect } from "react";
+const APP_NAME = "My App";
+export const usePageTitle = (title: string) => {
+  useEffect(() => {
+    document.title = `${title} | ${APP_NAME}`;
+  }, [title]);
+};
+
+// Home.tsx
+import { usePageTitle } from "@/hooks/usePageTitle";
+const Home = () => {
+  usePageTitle("Home");
+  return <div>Home Page</div>;
+};
+export default Home;
+
+// About.tsx
+const About = () => {
+  usePageTitle("About");
+  return <div>About Page</div>;
+};
+```
+
+### Automatic Route-Based Titles
+
+```tsx
+// routes.ts
+export const routes = [
+  {
+    path: "/",
+    title: "Dashboard",
+    element: <Dashboard />,
+  },
+  {
+    path: "/users",
+    title: "Users",
+    element: <Users />,
+  },
+  {
+    path: "/settings",
+    title: "Settings",
+    element: <Settings />,
+  },
+];
+
+// RouteTitle.tsx
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { routes } from "./routes";
+const APP_NAME = "Admin Panel";
+const RouteTitle = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const route = routes.find((r) => r.path === location.pathname);
+    document.title = route ? `${route.title} | ${APP_NAME}` : APP_NAME;
+  }, [location.pathname]);
+
+  return null;
+};
+export default RouteTitle;
+
+// App.tsx
+<>
+  <RouteTitle />
+  <Routes>
+    {routes.map((route) => (
+      <Route key={route.path} path={route.path} element={route.element} />
+    ))}
+  </Routes>
+</>;
+```
+
+---

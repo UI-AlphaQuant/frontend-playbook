@@ -445,13 +445,19 @@ npm install dompurify
 ```
 
 ```jsx
+// M1
 import DOMPurify from "dompurify";
-
 <div
   dangerouslySetInnerHTML={{
     __html: DOMPurify.sanitize(htmlContent),
   }}
 />;
+
+// M2
+import DOMPurify from "dompurify";
+const dirtyHtml = '<p>Hello</p><script>alert("Hacked")</script>';
+const cleanHtml = DOMPurify.sanitize(dirtyHtml);
+console.log(cleanHtml); // "<p>Hello</p>"
 ```
 
 | Approach                              | Result              |

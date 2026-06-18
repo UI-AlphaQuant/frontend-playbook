@@ -203,30 +203,23 @@ A callback is a function passed into another function to execute later.
 function greet(name, callback) {
   callback(name);
 }
-
 greet("John", function (name) {
   console.log(name);
 });
-```
 
-```js
 // Arrow Callback
 greet("John", (name) => {
   console.log(name);
 });
-```
 
-```js
 // Async Callback
+// Syntax: setTimeout(callback, delay, arg1, arg2, ...);
 setTimeout(() => {
   console.log("Done");
 }, 1000);
-```
 
-```js
 // Array Callback
 const nums = [1, 2, 3];
-
 nums.map((num) => num * 2);
 ```
 
@@ -1037,8 +1030,8 @@ console.log(document.cookie); // Read Cookies
 document.cookie = "theme=; expires=Thu, 01 Jan 1970 00:00:00 UTC"; // Delete Cookie
 
 // Regular Cookie (JavaScript can read it.)
-// http: Set-Cookie: username=Rao
-Set-Cookie: username=Rao
+// http: Set-Cookie: username=Smith
+Set-Cookie: username=Smith
 
 // HttpOnly Cookie (refreshToken not visible)
 // http: Set-Cookie: refreshToken=xyz123; HttpOnly

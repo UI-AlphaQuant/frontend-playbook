@@ -884,14 +884,14 @@ Cleanup timers / listeners (unmount)
 function createElement(tag, props, ...children) {
   return { tag, props, children };
 }
-const element = <h1>Hello Rao</h1>;
+const element = <h1>Hello Smith</h1>;
 console.log(element);
 
 // Output
 {
   tag: "h1",
   props: null,
-  children: ["Hello Rao"]
+  children: ["Hello Smith"]
 }
 ```
 
@@ -1126,7 +1126,7 @@ function App() {
 
   const handleClick = () => {
     setCount(1);
-    setName("Rao");
+    setName("Smith");
   };
 }
 ```
@@ -1458,7 +1458,7 @@ dispatch({
   // Data associated with it
   payload: {
     id: 101,
-    name: "Rao",
+    name: "Smith",
     token: "abc123",
   },
 });
@@ -1496,7 +1496,7 @@ export const { setName } = userSlice.actions;
 export default userSlice.reducer;
 
 // Dispatch
-dispatch(setName("Rao"));
+dispatch(setName("Smith"));
 ```
 
 ```text

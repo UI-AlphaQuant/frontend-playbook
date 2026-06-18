@@ -307,7 +307,7 @@ let employee: {
 } = {
   name: "Raj",
   address: {
-    city: "Nadiad",
+    city: "Maxico",
     pincode: 387001,
   },
 };

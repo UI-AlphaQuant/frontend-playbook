@@ -424,6 +424,23 @@ Loops execute code repeatedly until a condition is met.
 | `for...of`   | Iterates iterable values     | `for (item of arr)`          |
 | `for...in`   | Iterates object keys         | `for (key in obj)`           |
 
+1. for (Known count) - Used when the number of iterations is known in advance.
+   - Sending emails to exactly 100 users
+   - Displaying 10 products per page
+2. while (Unknown count) - Used when the number of iterations is unknown and depends on a condition.
+   - Keep retrying payment until it succeeds
+   - Keep fetching pages until no more data exists
+   - Keep asking for OTP until correct
+   - Keep searching until a match is found
+3. do...while (Run once first) - Used when a task must run at least once before checking a condition.
+   - Show login form at least once.
+   - Display a menu before asking for another action
+4. for...of (Values) - Used to process each value in a collection.
+   - Display every product in a product list.
+   - Process uploaded files one by one.
+   - Validate each form field.
+   - Render navigation menu items.
+
 ```js
 for (let i = 0; i < 5; i++) {
   console.log(i);
@@ -565,6 +582,18 @@ continue; // → Skip current iteration
 return; // → Exit function and return value
 ```
 
+```js
+const users = ["John", "Jane", "Mike", "David"];
+for (const user of users) {
+  if (user === "Mike") {
+    console.log("Found:", user);
+    break;
+  }
+}
+
+// Output: Found: Mike
+```
+
 ### Iterable Objects
 
 ```text
@@ -638,7 +667,31 @@ for (const user of users) {
 }
 ```
 
-- Extra
+### Nested Loop
+
+- A loop inside another loop, used when every item of one collection needs to be compared, combined, or processed with every item of another collection.
+  - Match every user with every role.
+  - Compare every product with every category.
+  - Create rows and columns in a table.
+  - Compare each item against all other items.
+
+```js
+const users = ["John", "Jane"];
+const skills = ["HTML", "JS"];
+
+for (const user of users) {
+  for (const skill of skills) {
+    console.log(user, skill);
+  }
+}
+
+// John HTML
+// John JS
+// Jane HTML
+// Jane JS
+```
+
+### Extra
 
 ```js
 // Infinite Loop
@@ -947,6 +1000,80 @@ const activeUsers = users.filter((user) => user.active);
 
 ```js
 array.splice(startIndex, deleteCount, item1, item2, ...)
+```
+
+```js
+const users = [
+  { id: 1, name: "John" },
+  { id: 2, name: "Jane" },
+];
+const user = { name: "John", age: 25 };
+const nums = [1, 2, 3, 4];
+const skills = ["HTML", "CSS"];
+const str = "Hello";
+
+// push → arr.push(item)
+[1, 2].push(3); // [1, 2, 3]
+
+// pop → arr.pop()
+[1, 2, 3].pop(); // 3
+
+// shift → arr.shift()
+[1, 2, 3].shift(); // 1
+
+// unshift → arr.unshift(item)
+[2, 3].unshift(1); // [1, 2, 3]
+
+// map → arr.map(callback)
+users.map((user) => user.name); // ["John", "Jane"]
+
+// filter → arr.filter(callback)
+nums.filter((num) => num > 2); // [3, 4]
+
+// find → arr.find(callback)
+users.find((user) => user.id === 2); // { id: 2, name: "Jane" }
+
+// findIndex → arr.findIndex(callback)
+users.findIndex((user) => user.id === 2); // 1
+
+// includes → arr.includes(value)
+skills.includes("HTML"); // true
+
+// indexOf → arr.indexOf(value)
+skills.indexOf("CSS"); // 1
+
+// some → arr.some(callback)
+nums.some((num) => num > 3); // true
+
+// every → arr.every(callback)
+nums.every((num) => num > 0); // true
+
+// reduce → arr.reduce(callback, initialValue)
+nums.reduce((sum, num) => sum + num, 0); // 10
+
+// slice → arr.slice(start, end)
+nums.slice(1, 3); // [2, 3]
+
+// splice → arr.splice(start, deleteCount)
+[1, 2, 3].splice(1, 1); // [2]
+
+// concat → arr.concat(array)
+["HTML"].concat(["CSS", "JS"]); // ["HTML", "CSS", "JS"]
+
+// join → arr.join(separator)
+skills.join(" | "); // "HTML | CSS"
+
+// reverse → arr.reverse()
+[1, 2, 3].reverse(); // [3, 2, 1]
+
+// sort → arr.sort(compareFn)
+[3, 1, 2].sort((a, b) => a - b); // [1, 2, 3]
+
+// flat → arr.flat(depth)
+[1, [2, [3]]].flat(); // [1, 2, [3]]
+
+// fill → arr.fill(value)
+new Array(3).fill(0); // [0, 0, 0]
 ```
 
 ---
@@ -1407,7 +1534,7 @@ Global
 
 ## 📌 Objects
 
-Objects store data as key-value pairs.
+- Objects store data as key-value pairs.
 
 | Feature        | Details                | Example        |
 | -------------- | ---------------------- | -------------- |
@@ -1432,9 +1559,7 @@ const user = {
 ```js
 // Dot Notation
 user.name;
-```
 
-```js
 // Bracket Notation
 user["age"];
 ```
@@ -1444,12 +1569,49 @@ user["age"];
 ```js
 // Add Property
 user.city = "NY";
-```
 
-```js
 // Update Property
 user.age = 30;
 ```
+
+### Nested Objects
+
+- Nested objects are used to represent hierarchical or real-world data structures, such as users, addresses, products, and API responses.
+
+```js
+const order = {
+  id: 1001,
+  customer: {
+    name: "Smith",
+    address: {
+      city: "Maxico",
+    },
+  },
+};
+console.log(order.customer.name); // Smith
+console.log(order.customer.address.city); // Maxico
+
+// Safe Access with Optional Chaining
+console.log(user.company?.name); // undefined
+
+// Updating
+user.address.city = "Ahmedabad";
+console.log(user.address.city); // Ahmedabad
+
+// Destructuring Nested Objects
+const {
+  address: { city },
+} = user;
+console.log(city); // Ahmedabad
+```
+
+| Operation      | Syntax                     |
+| -------------- | -------------------------- |
+| Access         | `obj.a.b.c`                |
+| Dynamic access | `obj["a"]["b"]`            |
+| Safe access    | `obj.a?.b?.c`              |
+| Update         | `obj.a.b = value`          |
+| Destructure    | `const { a: { b } } = obj` |
 
 ### Removing Properties
 
@@ -1477,6 +1639,45 @@ delete user.city;
 - Objects are reference types
 - Keys are usually strings
 - Used heavily for structured data
+
+### Array of Objects
+
+- An array of objects is an array where each element is an object. It's one of the most common data structures in JavaScript and React for representing lists like users, products, orders, and API responses.
+
+```jsx
+const users = [
+  { id: 1, name: "Rao" },
+  { id: 2, name: "Priya" },
+  { id: 3, name: "Amit" },
+];
+
+// Accessing Data
+console.log(users);
+console.log(users[0]);
+console.log(users[0].name);
+console.log(users[1].id);
+
+// Loop Through Array of Objects
+users.forEach((user) => {
+  console.log(user.name);
+});
+
+// map
+users.map((user) => <li key={user.id}>{user.name}</li>);
+
+// find
+const finduser = users.find((u) => u.id === 2);
+console.log(finduser); // { id: 2, name: "Priya" }
+
+// filter
+const result = users.filter((u) => u.id > 1);
+console.log(result);
+
+// Update an Object in the Array (React)
+const updatedUsers = users.map((user) =>
+  user.id === 2 ? { ...user, name: "Pooja" } : user,
+);
+```
 
 ### crypto.randomUUID()
 
@@ -1521,6 +1722,79 @@ const users = [
 | Nullish Coalescing | `a ?? b`         | `user.name ?? "Guest"` |
 | Computed Keys      | `{[key]:val}`    | `{[field]:value}`      |
 | delete             | `delete obj.key` | `delete user.age`      |
+
+### Object Keys
+
+| Key Type     | Dot Notation | Bracket Notation |
+| ------------ | ------------ | ---------------- |
+| String       | ✅           | ✅               |
+| Number       | ❌           | ✅               |
+| Integer-like | ❌           | ✅               |
+| Symbol       | ❌           | ✅               |
+| Dynamic key  | ❌           | ✅               |
+
+```js
+user.name;
+user["name"];
+user[1];
+user["1"];
+user[symbolKey];
+user[dynamicKey];
+```
+
+- JavaScript object property keys can only be of three types:
+  - String (most common)
+  - Symbol
+  - Integer-like keys (they are actually stored as strings)
+
+```js
+// String Keys
+const user = {
+  name: "Smith",
+  city: "Maxico",
+};
+console.log(user.name); // Smith
+console.log(user["city"]); // Maxico
+
+// Number Keys (Become Strings)
+const obj = {
+  1: "One",
+  2: "Two",
+};
+console.log(obj[1]); // One
+console.log(obj["1"]); // One
+
+// Integer-like Keys
+const obj = {
+  2: "B",
+  1: "A",
+};
+console.log(Object.keys(obj)); // ["1", "2"]  (They are strings but are ordered numerically.)
+
+// Symbol Keys
+const id = Symbol("id");
+const user = {
+  name: "Smith",
+  [id]: 123,
+};
+console.log(user[id]); // 123
+
+// Boolean Keys
+const obj = {
+  true: "Yes",
+  false: "No",
+};
+console.log(obj[true]); // Yes
+console.log(obj["true"]); // Yes
+
+// Object Keys
+const obj = {};
+const key = {};
+obj[key] = "Hello";
+console.log(obj); // { "[object Object]": "Hello" } (Objects become strings)
+```
+
+- Symbols cannot be accessed using dot notation
 
 ---
 
@@ -1717,6 +1991,31 @@ button.addEventListener("click", function () {
 - `this` depends on how function is called
 - Arrow functions do not create own `this`
 - Common interview topic
+
+| Method    | Executes Immediately? | Arguments       |
+| --------- | --------------------- | --------------- |
+| `call()`  | ✅ Yes                | Separate values |
+| `apply()` | ✅ Yes                | Array           |
+| `bind()`  | ❌ No                 | Separate values |
+
+- call(), apply(), and bind() are used to control the value of this. call() and apply() execute immediately, while bind() returns a new function that can be executed later.
+  - call → Call now
+  - apply → Call now with Array
+  - bind → Call later
+
+```js
+function introduce(city) {
+  console.log(`${this.name} from ${city}`);
+}
+const user = {
+  name: "Smith",
+};
+introduce.call(user, "Maxico");
+introduce.apply(user, ["Maxico"]);
+
+const fn = introduce.bind(user, "Maxico");
+fn();
+```
 
 ---
 

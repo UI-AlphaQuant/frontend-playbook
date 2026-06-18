@@ -327,26 +327,70 @@ sticky → switches between relative & fixed on scroll
 
 ---
 
-### ❓
+### ❓ Why does CSS block rendering even though it is not JavaScript?
 
-```css
+- CSS is render-blocking, not parser-blocking.
+- The browser can continue parsing HTML, but it cannot render (paint) the page until the required CSS is downloaded and processed.
+- Browsers block rendering for CSS because they need the final styles before displaying the page. Otherwise, users would see unstyled content and then a sudden layout change (FOUC - Flash of Unstyled Content).
 
+```text
+1. Download HTML
+2. Parse HTML → DOM
+3. Download CSS
+4. Build CSSOM
+5. DOM + CSSOM → Render Tree
+6. Layout
+7. Paint
 ```
+
+- If the browser renders before CSS arrives:
+  - Welcome (black, default font) Then CSS loads: Welcome (red, 40px)
+  - The page visibly changes.
+- To avoid this flicker, browsers wait for CSS.
+
+| Resource                | Blocks HTML Parsing? | Blocks Rendering?   |
+| ----------------------- | -------------------- | ------------------- |
+| CSS                     | ❌ No                | ✅ Yes              |
+| JavaScript (`<script>`) | ✅ Yes               | ✅ Yes (indirectly) |
+| `defer` JS              | ❌ No                | Usually No          |
+| `async` JS              | ❌ No                | Usually No          |
 
 ---
 
-### ❓
+### ❓ What is Render Blocking?
 
-```css
+- Render blocking means a resource prevents the browser from displaying (painting) the page until that resource is downloaded and processed.
+- Render blocking occurs when the browser delays painting the page until required resources (typically CSS) are downloaded and processed, ensuring the page is displayed with the correct styling and layout.
+  - CSS is render-blocking, not parser-blocking.
+  - Regular scripts are parser-blocking.
 
-```
+| Type            | What Gets Blocked?     |
+| --------------- | ---------------------- |
+| Render Blocking | Screen display (paint) |
+| Parser Blocking | HTML parsing           |
+
+| Resource              | Render Blocking? |
+| --------------------- | ---------------- |
+| CSS files             | ✅ Yes           |
+| Web fonts (sometimes) | ✅ Can be        |
+| Images                | ❌ No            |
+| Videos                | ❌ No            |
+| Async JS              | ❌ No            |
+| Deferred JS           | ❌ No            |
 
 ---
 
-### ❓
+### ❓ How to Reduce Render Blocking?
 
-```css
+```html
+<!-- Load Non-Critical JS with defer -->
+<script defer src="app.js"></script>
 
+<!-- Load Critical CSS First -->
+<link rel="stylesheet" href="critical.css" />
+
+<!-- Lazy Load Non-Critical Resources -->
+<img loading="lazy" src="product.jpg" />
 ```
 
 ---
