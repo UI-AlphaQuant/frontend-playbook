@@ -1998,6 +1998,11 @@ button.addEventListener("click", function () {
 | `apply()` | ✅ Yes                | Array           |
 | `bind()`  | ❌ No                 | Separate values |
 
+| Function Type    | `call()` changes `this`? | `apply()` changes `this`? | `bind()` changes `this`? |
+| ---------------- | ------------------------ | ------------------------- | ------------------------ |
+| Regular Function | ✅ Yes                   | ✅ Yes                    | ✅ Yes                   |
+| Arrow Function   | ❌ No                    | ❌ No                     | ❌ No                    |
+
 - call(), apply(), and bind() are used to control the value of this. call() and apply() execute immediately, while bind() returns a new function that can be executed later.
   - call → Call now
   - apply → Call now with Array

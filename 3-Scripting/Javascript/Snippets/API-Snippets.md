@@ -450,3 +450,54 @@ DATABASE_PASSWORD=123456
 JWT_SECRET=secret
 STRIPE_SECRET_KEY=sk_live_xxx
 ```
+
+---
+
+## 📌 Swagger
+
+| Item        | Description              |
+| ----------- | ------------------------ |
+| Purpose     | API Documentation        |
+| Standard    | OpenAPI Specification    |
+| Used By     | Frontend + Backend Teams |
+| Output      | Interactive API UI       |
+| Alternative | ReDoc                    |
+
+```txt
+Backend API
+      ↓
+OpenAPI Spec
+      ↓
+Swagger UI
+      ↓
+Interactive Docs
+```
+
+### FastAPI Swagger
+
+```py
+# No Setup Needed
+from fastapi import FastAPI
+app = FastAPI()
+```
+
+```txt
+Swagger URL: http://localhost:8000/docs
+```
+
+```json
+{
+  "id": 1,
+  "name": "John"
+}
+```
+
+```ts
+// Frontend:
+type User = {
+  id: number;
+  name: string;
+};
+```
+
+---

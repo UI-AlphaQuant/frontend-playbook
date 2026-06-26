@@ -461,16 +461,38 @@ console.log(user?.profile?.name);
 
 ### ❓ What is a Polyfill?
 
-- A polyfill is custom code that adds support for modern JavaScript features in older browsers that don't natively support them.
+- A polyfill recreates the behavior of a built-in API so older browsers can use newer JavaScript features.
 - Mostly just a concept to understand nowadays. As a React developer in 2026, you rarely write polyfills manually.
 - Babel automatically add required polyfills based on browser support targets.
 
-```text
-// Common polyfill
-Array.prototype.includes
-Array.prototype.flat
-Promise
-fetch
+| Feature              | Polyfilled? |
+| -------------------- | ----------- |
+| `Promise`            | ✅          |
+| `fetch`              | ✅          |
+| `Array.includes`     | ✅          |
+| `Object.assign`      | ✅          |
+| `Promise.allSettled` | ✅          |
+| `String.startsWith`  | ✅          |
+
+| Type     | Modifies Global Object? |
+| -------- | ----------------------- |
+| Polyfill | ✅ Yes                  |
+| Ponyfill | ❌ No                   |
+
+```js
+// Modern JavaScript:
+const arr = [1, 2, 3];
+arr.includes(2);
+
+// Older browsers may not support: Array.prototype.includes
+
+// Polyfill:
+if (!Array.prototype.includes) {
+  Array.prototype.includes = function (value) {
+    return this.indexOf(value) !== -1;
+  };
+}
+// Now older browsers can use: [1, 2, 3].includes(2);
 ```
 
 ---
@@ -3271,6 +3293,368 @@ Transform: map filter reduce flat flatMap
 Loop: forEach
 Copy/Merge: slice concat spread
 Order: sort reverse
+```
+
+---
+
+### ❓ What is OOP (Object-Oriented Programming) in JavaScript?
+
+- OOP is a programming paradigm where code is organized into objects that contain properties (data) and methods (behavior).
+- JavaScript supports OOP using:
+  - Objects
+  - Constructor Functions
+  - Prototypes
+  - ES6 Classes
+
+| OOP Pillars (EIPA) | Purpose                         |
+| ------------------ | ------------------------------- |
+| Encapsulation      | Hide internal details           |
+| Inheritance        | Reuse code                      |
+| Polymorphism       | Same method, different behavior |
+| Abstraction        | Show only necessary details     |
+
+- ES6 classes are syntactic sugar over prototypes.
+
+| Term   | Meaning           |
+| ------ | ----------------- |
+| Class  | Blueprint         |
+| Object | Instance of class |
+
+- OOP is still widely used in:
+  - Services
+  - SDKs
+  - Libraries
+  - Design Patterns
+
+| Library/Tool       | Uses Classes? |
+| ------------------ | ------------- |
+| React (internally) | ✅            |
+| Angular            | ✅ Heavy      |
+| NestJS             | ✅ Heavy      |
+| TypeORM            | ✅            |
+| Sequelize          | ✅            |
+| AWS SDK            | ✅            |
+| Node.js Streams    | ✅            |
+
+```js
+// Encapsulation (Keep data and methods together)
+class BankAccount {
+  balance = 1000;
+  deposit(amount) {
+    this.balance += amount;
+  }
+}
+const account = new BankAccount();
+account.deposit(500);
+console.log(account.balance); // 1500
+
+// Inheritance (Child class inherits from parent)
+class Animal {
+  speak() {
+    console.log("Animal sound");
+  }
+}
+class Dog extends Animal {}
+const dog = new Dog();
+dog.speak(); // Animal sound
+
+// Polymorphism (Same method behaves differently
+class Animal {
+  speak() {
+    console.log("Animal");
+  }
+}
+class Dog extends Animal {
+  speak() {
+    console.log("Bark");
+  }
+}
+const dog = new Dog();
+dog.speak(); // Bark
+
+// Abstraction (Hide implementation details)
+class CoffeeMachine {
+  makeCoffee() {
+    this.#boilWater();
+    console.log("Coffee Ready");
+  }
+  #boilWater() {
+    console.log("Boiling Water");
+  }
+}
+const machine = new CoffeeMachine();
+machine.makeCoffee();
+```
+
+- Encapsulation: ATM Machine (You cannot directly modify bank database)
+- Inheritance: Vehicle ├─ Car ├─ Bike └─ Truck (All inherit common vehicle features)
+- Polymorphism: Payment.pay() Credit Card → Card Payment, UPI → UPI Payment, PayPal → PayPal Payment (Same method, different behavior.)
+- Abstraction: You press Start > Engine internals hidden
+
+---
+
+### ❓ What is Error Handling in JavaScript?
+
+- Error Handling is the process of detecting, catching, and managing errors so that an application doesn't crash unexpectedly.
+  - JavaScript uses try...catch...finally and throw for synchronous error handling, while Promises use .catch() and async/await uses try...catch.
+- Without try...catch, runtime errors can crash the current execution flow, stop remaining code from running, and potentially break the UI or application behavior.
+- throw (Create custom errors)
+
+```js
+// Syntax
+try {
+  // risky code
+} catch (error) {
+  // handle error
+} finally {
+  // always runs
+}
+
+// E1
+try {
+  console.log(user.name);
+} catch (error) {
+  console.log("Something went wrong");
+} // Something went wrong (user // not defined)
+
+// finally -> Runs whether an error occurs or not.
+try {
+  console.log("Processing");
+} finally {
+  console.log("Cleanup");
+}
+
+// throw
+function withdraw(amount) {
+  if (amount <= 0) {
+    throw new Error("Amount must be greater than 0");
+  }
+}
+try {
+  withdraw(-100);
+} catch (error) {
+  console.log(error.message);
+}
+
+// Promise Error Handling
+fetch("/api/users")
+  .then((res) => res.json())
+  .catch((error) => {
+    console.log(error.message);
+  });
+
+// Async/Await Error Handling
+async function getUsers() {
+  try {
+    const response = await fetch("/api/users");
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+// Optional Chaining Prevents Errors
+user?.profile?.name;
+```
+
+```jsx
+// Error Boundary (React) Catches rendering errors.
+<ErrorBoundary>
+  <App />
+</ErrorBoundary>
+```
+
+- API Request > Network fails > Show friendly message > App continues working
+- Show Loader > Call API > Hide Loader (always)
+- JS Error Handling otherwise execution may stop.
+  - try → Risky code
+  - catch → Handle error
+  - finally → Always runs
+  - throw → Create error
+
+---
+
+### ❓ addEventListener() and how does event handling work in JavaScript?
+
+- addEventListener() attaches an event handler to an element and executes a callback when a specific event occurs.
+
+| Parameter   | Description                              |
+| ----------- | ---------------------------------------- |
+| `eventType` | Event name (`click`, `input`, `keydown`) |
+| `callback`  | Function to execute                      |
+| `options`   | Optional (`capture`, `once`, `passive`)  |
+
+```jsx
+// Syntax
+element.addEventListener(eventType, callback, options);
+
+// E1
+search.addEventListener("input", (e) => {
+  console.log(e.target.value);
+});
+
+// add/remove EventListener
+function handleClick() {
+  console.log("Clicked");
+}
+button.addEventListener("click", handleClick);
+button.removeEventListener("click", handleClick);
+
+// Event Bubbling (Event starts at target Child → Parent → Document)
+<div id="parent">
+  <button id="child">Click</button>
+</div>;
+parent.addEventListener("click", () => {
+  console.log("Parent");
+});
+child.addEventListener("click", () => {
+  console.log("Child");
+}); // Child Parent
+
+// Stop Bubbling
+child.addEventListener("click", (e) => {
+  e.stopPropagation();
+  console.log("Child");
+}); // Child
+
+// Event Capturing (Goes top → bottom)
+parent.addEventListener("click", () => console.log("Parent"), true); // Parent Child
+
+// Event Delegation
+list.addEventListener("click", (e) => {
+  if (e.target.tagName === "BUTTON") {
+    console.log("Button clicked");
+  }
+});
+```
+
+---
+
+### ❓ What is a Closure, and how would you implement once() and memoize() with a cache limit?
+
+- Closures are commonly used for data privacy, caching, function factories, once(), debounce, throttle, and memoization.
+  - once() allows a function to execute only one time.
+  - Memoization stores previous results and returns them from cache instead of recalculating.
+
+```js
+// once() Implementation
+function once(fn) {
+  let called = false;
+  let result;
+  return function (...args) {
+    if (!called) {
+      called = true;
+      result = fn.apply(this, args);
+    }
+    return result;
+  };
+}
+
+// Usage
+const placeOrder = once((orderId) => {
+  console.log(`Order placed: ${orderId}`);
+  return orderId;
+});
+placeOrder(101);
+placeOrder(102);
+placeOrder(103);
+
+// memoize()
+function memoize(fn, limit = 3) {
+  const cache = new Map();
+  return function (...args) {
+    const key = JSON.stringify(args);
+    if (cache.has(key)) {
+      const value = cache.get(key);
+      // Move to end (most recently used)
+      cache.delete(key);
+      cache.set(key, value);
+      return value;
+    }
+    const result = fn(...args);
+    if (cache.size >= limit) {
+      const oldestKey = cache.keys().next().value;
+      cache.delete(oldestKey);
+    }
+    cache.set(key, result);
+    return result;
+  };
+}
+
+const multiply = memoize((a, b) => {
+  console.log("Calculating...");
+  return a * b;
+}, 2);
+
+multiply(2, 3); // cache
+multiply(3, 4); // cache
+multiply(5, 6); // removes oldest
+multiply(2, 3); // recalculates
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
+```
+
+---
+
+### ❓
+
+```js
+// Comment
 ```
 
 ---

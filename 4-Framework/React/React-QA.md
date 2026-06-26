@@ -943,6 +943,54 @@ function Counter() {
 
 ---
 
+### ❓ What is React Fiber and Concurrent Rendering?
+
+- **React Fiber**
+  - Fiber = Engine
+  - React's internal reconciliation engine introduced in React 16.
+  - React Fiber breaks rendering work into smaller units, allowing React to prioritize important updates.
+- **Concurrent Rendering**
+  - A feature that allows React to pause, resume, prioritize, and interrupt rendering work.
+  - Concurrent Rendering uses Fiber to make apps feel more responsive by avoiding long UI blocking operations.
+  - Concurrent Rendering = Features enabled by the engine
+
+```text
+// >>>>> Before Fiber
+Render all 10,000 > UI freezes > User waits
+Task starts > Must finish completely > Browser blocked
+
+// >>>>> With Fiber
+Render some products > Check for user interactions > Continue rendering
+Task starts > Pause > Resume later > Finish
+// User can still: without the app feeling stuck.
+Click buttons | Type in search | Scroll page
+```
+
+- Concurrent Rendering Features
+
+```jsx
+// startTransition()
+import { startTransition } from "react";
+function handleSearch(value) {
+  setInput(value); // High Priority
+  startTransition(() => {
+    setProducts(filterProducts(value)); // Low Priority
+  });
+}
+
+// useDeferredValue (Useful for expensive rendering)
+const deferredSearch = useDeferredValue(searchTerm);
+```
+
+| Feature             | Old React | Fiber |
+| ------------------- | --------- | ----- |
+| Interrupt rendering | ❌        | ✅    |
+| Prioritize updates  | ❌        | ✅    |
+| Concurrent features | ❌        | ✅    |
+| Smoother UI         | ❌        | ✅    |
+
+---
+
 ### ❓ What is Code Splitting in React?
 
 - Code splitting is a performance technique in React where the application is divided into smaller chunks and loaded on demand using dynamic imports, improving initial load time and efficiency.
@@ -1932,6 +1980,212 @@ type User = {
 type Admin = User & {
   role: string;
 };
+```
+
+---
+
+### ❓ How would you design a scalable notification system in React?
+
+- A scalable notification system should:
+  - Support multiple notifications
+  - Allow global access from anywhere
+  - Auto-dismiss notifications
+  - Support different types (success, error, warning, info)
+  - Avoid prop drilling
+  - Handle multiple notifications efficiently
+
+```text
+// Any component can trigger notifications.
+App
+│
+├── NotificationProvider
+│
+├── Pages
+│   ├── Dashboard
+│   ├── Profile
+│   └── Orders
+│
+└── NotificationContainer
+```
+
+```tsx
+// Notification Type
+type Notification = {
+  id: string;
+  type: "success" | "error" | "warning" | "info";
+  message: string;
+};
+```
+
+```tsx
+// Context
+import { createContext, useContext, useState } from "react";
+const NotificationContext = createContext(null);
+```
+
+```tsx
+// Provider
+function NotificationProvider({ children }) {
+  const [notifications, setNotifications] = useState([]);
+  const addNotification = (type, message) => {
+    const id = crypto.randomUUID();
+    setNotifications((prev) => [...prev, { id, type, message }]);
+    setTimeout(() => {
+      removeNotification(id);
+    }, 3000);
+  };
+  const removeNotification = (id) => {
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
+  };
+  return (
+    <NotificationContext.Provider
+      value={{
+        addNotification,
+      }}
+    >
+      {children}
+      <NotificationContainer notifications={notifications} />
+    </NotificationContext.Provider>
+  );
+}
+```
+
+```tsx
+// Custom Hook
+export function useNotification() {
+  return useContext(NotificationContext);
+}
+```
+
+```tsx
+// Usage
+function ProfilePage() {
+  const { addNotification } = useNotification();
+  const saveProfile = () => {
+    addNotification("success", "Profile updated successfully");
+  };
+  return <button onClick={saveProfile}>Save</button>;
+}
+```
+
+```tsx
+// Notification Container
+function NotificationContainer({ notifications }) {
+  return (
+    <div className="toast-container">
+      {notifications.map((item) => (
+        <div key={item.id} className={`toast ${item.type}`}>
+          {item.message}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+```tsx
+// Auto Dismiss
+setTimeout(() => {
+  removeNotification(id);
+}, 3000);
+```
+
+```tsx
+// Prevent Duplicate Notifications
+setNotifications((prev) => {
+  const exists = prev.some((n) => n.message === message);
+  if (exists) return prev;
+  return [...prev, { id, type, message }];
+});
+
+// Queue Handling
+const MAX_VISIBLE = 5;
+```
+
+---
+
+### ❓ What are Lazy Loading and Code Splitting in React?
+
+- **Code Splitting:** Breaking a large JavaScript bundle into smaller chunks.
+- **Lazy Loading:** Loading a chunk only when it's needed.
+
+| Feature                  | Code Splitting | Lazy Loading   |
+| ------------------------ | -------------- | -------------- |
+| Break bundle into chunks | ✅             | ❌             |
+| Load chunks on demand    | ❌             | ✅             |
+| Improves initial load    | ✅             | ✅             |
+| React support            | `import()`     | `React.lazy()` |
+
+```jsx
+import React, { Suspense, lazy } from "react";
+
+const ProductPage = lazy(() => import("./ProductPage"));
+const CartPage = lazy(() => import("./CartPage"));
+
+function App() {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <Route path="/products" element={<ProductPage />} />
+      <Route path="/cart" element={<CartPage />} />
+    </Suspense>
+  );
+}
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
+```
+
+---
+
+### ❓
+
+```jsx
+// Code
 ```
 
 ---

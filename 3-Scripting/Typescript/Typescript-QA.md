@@ -168,3 +168,192 @@
 | Type         | `type User = { name: string; }`                    |
 | Enum         | `enum Color { Red = 0, Green = 1 }`                |
 | Utility      | `Partial<T>`, `Pick<T>`, `Omit<T>`, `Record<K, V>` |
+
+---
+
+### ❓ What are TypeScript Utility Types: Partial, Pick, Omit, and Record?
+
+- Utility Types are built-in TypeScript helpers that create new types from existing types.
+  - Partial → Optional fields
+  - Pick → Pick fields
+  - Omit → Remove fields
+  - Record → Key-Value object
+
+| Utility Type              | Purpose                                             |
+| ------------------------- | --------------------------------------------------- |
+| `Partial<Type>`           | Make all properties optional (All fields optional)  |
+| `Pick<Type, Keys>`        | Select specific properties (Keep only `name`)       |
+| `Omit<Type, Keys>`        | Remove specific properties (Remove `id`)            |
+| `Record<Keys, ValueType>` | Create an object with specific keys and value types |
+
+```tsx
+// Combined Example
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+}
+type ProductUpdate = Partial<Product>;
+type ProductCard = Pick<Product, "name" | "price">;
+type NewProduct = Omit<Product, "id">;
+type ProductStock = Record<string, number>;
+```
+
+```tsx
+// >>>>> Partial<Type>
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+type UserUpdate = Partial<User>;
+
+// >>>>> Pick<Type, Keys>
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+type UserCard = Pick<User, "name" | "email">;
+
+// >>>>> Omit<Type, Keys>
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+type CreateUser = Omit<User, "id">; // Equivalent to: type CreateUser = { name: string; email: string; };
+
+// >>>>> Record<Keys, ValueType>
+type UserRole = Record<string, string>; // Equivalent to: { [key: string]: string; }
+
+type Role = "admin" | "editor" | "viewer";
+type Permissions = Record<Role, boolean>;
+const permissions: Permissions = {
+  admin: true,
+  editor: true,
+  viewer: false,
+};
+```
+
+---
+
+### ❓
+
+```tsx
+// Comment
+```
+
+---
+
+### ❓
+
+```tsx
+// Comment
+```
+
+---
+
+### ❓
+
+```tsx
+// Comment
+```
+
+---
+
+### ❓
+
+```tsx
+// Comment
+```
+
+---
+
+### ❓
+
+```tsx
+// Comment
+```
+
+---
+
+### ❓
+
+```tsx
+// Comment
+```
+
+---
+
+### ❓
+
+```tsx
+// Comment
+```
+
+---
+
+### ❓
+
+```tsx
+// Comment
+```
+
+---
+
+### ❓
+
+```tsx
+// Comment
+```
+
+---
+
+### ❓
+
+```tsx
+// Comment
+```
+
+---
+
+### ❓
+
+```tsx
+// Comment
+```
+
+---
+
+### ❓
+
+```tsx
+// Comment
+```
+
+---
+
+### ❓
+
+```tsx
+// Comment
+```
+
+---
+
+### ❓
+
+```tsx
+// Comment
+```
+
+---
+
+### ❓
+
+```tsx
+// Comment
+```
+
+---

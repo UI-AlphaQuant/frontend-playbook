@@ -211,6 +211,27 @@ throw new Error("Invalid Input");
 - Browser DevTools are essential for debugging
 - Proper error handling improves app stability
 
+### Error Types
+
+| Error Type       | Example                |
+| ---------------- | ---------------------- |
+| `ReferenceError` | Variable doesn't exist |
+| `TypeError`      | Invalid operation      |
+| `SyntaxError`    | Invalid syntax         |
+| `RangeError`     | Invalid number range   |
+| `URIError`       | Invalid URI            |
+
+```js
+// ReferenceError
+console.log(user);
+
+// TypeError
+null.toString();
+
+// SyntaxError
+JSON.parse("{name}");
+```
+
 ---
 
 ## 📌 Security
